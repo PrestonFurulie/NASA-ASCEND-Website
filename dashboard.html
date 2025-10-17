@@ -1031,6 +1031,7 @@
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.min.js"></script>
+    <script src="js/mission-data.js"></script>
     
     <script>
         // Login functionality
@@ -1082,18 +1083,167 @@
             
             // Initialize file upload
             initializeFileUpload();
+            
+            // Load real mission data
+            loadMissionData();
+        }
+        
+        function loadMissionData() {
+            const dataManager = window.missionDataManager;
+            const stats = dataManager.getStatistics();
+            const missions = dataManager.getMissions();
+            
+            // Update statistics
+            updateStatistics(stats);
+            
+            // Update mission cards
+            updateMissionCards(missions);
+            
+            // Update recent uploads table
+            updateUploadsTable(missions);
+        }
+        
+        function updateStatistics(stats) {
+            // Update overview statistics
+            document.querySelector('.stat-number').textContent = stats.activeMissions;
+            document.querySelectorAll('.stat-number')[1].textContent = stats.completedMissions;
+            document.querySelectorAll('.stat-number')[2].textContent = stats.totalDataSize;
+            document.querySelectorAll('.stat-number')[3].textContent = stats.totalMissions;
+        }
+        
+        function updateMissionCards(missions) {
+            const missionsContainer = document.querySelector('#missions-section .row');
+            if (!missionsContainer) return;
+            
+            // Clear existing cards
+            missionsContainer.innerHTML = '';
+            
+            // Create mission cards
+            missions.forEach(mission => {
+                const card = createMissionCard(mission);
+                missionsContainer.appendChild(card);
+            });
+        }
+        
+        function createMissionCard(mission) {
+            const col = document.createElement('div');
+            col.className = 'col-md-6 col-lg-4';
+            
+            const statusClass = {
+                'Active': 'bg-success',
+                'Completed': 'bg-success',
+                'In Review': 'bg-warning'
+            }[mission.status] || 'bg-secondary';
+            
+            const statusText = {
+                'Active': 'Active',
+                'Completed': 'Completed',
+                'In Review': 'In Review'
+            }[mission.status] || mission.status;
+            
+            col.innerHTML = `
+                <div class="nasa-card">
+                    <div class="card-header" style="background: linear-gradient(45deg, var(--nasa-blue), #1a237e); border-bottom: 2px solid var(--nasa-red);">
+                        <h5 class="mb-0 text-white">${mission.name}</h5>
+                    </div>
+                    <div class="card-body">
+                        <p class="card-text text-white-50">${mission.description}</p>
+                        <div class="mb-2">
+                            <span class="badge ${statusClass}">${statusText}</span>
+                            <span class="badge bg-info">${mission.gpsEnabled ? 'GPS' : 'No GPS'}</span>
+                        </div>
+                        <div class="progress mb-2" style="height: 8px;">
+                            <div class="progress-bar" style="width: ${mission.progress}%; background: linear-gradient(45deg, var(--nasa-red), #d32f2f);"></div>
+                        </div>
+                        <small class="text-white-50">${mission.progress}% Complete</small>
+                        <div class="mt-2">
+                            <small class="text-white-50">
+                                <i class="bi bi-calendar"></i> ${mission.date} | 
+                                <i class="bi bi-clock"></i> ${mission.duration} | 
+                                <i class="bi bi-arrow-up"></i> ${mission.maxAltitude}
+                            </small>
+                        </div>
+                    </div>
+                    <div class="card-footer" style="background: rgba(255, 255, 255, 0.05); border-top: 1px solid rgba(255, 255, 255, 0.1);">
+                        <button class="btn btn-sm nasa-btn-outline" onclick="viewMissionDetails('${mission.id}')">View Details</button>
+                    </div>
+                </div>
+            `;
+            
+            return col;
+        }
+        
+        function updateUploadsTable(missions) {
+            const tableBody = document.getElementById('uploadTable');
+            if (!tableBody) return;
+            
+            // Clear existing rows
+            tableBody.innerHTML = '';
+            
+            // Get all files from all missions
+            const allFiles = [];
+            missions.forEach(mission => {
+                mission.files.forEach(file => {
+                    allFiles.push({
+                        ...file,
+                        missionId: mission.id,
+                        missionName: mission.name
+                    });
+                });
+            });
+            
+            // Sort by upload date (newest first)
+            allFiles.sort((a, b) => new Date(b.uploadDate) - new Date(a.uploadDate));
+            
+            // Create table rows
+            allFiles.forEach(file => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td class="text-white">${file.name}</td>
+                    <td class="text-white">${file.missionName}</td>
+                    <td class="text-white">${file.size}</td>
+                    <td class="text-white">${file.uploadDate}</td>
+                    <td><span class="badge bg-success">${file.status}</span></td>
+                    <td>
+                        <button class="btn btn-sm nasa-btn-outline" onclick="viewFile('${file.name}')">View</button>
+                        <button class="btn btn-sm btn-outline-danger" onclick="deleteFile('${file.name}')">Delete</button>
+                    </td>
+                `;
+                tableBody.appendChild(row);
+            });
+        }
+        
+        function viewMissionDetails(missionId) {
+            const mission = window.missionDataManager.getMissionById(missionId);
+            if (mission) {
+                alert(`Mission Details:\n\nName: ${mission.name}\nDate: ${mission.date}\nStatus: ${mission.status}\nType: ${mission.type}\nDuration: ${mission.duration}\nMax Altitude: ${mission.maxAltitude}\nMin Temperature: ${mission.minTemperature}\nData Points: ${mission.dataPoints.toLocaleString()}\n\nTeam: ${mission.team.join(', ')}`);
+            }
+        }
+        
+        function viewFile(fileName) {
+            alert(`Viewing file: ${fileName}\n\nThis would open the file viewer in a real application.`);
+        }
+        
+        function deleteFile(fileName) {
+            if (confirm(`Are you sure you want to delete ${fileName}?`)) {
+                alert(`File ${fileName} deleted successfully.`);
+                // In a real application, this would remove the file from the data
+            }
         }
 
         function initializeCharts() {
+            const dataManager = window.missionDataManager;
+            const chartData = dataManager.getChartData();
+            
             // Mission Chart
             const missionCtx = document.getElementById('missionChart').getContext('2d');
             new Chart(missionCtx, {
                 type: 'line',
                 data: {
-                    labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
+                    labels: chartData.missionTimeline.map(item => item.month),
                     datasets: [{
                         label: 'Missions Completed',
-                        data: [2, 3, 1, 4, 2, 3],
+                        data: chartData.missionTimeline.map(item => item.missions),
                         borderColor: '#FC3D21',
                         backgroundColor: 'rgba(252, 61, 33, 0.1)',
                         tension: 0.4
@@ -1137,14 +1287,10 @@
                 data: {
                     datasets: [{
                         label: 'Temperature vs Altitude',
-                        data: [
-                            {x: 0, y: 25},
-                            {x: 5000, y: 10},
-                            {x: 10000, y: -10},
-                            {x: 15000, y: -30},
-                            {x: 20000, y: -45},
-                            {x: 25000, y: -52}
-                        ],
+                        data: chartData.temperatureProfile.map(point => ({
+                            x: point.altitude,
+                            y: point.temperature
+                        })),
                         borderColor: '#FC3D21',
                         backgroundColor: 'rgba(252, 61, 33, 0.1)'
                     }]
@@ -1195,10 +1341,10 @@
             new Chart(pressureCtx, {
                 type: 'line',
                 data: {
-                    labels: ['0m', '5km', '10km', '15km', '20km', '25km'],
+                    labels: chartData.pressureProfile.map(point => `${point.altitude/1000}km`),
                     datasets: [{
                         label: 'Pressure (hPa)',
-                        data: [1013, 540, 265, 120, 55, 25],
+                        data: chartData.pressureProfile.map(point => point.pressure),
                         borderColor: '#28a745',
                         backgroundColor: 'rgba(40, 167, 69, 0.1)',
                         tension: 0.4
@@ -1240,10 +1386,10 @@
             new Chart(uvCtx, {
                 type: 'bar',
                 data: {
-                    labels: ['UV-A', 'UV-B', 'UV-C', 'Total'],
+                    labels: chartData.uvRadiation.map(item => item.wavelength),
                     datasets: [{
                         label: 'UV Radiation Levels',
-                        data: [12, 8, 2, 22],
+                        data: chartData.uvRadiation.map(item => item.intensity),
                         backgroundColor: [
                             'rgba(252, 61, 33, 0.8)',
                             'rgba(11, 61, 145, 0.8)',
