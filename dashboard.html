@@ -310,8 +310,29 @@
             color: var(--nasa-red) !important;
             text-decoration: none;
         }
+        
+        /* Mobile navigation scroll behavior */
+        .navbar {
+            transition: transform 0.3s ease-in-out;
+        }
+        
+        .navbar.scrolled-down {
+            transform: translateY(-100%);
+        }
+        
+        .navbar.scrolled-up {
+            transform: translateY(0);
+        }
 
         @media (max-width: 768px) {
+            .navbar {
+                position: fixed;
+                top: 0;
+                left: 0;
+                right: 0;
+                z-index: 1030;
+            }
+            
             .sidebar {
                 position: static;
                 height: auto;
@@ -1142,6 +1163,47 @@
             
             // Load real mission data
             loadMissionData();
+            
+            // Initialize mobile navigation scroll behavior
+            initializeMobileNavScroll();
+        }
+        
+        function initializeMobileNavScroll() {
+            let lastScrollTop = 0;
+            const navbar = document.querySelector('.navbar');
+            const threshold = 5; // Minimum scroll distance to trigger hide/show
+            
+            window.addEventListener('scroll', function() {
+                const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+                
+                // Only apply on mobile devices
+                if (window.innerWidth <= 768) {
+                    if (scrollTop > lastScrollTop && scrollTop > threshold) {
+                        // Scrolling down - hide navbar
+                        navbar.classList.remove('scrolled-up');
+                        navbar.classList.add('scrolled-down');
+                    } else if (scrollTop < lastScrollTop) {
+                        // Scrolling up - show navbar
+                        navbar.classList.remove('scrolled-down');
+                        navbar.classList.add('scrolled-up');
+                    }
+                } else {
+                    // On desktop, always show navbar
+                    navbar.classList.remove('scrolled-down');
+                    navbar.classList.add('scrolled-up');
+                }
+                
+                lastScrollTop = scrollTop;
+            });
+            
+            // Handle window resize
+            window.addEventListener('resize', function() {
+                if (window.innerWidth > 768) {
+                    // On desktop, always show navbar
+                    navbar.classList.remove('scrolled-down');
+                    navbar.classList.add('scrolled-up');
+                }
+            });
         }
         
         function loadMissionData() {
