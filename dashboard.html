@@ -319,7 +319,7 @@
                             </form>
                             <div class="text-center mt-3">
                                 <small class="text-white-50">
-                                    Demo credentials: student@phoenixcollege.edu / student123
+                                    Use your Maricopa email address (@maricopa.edu) and any password
                                 </small>
                             </div>
                         </div>
@@ -910,14 +910,16 @@
             const email = document.getElementById('email').value;
             const password = document.getElementById('password').value;
             
-            // Demo credentials
-            if (email === 'student@phoenixcollege.edu' && password === 'student123') {
+            // Accept any email with @maricopa.edu domain and any password
+            const emailPattern = /^[a-zA-Z0-9._%+-]+@maricopa\.edu$/;
+            
+            if (emailPattern.test(email) && password.length > 0) {
                 document.getElementById('loginModal').style.display = 'none';
                 document.getElementById('dashboard').style.display = 'block';
                 document.getElementById('userEmail').textContent = email;
                 initializeDashboard();
             } else {
-                alert('Invalid credentials. Use: student@phoenixcollege.edu / student123');
+                alert('Please use your Maricopa email address (@maricopa.edu) and enter a password.');
             }
         });
 
