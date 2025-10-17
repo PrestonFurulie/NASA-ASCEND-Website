@@ -7,33 +7,120 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Exo+2:wght@300;400;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            --primary-color: #0066cc;
-            --secondary-color: #1a1a2e;
-            --accent-color: #ff6b35;
-            --text-light: #ffffff;
-            --text-dark: #333333;
-            --bg-dark: #0f0f23;
-            --bg-light: #f8f9fa;
+            --nasa-blue: #0B3D91;
+            --nasa-red: #FC3D21;
+            --nasa-white: #FFFFFF;
+            --nasa-gray: #E6E6E6;
+            --nasa-dark: #1a1a1a;
+            --nasa-gold: #FFD700;
+            --nasa-silver: #C0C0C0;
         }
 
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Exo 2', sans-serif;
             line-height: 1.6;
-            color: var(--text-dark);
-            background-color: #f8f9fa;
+            color: var(--nasa-white);
+            background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 50%, #16213e 100%);
+            min-height: 100vh;
         }
 
-        .navbar {
-            backdrop-filter: blur(10px);
-            background-color: rgba(0, 0, 0, 0.9) !important;
-            transition: all 0.3s ease;
+        .nasa-header {
+            background: linear-gradient(90deg, var(--nasa-blue) 0%, #1a237e 50%, var(--nasa-blue) 100%);
+            border-bottom: 3px solid var(--nasa-red);
+            position: relative;
+            overflow: hidden;
         }
 
-        .navbar-brand {
+        .nasa-header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="stars" x="0" y="0" width="20" height="20" patternUnits="userSpaceOnUse"><circle cx="10" cy="10" r="0.5" fill="white" opacity="0.3"/></pattern></defs><rect width="100" height="100" fill="url(%23stars)"/></svg>');
+            opacity: 0.1;
+        }
+
+        .nasa-logo {
+            font-family: 'Orbitron', monospace;
+            font-weight: 900;
+            font-size: 2rem;
+            color: var(--nasa-white);
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+            position: relative;
+            z-index: 2;
+        }
+
+        .nasa-logo .ascend {
+            color: var(--nasa-red);
             font-size: 1.5rem;
+        }
+
+        .login-container {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 50%, #16213e 100%);
+            background-image: 
+                radial-gradient(circle at 20% 80%, rgba(11, 61, 145, 0.3) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(252, 61, 33, 0.2) 0%, transparent 50%);
+        }
+
+        .login-card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border: 2px solid var(--nasa-red);
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .login-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--nasa-red), var(--nasa-blue), var(--nasa-red));
+        }
+
+        .nasa-btn {
+            background: linear-gradient(45deg, var(--nasa-red), #d32f2f);
+            border: 2px solid var(--nasa-red);
+            color: var(--nasa-white);
             font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            padding: 12px 30px;
+            border-radius: 0;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .nasa-btn:hover {
+            background: linear-gradient(45deg, #d32f2f, var(--nasa-red));
+            color: var(--nasa-white);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(252, 61, 33, 0.4);
+        }
+
+        .nasa-btn-outline {
+            background: transparent;
+            border: 2px solid var(--nasa-white);
+            color: var(--nasa-white);
+        }
+
+        .nasa-btn-outline:hover {
+            background: var(--nasa-white);
+            color: var(--nasa-dark);
         }
 
         .dashboard-container {
@@ -48,28 +135,29 @@
             left: 0;
             z-index: 100;
             padding: 0;
-            box-shadow: inset -1px 0 0 rgba(0, 0, 0, .1);
-            background-color: #f8f9fa;
-            border-right: 1px solid #dee2e6;
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(10px);
+            border-right: 2px solid var(--nasa-red);
             width: 250px;
         }
 
         .sidebar .nav-link {
-            color: #333;
+            color: var(--nasa-white);
             padding: 1rem;
-            border-bottom: 1px solid #dee2e6;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
             transition: all 0.3s ease;
+            position: relative;
         }
 
         .sidebar .nav-link:hover {
-            background-color: #e9ecef;
-            color: var(--primary-color);
+            background: rgba(252, 61, 33, 0.2);
+            color: var(--nasa-red);
         }
 
         .sidebar .nav-link.active {
-            background-color: var(--primary-color);
-            color: white;
-            border-left: 4px solid #004499;
+            background: linear-gradient(45deg, var(--nasa-red), #d32f2f);
+            color: var(--nasa-white);
+            border-left: 4px solid var(--nasa-blue);
         }
 
         .sidebar .nav-link i {
@@ -83,54 +171,49 @@
             padding: 2rem;
         }
 
-        .card {
-            border: none;
+        .nasa-card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
             border-radius: 15px;
             transition: all 0.3s ease;
+            position: relative;
             overflow: hidden;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         }
 
-        .card:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+        .nasa-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+            border-color: var(--nasa-red);
         }
 
-        .btn {
-            border-radius: 25px;
-            font-weight: 600;
-            padding: 12px 30px;
-            transition: all 0.3s ease;
-        }
-
-        .btn-primary {
-            background: linear-gradient(45deg, var(--primary-color), #004499);
-            border: none;
-        }
-
-        .btn-primary:hover {
-            background: linear-gradient(45deg, #004499, var(--primary-color));
-            transform: translateY(-2px);
-            box-shadow: 0 10px 20px rgba(0, 102, 204, 0.3);
+        .nasa-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--nasa-red), var(--nasa-blue), var(--nasa-red));
         }
 
         .data-upload-area {
-            border: 2px dashed #dee2e6;
+            border: 2px dashed rgba(255, 255, 255, 0.3);
             border-radius: 10px;
             padding: 2rem;
             text-align: center;
             transition: all 0.3s ease;
-            background-color: #f8f9fa;
+            background: rgba(255, 255, 255, 0.02);
         }
 
         .data-upload-area:hover {
-            border-color: var(--primary-color);
-            background-color: rgba(0, 102, 204, 0.05);
+            border-color: var(--nasa-red);
+            background: rgba(252, 61, 33, 0.1);
         }
 
         .data-upload-area.dragover {
-            border-color: var(--primary-color);
-            background-color: rgba(0, 102, 204, 0.1);
+            border-color: var(--nasa-red);
+            background: rgba(252, 61, 33, 0.2);
         }
 
         .chart-container {
@@ -139,37 +222,56 @@
             margin: 1rem 0;
         }
 
-        .mission-card {
-            transition: all 0.3s ease;
+        .stat-number {
+            font-family: 'Orbitron', monospace;
+            font-size: 2.5rem;
+            font-weight: 900;
+            color: var(--nasa-red);
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
         }
 
-        .mission-card:hover {
-            transform: translateY(-3px);
+        .stat-label {
+            font-size: 1rem;
+            color: var(--nasa-gray);
+            text-transform: uppercase;
+            letter-spacing: 1px;
         }
 
-        .text-primary { color: var(--primary-color) !important; }
-        .text-success { color: #28a745 !important; }
-        .text-info { color: #17a2b8 !important; }
-        .text-warning { color: #ffc107 !important; }
-
-        .border-left-primary { border-left: 4px solid var(--primary-color) !important; }
-        .border-left-success { border-left: 4px solid #28a745 !important; }
-        .border-left-info { border-left: 4px solid #17a2b8 !important; }
-        .border-left-warning { border-left: 4px solid #ffc107 !important; }
-
-        .login-container {
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background: linear-gradient(135deg, var(--bg-dark) 0%, #1a1a2e 50%, #16213e 100%);
+        .form-control {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            color: var(--nasa-white);
+            border-radius: 5px;
         }
 
-        .login-card {
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(10px);
-            border-radius: 20px;
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+        .form-control:focus {
+            background: rgba(255, 255, 255, 0.15);
+            border-color: var(--nasa-red);
+            color: var(--nasa-white);
+            box-shadow: 0 0 0 0.2rem rgba(252, 61, 33, 0.25);
+        }
+
+        .form-control::placeholder {
+            color: rgba(255, 255, 255, 0.6);
+        }
+
+        .table {
+            color: var(--nasa-white);
+        }
+
+        .table th {
+            background: rgba(252, 61, 33, 0.2);
+            border-color: rgba(255, 255, 255, 0.1);
+            color: var(--nasa-white);
+        }
+
+        .table td {
+            border-color: rgba(255, 255, 255, 0.1);
+        }
+
+        .badge {
+            font-size: 0.75rem;
+            padding: 0.375rem 0.75rem;
         }
 
         @media (max-width: 768px) {
@@ -195,27 +297,28 @@
                     <div class="card login-card">
                         <div class="card-body p-5">
                             <div class="text-center mb-4">
-                                <i class="bi bi-rocket-takeoff text-primary" style="font-size: 3rem;"></i>
-                                <h3 class="mt-3">NASA ASCEND</h3>
-                                <p class="text-muted">Student Dashboard Access</p>
+                                <div class="nasa-logo mb-3">
+                                    NASA <span class="ascend">ASCEND</span>
+                                </div>
+                                <p class="text-white-50">Student Dashboard Access</p>
                             </div>
                             <form id="loginForm">
                                 <div class="mb-3">
-                                    <label for="email" class="form-label">Email Address</label>
+                                    <label for="email" class="form-label text-white">Email Address</label>
                                     <input type="email" class="form-control" id="email" required>
                                 </div>
                                 <div class="mb-3">
-                                    <label for="password" class="form-label">Password</label>
+                                    <label for="password" class="form-label text-white">Password</label>
                                     <input type="password" class="form-control" id="password" required>
                                 </div>
                                 <div class="d-grid">
-                                    <button type="submit" class="btn btn-primary">
+                                    <button type="submit" class="btn nasa-btn">
                                         <i class="bi bi-box-arrow-in-right"></i> Login
                                     </button>
                                 </div>
                             </form>
                             <div class="text-center mt-3">
-                                <small class="text-muted">
+                                <small class="text-white-50">
                                     Demo credentials: student@phoenixcollege.edu / student123
                                 </small>
                             </div>
@@ -229,10 +332,10 @@
     <!-- Dashboard (Hidden initially) -->
     <div id="dashboard" style="display: none;">
         <!-- Navigation -->
-        <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
+        <nav class="navbar navbar-expand-lg nasa-header fixed-top">
             <div class="container">
-                <a class="navbar-brand" href="index.html">
-                    <i class="bi bi-rocket-takeoff"></i> NASA ASCEND
+                <a class="navbar-brand nasa-logo" href="index.html">
+                    NASA <span class="ascend">ASCEND</span>
                 </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                     <span class="navbar-toggler-icon"></span>
@@ -246,7 +349,7 @@
                             <span class="nav-link" id="userEmail"></span>
                         </li>
                         <li class="nav-item">
-                            <button class="nav-link btn btn-outline-light" onclick="logout()">
+                            <button class="nav-link btn nasa-btn-outline" onclick="logout()">
                                 <i class="bi bi-box-arrow-right"></i> Logout
                             </button>
                         </li>
@@ -283,44 +386,44 @@
                 <!-- Overview Section -->
                 <div id="overview-section" class="content-section">
                     <div class="d-flex justify-content-between align-items-center mb-4">
-                        <h2><i class="bi bi-house text-primary"></i> Dashboard Overview</h2>
+                        <h2 class="text-white"><i class="bi bi-house text-danger"></i> Mission Control Dashboard</h2>
                         <span class="badge bg-success">Online</span>
                     </div>
                     
                     <div class="row g-4 mb-4">
                         <div class="col-md-3">
-                            <div class="card text-center">
+                            <div class="nasa-card text-center">
                                 <div class="card-body">
-                                    <i class="bi bi-rocket text-primary" style="font-size: 2rem;"></i>
-                                    <h4 class="mt-2">3</h4>
-                                    <p class="text-muted">Active Missions</p>
+                                    <i class="bi bi-rocket text-danger" style="font-size: 2rem;"></i>
+                                    <div class="stat-number">3</div>
+                                    <div class="stat-label">Active Missions</div>
                                 </div>
                             </div>
                         </div>
                         <div class="col-md-3">
-                            <div class="card text-center">
+                            <div class="nasa-card text-center">
                                 <div class="card-body">
-                                    <i class="bi bi-file-earmark-text text-success" style="font-size: 2rem;"></i>
-                                    <h4 class="mt-2">47</h4>
-                                    <p class="text-muted">Data Files</p>
+                                    <i class="bi bi-file-earmark-text text-primary" style="font-size: 2rem;"></i>
+                                    <div class="stat-number">47</div>
+                                    <div class="stat-label">Data Files</div>
                                 </div>
                             </div>
                         </div>
                         <div class="col-md-3">
-                            <div class="card text-center">
+                            <div class="nasa-card text-center">
                                 <div class="card-body">
-                                    <i class="bi bi-graph-up text-info" style="font-size: 2rem;"></i>
-                                    <h4 class="mt-2">2.3GB</h4>
-                                    <p class="text-muted">Data Collected</p>
+                                    <i class="bi bi-graph-up text-success" style="font-size: 2rem;"></i>
+                                    <div class="stat-number">2.3GB</div>
+                                    <div class="stat-label">Data Collected</div>
                                 </div>
                             </div>
                         </div>
                         <div class="col-md-3">
-                            <div class="card text-center">
+                            <div class="nasa-card text-center">
                                 <div class="card-body">
                                     <i class="bi bi-trophy text-warning" style="font-size: 2rem;"></i>
-                                    <h4 class="mt-2">12</h4>
-                                    <p class="text-muted">Missions Completed</p>
+                                    <div class="stat-number">12</div>
+                                    <div class="stat-label">Missions Completed</div>
                                 </div>
                             </div>
                         </div>
@@ -328,9 +431,9 @@
 
                     <div class="row g-4">
                         <div class="col-md-8">
-                            <div class="card">
-                                <div class="card-header">
-                                    <h5><i class="bi bi-graph-up text-primary"></i> Recent Mission Data</h5>
+                            <div class="nasa-card">
+                                <div class="card-header" style="background: rgba(252, 61, 33, 0.2); border-bottom: 1px solid rgba(255, 255, 255, 0.1);">
+                                    <h5 class="text-white mb-0"><i class="bi bi-graph-up text-danger"></i> Recent Mission Data</h5>
                                 </div>
                                 <div class="card-body">
                                     <div class="chart-container">
@@ -340,31 +443,31 @@
                             </div>
                         </div>
                         <div class="col-md-4">
-                            <div class="card">
-                                <div class="card-header">
-                                    <h5><i class="bi bi-bell text-warning"></i> Recent Activity</h5>
+                            <div class="nasa-card">
+                                <div class="card-header" style="background: rgba(252, 61, 33, 0.2); border-bottom: 1px solid rgba(255, 255, 255, 0.1);">
+                                    <h5 class="text-white mb-0"><i class="bi bi-bell text-warning"></i> Mission Alerts</h5>
                                 </div>
                                 <div class="card-body">
                                     <div class="list-group list-group-flush">
-                                        <div class="list-group-item d-flex justify-content-between align-items-start">
+                                        <div class="list-group-item d-flex justify-content-between align-items-start" style="background: transparent; border-color: rgba(255, 255, 255, 0.1);">
                                             <div>
-                                                <h6 class="mb-1">Data Upload</h6>
-                                                <p class="mb-1">Mission_2025_001.csv uploaded</p>
-                                                <small class="text-muted">2 hours ago</small>
+                                                <h6 class="mb-1 text-white">Data Upload</h6>
+                                                <p class="mb-1 text-white-50">Mission_2025_001.csv uploaded</p>
+                                                <small class="text-white-50">2 hours ago</small>
                                             </div>
                                         </div>
-                                        <div class="list-group-item d-flex justify-content-between align-items-start">
+                                        <div class="list-group-item d-flex justify-content-between align-items-start" style="background: transparent; border-color: rgba(255, 255, 255, 0.1);">
                                             <div>
-                                                <h6 class="mb-1">Mission Started</h6>
-                                                <p class="mb-1">High-altitude balloon launch</p>
-                                                <small class="text-muted">5 hours ago</small>
+                                                <h6 class="mb-1 text-white">Mission Started</h6>
+                                                <p class="mb-1 text-white-50">High-altitude balloon launch</p>
+                                                <small class="text-white-50">5 hours ago</small>
                                             </div>
                                         </div>
-                                        <div class="list-group-item d-flex justify-content-between align-items-start">
+                                        <div class="list-group-item d-flex justify-content-between align-items-start" style="background: transparent; border-color: rgba(255, 255, 255, 0.1);">
                                             <div>
-                                                <h6 class="mb-1">Analysis Complete</h6>
-                                                <p class="mb-1">Temperature profile analysis</p>
-                                                <small class="text-muted">1 day ago</small>
+                                                <h6 class="mb-1 text-white">Analysis Complete</h6>
+                                                <p class="mb-1 text-white-50">Temperature profile analysis</p>
+                                                <small class="text-white-50">1 day ago</small>
                                             </div>
                                         </div>
                                     </div>
@@ -377,73 +480,73 @@
                 <!-- Missions Section -->
                 <div id="missions-section" class="content-section" style="display: none;">
                     <div class="d-flex justify-content-between align-items-center mb-4">
-                        <h2><i class="bi bi-rocket text-primary"></i> My Missions</h2>
-                        <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#newMissionModal">
+                        <h2 class="text-white"><i class="bi bi-rocket text-danger"></i> Mission Control</h2>
+                        <button class="btn nasa-btn" data-bs-toggle="modal" data-bs-target="#newMissionModal">
                             <i class="bi bi-plus"></i> New Mission
                         </button>
                     </div>
 
                     <div class="row g-4">
                         <div class="col-md-6 col-lg-4">
-                            <div class="card mission-card">
-                                <div class="card-header bg-primary text-white">
-                                    <h5 class="mb-0">Mission 2025-001</h5>
+                            <div class="nasa-card">
+                                <div class="card-header" style="background: linear-gradient(45deg, var(--nasa-blue), #1a237e); border-bottom: 2px solid var(--nasa-red);">
+                                    <h5 class="mb-0 text-white">Mission 2025-001</h5>
                                 </div>
                                 <div class="card-body">
-                                    <p class="card-text">High-altitude atmospheric study</p>
+                                    <p class="card-text text-white-50">High-altitude atmospheric study</p>
                                     <div class="mb-2">
                                         <span class="badge bg-success">Active</span>
                                         <span class="badge bg-info">GPS Enabled</span>
                                     </div>
-                                    <div class="progress mb-2">
-                                        <div class="progress-bar" style="width: 75%"></div>
+                                    <div class="progress mb-2" style="height: 8px;">
+                                        <div class="progress-bar" style="width: 75%; background: linear-gradient(45deg, var(--nasa-red), #d32f2f);"></div>
                                     </div>
-                                    <small class="text-muted">75% Complete</small>
+                                    <small class="text-white-50">75% Complete</small>
                                 </div>
-                                <div class="card-footer">
-                                    <button class="btn btn-sm btn-outline-primary">View Details</button>
+                                <div class="card-footer" style="background: rgba(255, 255, 255, 0.05); border-top: 1px solid rgba(255, 255, 255, 0.1);">
+                                    <button class="btn btn-sm nasa-btn-outline">View Details</button>
                                 </div>
                             </div>
                         </div>
                         <div class="col-md-6 col-lg-4">
-                            <div class="card mission-card">
-                                <div class="card-header bg-success text-white">
-                                    <h5 class="mb-0">Mission 2024-012</h5>
+                            <div class="nasa-card">
+                                <div class="card-header" style="background: linear-gradient(45deg, #28a745, #1e7e34); border-bottom: 2px solid var(--nasa-red);">
+                                    <h5 class="mb-0 text-white">Mission 2024-012</h5>
                                 </div>
                                 <div class="card-body">
-                                    <p class="card-text">UV radiation measurement</p>
+                                    <p class="card-text text-white-50">UV radiation measurement</p>
                                     <div class="mb-2">
                                         <span class="badge bg-success">Completed</span>
                                         <span class="badge bg-warning">No GPS</span>
                                     </div>
-                                    <div class="progress mb-2">
-                                        <div class="progress-bar bg-success" style="width: 100%"></div>
+                                    <div class="progress mb-2" style="height: 8px;">
+                                        <div class="progress-bar bg-success" style="width: 100%;"></div>
                                     </div>
-                                    <small class="text-muted">Completed</small>
+                                    <small class="text-white-50">Completed</small>
                                 </div>
-                                <div class="card-footer">
-                                    <button class="btn btn-sm btn-outline-primary">View Results</button>
+                                <div class="card-footer" style="background: rgba(255, 255, 255, 0.05); border-top: 1px solid rgba(255, 255, 255, 0.1);">
+                                    <button class="btn btn-sm nasa-btn-outline">View Results</button>
                                 </div>
                             </div>
                         </div>
                         <div class="col-md-6 col-lg-4">
-                            <div class="card mission-card">
-                                <div class="card-header bg-warning text-dark">
-                                    <h5 class="mb-0">Mission 2024-011</h5>
+                            <div class="nasa-card">
+                                <div class="card-header" style="background: linear-gradient(45deg, #ffc107, #e0a800); border-bottom: 2px solid var(--nasa-red);">
+                                    <h5 class="mb-0 text-dark">Mission 2024-011</h5>
                                 </div>
                                 <div class="card-body">
-                                    <p class="card-text">Temperature profile analysis</p>
+                                    <p class="card-text text-white-50">Temperature profile analysis</p>
                                     <div class="mb-2">
                                         <span class="badge bg-warning">In Review</span>
                                         <span class="badge bg-info">GPS Enabled</span>
                                     </div>
-                                    <div class="progress mb-2">
-                                        <div class="progress-bar bg-warning" style="width: 90%"></div>
+                                    <div class="progress mb-2" style="height: 8px;">
+                                        <div class="progress-bar bg-warning" style="width: 90%;"></div>
                                     </div>
-                                    <small class="text-muted">90% Complete</small>
+                                    <small class="text-white-50">90% Complete</small>
                                 </div>
-                                <div class="card-footer">
-                                    <button class="btn btn-sm btn-outline-primary">View Details</button>
+                                <div class="card-footer" style="background: rgba(255, 255, 255, 0.05); border-top: 1px solid rgba(255, 255, 255, 0.1);">
+                                    <button class="btn btn-sm nasa-btn-outline">View Details</button>
                                 </div>
                             </div>
                         </div>
@@ -453,29 +556,29 @@
                 <!-- Data Upload Section -->
                 <div id="data-upload-section" class="content-section" style="display: none;">
                     <div class="d-flex justify-content-between align-items-center mb-4">
-                        <h2><i class="bi bi-cloud-upload text-primary"></i> Upload Mission Data</h2>
+                        <h2 class="text-white"><i class="bi bi-cloud-upload text-danger"></i> Mission Data Upload</h2>
                     </div>
 
                     <div class="row g-4">
                         <div class="col-md-8">
-                            <div class="card">
-                                <div class="card-header">
-                                    <h5>Upload Data Files</h5>
+                            <div class="nasa-card">
+                                <div class="card-header" style="background: rgba(252, 61, 33, 0.2); border-bottom: 1px solid rgba(255, 255, 255, 0.1);">
+                                    <h5 class="text-white mb-0">Upload Data Files</h5>
                                 </div>
                                 <div class="card-body">
                                     <div class="data-upload-area" id="uploadArea">
-                                        <i class="bi bi-cloud-upload text-primary" style="font-size: 3rem;"></i>
-                                        <h5 class="mt-3">Drag & Drop Files Here</h5>
-                                        <p class="text-muted">or click to browse</p>
+                                        <i class="bi bi-cloud-upload text-danger" style="font-size: 3rem;"></i>
+                                        <h5 class="text-white mt-3">Drag & Drop Files Here</h5>
+                                        <p class="text-white-50">or click to browse</p>
                                         <input type="file" id="fileInput" multiple accept=".csv,.txt,.json" style="display: none;">
-                                        <button class="btn btn-primary" onclick="document.getElementById('fileInput').click()">
+                                        <button class="btn nasa-btn" onclick="document.getElementById('fileInput').click()">
                                             <i class="bi bi-folder2-open"></i> Choose Files
                                         </button>
                                     </div>
                                     
                                     <div class="mt-4">
-                                        <h6>Supported File Types:</h6>
-                                        <ul class="list-unstyled">
+                                        <h6 class="text-white">Supported File Types:</h6>
+                                        <ul class="list-unstyled text-white-50">
                                             <li><i class="bi bi-check text-success"></i> CSV files (.csv)</li>
                                             <li><i class="bi bi-check text-success"></i> Text files (.txt)</li>
                                             <li><i class="bi bi-check text-success"></i> JSON files (.json)</li>
@@ -485,19 +588,19 @@
                             </div>
                         </div>
                         <div class="col-md-4">
-                            <div class="card">
-                                <div class="card-header">
-                                    <h5>Upload Progress</h5>
+                            <div class="nasa-card">
+                                <div class="card-header" style="background: rgba(252, 61, 33, 0.2); border-bottom: 1px solid rgba(255, 255, 255, 0.1);">
+                                    <h5 class="text-white mb-0">Upload Progress</h5>
                                 </div>
                                 <div class="card-body">
                                     <div id="uploadProgress" style="display: none;">
-                                        <div class="progress mb-2">
-                                            <div class="progress-bar" id="progressBar" style="width: 0%"></div>
+                                        <div class="progress mb-2" style="height: 8px;">
+                                            <div class="progress-bar" id="progressBar" style="width: 0%; background: linear-gradient(45deg, var(--nasa-red), #d32f2f);"></div>
                                         </div>
-                                        <small id="progressText">0% Complete</small>
+                                        <small id="progressText" class="text-white-50">0% Complete</small>
                                     </div>
                                     <div id="uploadStatus">
-                                        <p class="text-muted">No files selected</p>
+                                        <p class="text-white-50">No files selected</p>
                                     </div>
                                 </div>
                             </div>
@@ -506,43 +609,43 @@
 
                     <div class="row mt-4">
                         <div class="col-12">
-                            <div class="card">
-                                <div class="card-header">
-                                    <h5>Recent Uploads</h5>
+                            <div class="nasa-card">
+                                <div class="card-header" style="background: rgba(252, 61, 33, 0.2); border-bottom: 1px solid rgba(255, 255, 255, 0.1);">
+                                    <h5 class="text-white mb-0">Recent Uploads</h5>
                                 </div>
                                 <div class="card-body">
                                     <div class="table-responsive">
-                                        <table class="table table-hover">
+                                        <table class="table">
                                             <thead>
                                                 <tr>
-                                                    <th>Filename</th>
-                                                    <th>Mission</th>
-                                                    <th>Size</th>
-                                                    <th>Upload Date</th>
-                                                    <th>Status</th>
-                                                    <th>Actions</th>
+                                                    <th class="text-white">Filename</th>
+                                                    <th class="text-white">Mission</th>
+                                                    <th class="text-white">Size</th>
+                                                    <th class="text-white">Upload Date</th>
+                                                    <th class="text-white">Status</th>
+                                                    <th class="text-white">Actions</th>
                                                 </tr>
                                             </thead>
                                             <tbody id="uploadTable">
                                                 <tr>
-                                                    <td>Mission_2025_001.csv</td>
-                                                    <td>Mission 2025-001</td>
-                                                    <td>2.3 MB</td>
-                                                    <td>2025-01-17 10:30</td>
+                                                    <td class="text-white">Mission_2025_001.csv</td>
+                                                    <td class="text-white">Mission 2025-001</td>
+                                                    <td class="text-white">2.3 MB</td>
+                                                    <td class="text-white">2025-01-17 10:30</td>
                                                     <td><span class="badge bg-success">Processed</span></td>
                                                     <td>
-                                                        <button class="btn btn-sm btn-outline-primary">View</button>
+                                                        <button class="btn btn-sm nasa-btn-outline">View</button>
                                                         <button class="btn btn-sm btn-outline-danger">Delete</button>
                                                     </td>
                                                 </tr>
                                                 <tr>
-                                                    <td>Temperature_Profile.txt</td>
-                                                    <td>Mission 2024-012</td>
-                                                    <td>1.8 MB</td>
-                                                    <td>2025-01-16 14:22</td>
+                                                    <td class="text-white">Temperature_Profile.txt</td>
+                                                    <td class="text-white">Mission 2024-012</td>
+                                                    <td class="text-white">1.8 MB</td>
+                                                    <td class="text-white">2025-01-16 14:22</td>
                                                     <td><span class="badge bg-success">Processed</span></td>
                                                     <td>
-                                                        <button class="btn btn-sm btn-outline-primary">View</button>
+                                                        <button class="btn btn-sm nasa-btn-outline">View</button>
                                                         <button class="btn btn-sm btn-outline-danger">Delete</button>
                                                     </td>
                                                 </tr>
@@ -558,17 +661,17 @@
                 <!-- Data Analysis Section -->
                 <div id="data-analysis-section" class="content-section" style="display: none;">
                     <div class="d-flex justify-content-between align-items-center mb-4">
-                        <h2><i class="bi bi-graph-up text-primary"></i> Data Analysis</h2>
-                        <button class="btn btn-primary">
+                        <h2 class="text-white"><i class="bi bi-graph-up text-danger"></i> Mission Data Analysis</h2>
+                        <button class="btn nasa-btn">
                             <i class="bi bi-download"></i> Export Data
                         </button>
                     </div>
 
                     <div class="row g-4">
                         <div class="col-md-6">
-                            <div class="card">
-                                <div class="card-header">
-                                    <h5>Temperature vs Altitude</h5>
+                            <div class="nasa-card">
+                                <div class="card-header" style="background: rgba(252, 61, 33, 0.2); border-bottom: 1px solid rgba(255, 255, 255, 0.1);">
+                                    <h5 class="text-white mb-0">Temperature vs Altitude</h5>
                                 </div>
                                 <div class="card-body">
                                     <div class="chart-container">
@@ -578,9 +681,9 @@
                             </div>
                         </div>
                         <div class="col-md-6">
-                            <div class="card">
-                                <div class="card-header">
-                                    <h5>Pressure vs Altitude</h5>
+                            <div class="nasa-card">
+                                <div class="card-header" style="background: rgba(252, 61, 33, 0.2); border-bottom: 1px solid rgba(255, 255, 255, 0.1);">
+                                    <h5 class="text-white mb-0">Pressure vs Altitude</h5>
                                 </div>
                                 <div class="card-body">
                                     <div class="chart-container">
@@ -590,9 +693,9 @@
                             </div>
                         </div>
                         <div class="col-md-6">
-                            <div class="card">
-                                <div class="card-header">
-                                    <h5>UV Radiation Levels</h5>
+                            <div class="nasa-card">
+                                <div class="card-header" style="background: rgba(252, 61, 33, 0.2); border-bottom: 1px solid rgba(255, 255, 255, 0.1);">
+                                    <h5 class="text-white mb-0">UV Radiation Levels</h5>
                                 </div>
                                 <div class="card-body">
                                     <div class="chart-container">
@@ -602,27 +705,27 @@
                             </div>
                         </div>
                         <div class="col-md-6">
-                            <div class="card">
-                                <div class="card-header">
-                                    <h5>Mission Statistics</h5>
+                            <div class="nasa-card">
+                                <div class="card-header" style="background: rgba(252, 61, 33, 0.2); border-bottom: 1px solid rgba(255, 255, 255, 0.1);">
+                                    <h5 class="text-white mb-0">Mission Statistics</h5>
                                 </div>
                                 <div class="card-body">
                                     <div class="row text-center">
                                         <div class="col-6">
-                                            <h4 class="text-primary">28,500m</h4>
-                                            <p class="text-muted">Max Altitude</p>
+                                            <div class="stat-number">28,500m</div>
+                                            <div class="stat-label">Max Altitude</div>
                                         </div>
                                         <div class="col-6">
-                                            <h4 class="text-info">-52°C</h4>
-                                            <p class="text-muted">Min Temperature</p>
+                                            <div class="stat-number">-52°C</div>
+                                            <div class="stat-label">Min Temperature</div>
                                         </div>
                                         <div class="col-6">
-                                            <h4 class="text-success">4.2h</h4>
-                                            <p class="text-muted">Duration</p>
+                                            <div class="stat-number">4.2h</div>
+                                            <div class="stat-label">Duration</div>
                                         </div>
                                         <div class="col-6">
-                                            <h4 class="text-warning">45,678</h4>
-                                            <p class="text-muted">Data Points</p>
+                                            <div class="stat-number">45,678</div>
+                                            <div class="stat-label">Data Points</div>
                                         </div>
                                     </div>
                                 </div>
@@ -634,24 +737,24 @@
                 <!-- Resources Section -->
                 <div id="resources-section" class="content-section" style="display: none;">
                     <div class="d-flex justify-content-between align-items-center mb-4">
-                        <h2><i class="bi bi-folder text-primary"></i> Resources</h2>
+                        <h2 class="text-white"><i class="bi bi-folder text-danger"></i> Mission Resources</h2>
                     </div>
 
                     <div class="row g-4">
                         <div class="col-md-6">
-                            <div class="card">
-                                <div class="card-header">
-                                    <h5><i class="bi bi-code-slash text-primary"></i> Arduino Code</h5>
+                            <div class="nasa-card">
+                                <div class="card-header" style="background: rgba(252, 61, 33, 0.2); border-bottom: 1px solid rgba(255, 255, 255, 0.1);">
+                                    <h5 class="text-white mb-0"><i class="bi bi-code-slash text-primary"></i> Arduino Code</h5>
                                 </div>
                                 <div class="card-body">
                                     <div class="list-group list-group-flush">
-                                        <a href="arduino/HailMaryV1c_GPS.ino" class="list-group-item list-group-item-action" download>
-                                            <i class="bi bi-download text-primary"></i> GPS Version (HailMaryV1c_GPS.ino)
+                                        <a href="arduino/HailMaryV1c_GPS.ino" class="list-group-item list-group-item-action" download style="background: transparent; border-color: rgba(255, 255, 255, 0.1);">
+                                            <i class="bi bi-download text-danger"></i> GPS Version (HailMaryV1c_GPS.ino)
                                         </a>
-                                        <a href="arduino/HailMaryV1c_NoGPS.ino" class="list-group-item list-group-item-action" download>
+                                        <a href="arduino/HailMaryV1c_NoGPS.ino" class="list-group-item list-group-item-action" download style="background: transparent; border-color: rgba(255, 255, 255, 0.1);">
                                             <i class="bi bi-download text-success"></i> No-GPS Version (HailMaryV1c_NoGPS.ino)
                                         </a>
-                                        <a href="arduino/HailMaryV1b.ino" class="list-group-item list-group-item-action" download>
+                                        <a href="arduino/HailMaryV1b.ino" class="list-group-item list-group-item-action" download style="background: transparent; border-color: rgba(255, 255, 255, 0.1);">
                                             <i class="bi bi-download text-warning"></i> Original Version (HailMaryV1b.ino)
                                         </a>
                                     </div>
@@ -659,22 +762,22 @@
                             </div>
                         </div>
                         <div class="col-md-6">
-                            <div class="card">
-                                <div class="card-header">
-                                    <h5><i class="bi bi-book text-info"></i> Documentation</h5>
+                            <div class="nasa-card">
+                                <div class="card-header" style="background: rgba(252, 61, 33, 0.2); border-bottom: 1px solid rgba(255, 255, 255, 0.1);">
+                                    <h5 class="text-white mb-0"><i class="bi bi-book text-info"></i> Documentation</h5>
                                 </div>
                                 <div class="card-body">
                                     <div class="list-group list-group-flush">
-                                        <a href="#" class="list-group-item list-group-item-action">
-                                            <i class="bi bi-file-text text-primary"></i> Hardware Setup Guide
+                                        <a href="#" class="list-group-item list-group-item-action" style="background: transparent; border-color: rgba(255, 255, 255, 0.1);">
+                                            <i class="bi bi-file-text text-danger"></i> Hardware Setup Guide
                                         </a>
-                                        <a href="#" class="list-group-item list-group-item-action">
+                                        <a href="#" class="list-group-item list-group-item-action" style="background: transparent; border-color: rgba(255, 255, 255, 0.1);">
                                             <i class="bi bi-file-text text-success"></i> Data Analysis Tutorial
                                         </a>
-                                        <a href="#" class="list-group-item list-group-item-action">
+                                        <a href="#" class="list-group-item list-group-item-action" style="background: transparent; border-color: rgba(255, 255, 255, 0.1);">
                                             <i class="bi bi-file-text text-info"></i> Mission Procedures
                                         </a>
-                                        <a href="#" class="list-group-item list-group-item-action">
+                                        <a href="#" class="list-group-item list-group-item-action" style="background: transparent; border-color: rgba(255, 255, 255, 0.1);">
                                             <i class="bi bi-file-text text-warning"></i> Troubleshooting Guide
                                         </a>
                                     </div>
@@ -687,60 +790,60 @@
                 <!-- Profile Section -->
                 <div id="profile-section" class="content-section" style="display: none;">
                     <div class="d-flex justify-content-between align-items-center mb-4">
-                        <h2><i class="bi bi-person text-primary"></i> Profile</h2>
+                        <h2 class="text-white"><i class="bi bi-person text-danger"></i> Astronaut Profile</h2>
                     </div>
 
                     <div class="row g-4">
                         <div class="col-md-6">
-                            <div class="card">
-                                <div class="card-header">
-                                    <h5>Personal Information</h5>
+                            <div class="nasa-card">
+                                <div class="card-header" style="background: rgba(252, 61, 33, 0.2); border-bottom: 1px solid rgba(255, 255, 255, 0.1);">
+                                    <h5 class="text-white mb-0">Personal Information</h5>
                                 </div>
                                 <div class="card-body">
                                     <form>
                                         <div class="mb-3">
-                                            <label for="fullName" class="form-label">Full Name</label>
+                                            <label for="fullName" class="form-label text-white">Full Name</label>
                                             <input type="text" class="form-control" id="fullName" value="Student Name">
                                         </div>
                                         <div class="mb-3">
-                                            <label for="email" class="form-label">Email</label>
+                                            <label for="email" class="form-label text-white">Email</label>
                                             <input type="email" class="form-control" id="email" value="student@phoenixcollege.edu">
                                         </div>
                                         <div class="mb-3">
-                                            <label for="studentId" class="form-label">Student ID</label>
+                                            <label for="studentId" class="form-label text-white">Student ID</label>
                                             <input type="text" class="form-control" id="studentId" value="PC123456">
                                         </div>
                                         <div class="mb-3">
-                                            <label for="major" class="form-label">Major</label>
+                                            <label for="major" class="form-label text-white">Major</label>
                                             <input type="text" class="form-control" id="major" value="Computer Science">
                                         </div>
-                                        <button type="submit" class="btn btn-primary">Update Profile</button>
+                                        <button type="submit" class="btn nasa-btn">Update Profile</button>
                                     </form>
                                 </div>
                             </div>
                         </div>
                         <div class="col-md-6">
-                            <div class="card">
-                                <div class="card-header">
-                                    <h5>Account Statistics</h5>
+                            <div class="nasa-card">
+                                <div class="card-header" style="background: rgba(252, 61, 33, 0.2); border-bottom: 1px solid rgba(255, 255, 255, 0.1);">
+                                    <h5 class="text-white mb-0">Mission Statistics</h5>
                                 </div>
                                 <div class="card-body">
                                     <div class="row text-center">
                                         <div class="col-6">
-                                            <h4 class="text-primary">12</h4>
-                                            <p class="text-muted">Missions</p>
+                                            <div class="stat-number">12</div>
+                                            <div class="stat-label">Missions</div>
                                         </div>
                                         <div class="col-6">
-                                            <h4 class="text-success">47</h4>
-                                            <p class="text-muted">Files Uploaded</p>
+                                            <div class="stat-number">47</div>
+                                            <div class="stat-label">Files Uploaded</div>
                                         </div>
                                         <div class="col-6">
-                                            <h4 class="text-info">2.3GB</h4>
-                                            <p class="text-muted">Data Stored</p>
+                                            <div class="stat-number">2.3GB</div>
+                                            <div class="stat-label">Data Stored</div>
                                         </div>
                                         <div class="col-6">
-                                            <h4 class="text-warning">30</h4>
-                                            <p class="text-muted">Days Active</p>
+                                            <div class="stat-number">30</div>
+                                            <div class="stat-label">Days Active</div>
                                         </div>
                                     </div>
                                 </div>
@@ -755,19 +858,19 @@
     <!-- New Mission Modal -->
     <div class="modal fade" id="newMissionModal" tabindex="-1">
         <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title">Create New Mission</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            <div class="modal-content" style="background: rgba(26, 26, 46, 0.95); backdrop-filter: blur(10px); border: 2px solid var(--nasa-red);">
+                <div class="modal-header" style="background: linear-gradient(45deg, var(--nasa-red), #d32f2f); border-bottom: 1px solid rgba(255, 255, 255, 0.1);">
+                    <h5 class="modal-title text-white">Create New Mission</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" style="filter: invert(1);"></button>
                 </div>
                 <div class="modal-body">
                     <form>
                         <div class="mb-3">
-                            <label for="missionName" class="form-label">Mission Name</label>
+                            <label for="missionName" class="form-label text-white">Mission Name</label>
                             <input type="text" class="form-control" id="missionName" placeholder="e.g., Mission 2025-002">
                         </div>
                         <div class="mb-3">
-                            <label for="missionType" class="form-label">Mission Type</label>
+                            <label for="missionType" class="form-label text-white">Mission Type</label>
                             <select class="form-select" id="missionType">
                                 <option value="atmospheric">Atmospheric Study</option>
                                 <option value="uv">UV Radiation</option>
@@ -776,21 +879,21 @@
                             </select>
                         </div>
                         <div class="mb-3">
-                            <label for="gpsEnabled" class="form-label">GPS Enabled</label>
+                            <label for="gpsEnabled" class="form-label text-white">GPS Enabled</label>
                             <select class="form-select" id="gpsEnabled">
                                 <option value="yes">Yes</option>
                                 <option value="no">No</option>
                             </select>
                         </div>
                         <div class="mb-3">
-                            <label for="missionDescription" class="form-label">Description</label>
+                            <label for="missionDescription" class="form-label text-white">Description</label>
                             <textarea class="form-control" id="missionDescription" rows="3"></textarea>
                         </div>
                     </form>
                 </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                    <button type="button" class="btn btn-primary">Create Mission</button>
+                <div class="modal-footer" style="border-top: 1px solid rgba(255, 255, 255, 0.1);">
+                    <button type="button" class="btn nasa-btn-outline" data-bs-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn nasa-btn">Create Mission</button>
                 </div>
             </div>
         </div>
@@ -860,14 +963,39 @@
                     datasets: [{
                         label: 'Missions Completed',
                         data: [2, 3, 1, 4, 2, 3],
-                        borderColor: '#0066cc',
-                        backgroundColor: 'rgba(0, 102, 204, 0.1)',
+                        borderColor: '#FC3D21',
+                        backgroundColor: 'rgba(252, 61, 33, 0.1)',
                         tension: 0.4
                     }]
                 },
                 options: {
                     responsive: true,
-                    maintainAspectRatio: false
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            labels: {
+                                color: '#FFFFFF'
+                            }
+                        }
+                    },
+                    scales: {
+                        x: {
+                            ticks: {
+                                color: '#FFFFFF'
+                            },
+                            grid: {
+                                color: 'rgba(255, 255, 255, 0.1)'
+                            }
+                        },
+                        y: {
+                            ticks: {
+                                color: '#FFFFFF'
+                            },
+                            grid: {
+                                color: 'rgba(255, 255, 255, 0.1)'
+                            }
+                        }
+                    }
                 }
             });
 
@@ -886,24 +1014,45 @@
                             {x: 20000, y: -45},
                             {x: 25000, y: -52}
                         ],
-                        borderColor: '#ff6b35',
-                        backgroundColor: 'rgba(255, 107, 53, 0.1)'
+                        borderColor: '#FC3D21',
+                        backgroundColor: 'rgba(252, 61, 33, 0.1)'
                     }]
                 },
                 options: {
                     responsive: true,
                     maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            labels: {
+                                color: '#FFFFFF'
+                            }
+                        }
+                    },
                     scales: {
                         x: {
                             title: {
                                 display: true,
-                                text: 'Altitude (m)'
+                                text: 'Altitude (m)',
+                                color: '#FFFFFF'
+                            },
+                            ticks: {
+                                color: '#FFFFFF'
+                            },
+                            grid: {
+                                color: 'rgba(255, 255, 255, 0.1)'
                             }
                         },
                         y: {
                             title: {
                                 display: true,
-                                text: 'Temperature (°C)'
+                                text: 'Temperature (°C)',
+                                color: '#FFFFFF'
+                            },
+                            ticks: {
+                                color: '#FFFFFF'
+                            },
+                            grid: {
+                                color: 'rgba(255, 255, 255, 0.1)'
                             }
                         }
                     }
@@ -926,7 +1075,32 @@
                 },
                 options: {
                     responsive: true,
-                    maintainAspectRatio: false
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            labels: {
+                                color: '#FFFFFF'
+                            }
+                        }
+                    },
+                    scales: {
+                        x: {
+                            ticks: {
+                                color: '#FFFFFF'
+                            },
+                            grid: {
+                                color: 'rgba(255, 255, 255, 0.1)'
+                            }
+                        },
+                        y: {
+                            ticks: {
+                                color: '#FFFFFF'
+                            },
+                            grid: {
+                                color: 'rgba(255, 255, 255, 0.1)'
+                            }
+                        }
+                    }
                 }
             });
 
@@ -940,16 +1114,41 @@
                         label: 'UV Radiation Levels',
                         data: [12, 8, 2, 22],
                         backgroundColor: [
-                            'rgba(255, 99, 132, 0.8)',
-                            'rgba(54, 162, 235, 0.8)',
-                            'rgba(255, 205, 86, 0.8)',
-                            'rgba(75, 192, 192, 0.8)'
+                            'rgba(252, 61, 33, 0.8)',
+                            'rgba(11, 61, 145, 0.8)',
+                            'rgba(255, 193, 7, 0.8)',
+                            'rgba(40, 167, 69, 0.8)'
                         ]
                     }]
                 },
                 options: {
                     responsive: true,
-                    maintainAspectRatio: false
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            labels: {
+                                color: '#FFFFFF'
+                            }
+                        }
+                    },
+                    scales: {
+                        x: {
+                            ticks: {
+                                color: '#FFFFFF'
+                            },
+                            grid: {
+                                color: 'rgba(255, 255, 255, 0.1)'
+                            }
+                        },
+                        y: {
+                            ticks: {
+                                color: '#FFFFFF'
+                            },
+                            grid: {
+                                color: 'rgba(255, 255, 255, 0.1)'
+                            }
+                        }
+                    }
                 }
             });
         }
@@ -991,7 +1190,7 @@
 
             function handleFiles(files) {
                 if (files.length > 0) {
-                    uploadStatus.innerHTML = `<p class="text-primary">${files.length} file(s) selected</p>`;
+                    uploadStatus.innerHTML = `<p class="text-danger">${files.length} file(s) selected</p>`;
                     progressDiv.style.display = 'block';
                     
                     // Simulate upload progress
