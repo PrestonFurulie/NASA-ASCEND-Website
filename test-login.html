@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Test - NASA ASCEND</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 600px;
+            margin: 50px auto;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        .test-container {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .test-case {
+            margin: 15px 0;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        .pass { background: #d4edda; border-color: #c3e6cb; }
+        .fail { background: #f8d7da; border-color: #f5c6cb; }
+        .test-input {
+            font-family: monospace;
+            background: #f8f9fa;
+            padding: 5px;
+            border-radius: 3px;
+        }
+        button {
+            background: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 10px 5px;
+        }
+        button:hover {
+            background: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="test-container">
+        <h1>🔐 NASA ASCEND Login System Test</h1>
+        <p>Testing the @maricopa.edu email validation system:</p>
+        
+        <div id="test-results"></div>
+        
+        <button onclick="runTests()">Run All Tests</button>
+        <button onclick="clearResults()">Clear Results</button>
+    </div>
+
+    <script>
+        // Same regex pattern as in the dashboard
+        const emailPattern = /^[a-zA-Z0-9._%+-]+@maricopa\.edu$/;
+        
+        function testLogin(email, password, expectedResult, description) {
+            const isValid = emailPattern.test(email) && password.length > 0;
+            const result = isValid === expectedResult ? 'pass' : 'fail';
+            
+            return {
+                email,
+                password: password || '(empty)',
+                expected: expectedResult ? 'PASS' : 'FAIL',
+                actual: isValid ? 'PASS' : 'FAIL',
+                result,
+                description
+            };
+        }
+        
+        function runTests() {
+            const tests = [
+                // Valid @maricopa.edu emails
+                testLogin('pre2167119@maricopa.edu', 'anypassword', true, 'Your actual student ID'),
+                testLogin('abc1234567@maricopa.edu', 'password123', true, 'Another student ID format'),
+                testLogin('student123@maricopa.edu', 'test', true, 'Simple student format'),
+                testLogin('john.doe@maricopa.edu', 'mypass', true, 'Name format with dots'),
+                testLogin('test_user@maricopa.edu', 'pass', true, 'Underscore format'),
+                testLogin('user+tag@maricopa.edu', 'password', true, 'Plus sign format'),
+                testLogin('user%test@maricopa.edu', 'pass', true, 'Percent sign format'),
+                testLogin('user-test@maricopa.edu', 'password', true, 'Hyphen format'),
+                
+                // Invalid emails
+                testLogin('pre2167119@phoenixcollege.edu', 'password', false, 'Wrong domain - phoenixcollege'),
+                testLogin('pre2167119@maricopa.com', 'password', false, 'Wrong domain - .com instead of .edu'),
+                testLogin('pre2167119@maricopa.org', 'password', false, 'Wrong domain - .org instead of .edu'),
+                testLogin('@maricopa.edu', 'password', false, 'No username'),
+                testLogin('pre2167119@', 'password', false, 'No domain'),
+                testLogin('pre2167119', 'password', false, 'No @ or domain'),
+                testLogin('pre2167119@maricopa.edu@extra', 'password', false, 'Multiple @ symbols'),
+                
+                // Empty passwords
+                testLogin('pre2167119@maricopa.edu', '', false, 'Valid email but empty password'),
+                testLogin('student@maricopa.edu', '', false, 'Valid email but empty password'),
+            ];
+            
+            displayResults(tests);
+        }
+        
+        function displayResults(tests) {
+            const container = document.getElementById('test-results');
+            container.innerHTML = '<h2>Test Results:</h2>';
+            
+            tests.forEach((test, index) => {
+                const div = document.createElement('div');
+                div.className = `test-case ${test.result}`;
+                div.innerHTML = `
+                    <strong>Test ${index + 1}:</strong> ${test.description}<br>
+                    <span class="test-input">Email: "${test.email}" | Password: "${test.password}"</span><br>
+                    Expected: <strong>${test.expected}</strong> | Actual: <strong>${test.actual}</strong>
+                    ${test.result === 'fail' ? '<br><span style="color: red;">❌ FAILED</span>' : '<br><span style="color: green;">✅ PASSED</span>'}
+                `;
+                container.appendChild(div);
+            });
+            
+            const passed = tests.filter(t => t.result === 'pass').length;
+            const total = tests.length;
+            
+            const summary = document.createElement('div');
+            summary.className = 'test-case';
+            summary.style.background = passed === total ? '#d4edda' : '#f8d7da';
+            summary.innerHTML = `
+                <strong>Summary:</strong> ${passed}/${total} tests passed
+                ${passed === total ? '🎉 All tests passed!' : '⚠️ Some tests failed!'}
+            `;
+            container.appendChild(summary);
+        }
+        
+        function clearResults() {
+            document.getElementById('test-results').innerHTML = '';
+        }
+        
+        // Auto-run tests on page load
+        window.onload = function() {
+            runTests();
+        };
+    </script>
+</body>
+</html>
