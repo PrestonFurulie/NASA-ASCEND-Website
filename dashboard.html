@@ -316,12 +316,15 @@
             transition: transform 0.3s ease-in-out;
         }
         
-        .navbar.scrolled-down {
-            transform: translateY(-100%);
-        }
-        
-        .navbar.scrolled-up {
-            transform: translateY(0);
+        @media (max-width: 768px) {
+            .navbar {
+                position: fixed !important;
+                top: 0;
+                left: 0;
+                right: 0;
+                z-index: 1030;
+                will-change: transform;
+            }
         }
 
         @media (max-width: 768px) {
@@ -1171,37 +1174,46 @@
         function initializeMobileNavScroll() {
             let lastScrollTop = 0;
             const navbar = document.querySelector('.navbar');
-            const threshold = 5; // Minimum scroll distance to trigger hide/show
+            const threshold = 10; // Minimum scroll distance to trigger hide/show
+            let ticking = false;
             
-            window.addEventListener('scroll', function() {
+            function updateNavbar() {
                 const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
                 
                 // Only apply on mobile devices
                 if (window.innerWidth <= 768) {
                     if (scrollTop > lastScrollTop && scrollTop > threshold) {
                         // Scrolling down - hide navbar
-                        navbar.classList.remove('scrolled-up');
-                        navbar.classList.add('scrolled-down');
-                    } else if (scrollTop < lastScrollTop) {
-                        // Scrolling up - show navbar
-                        navbar.classList.remove('scrolled-down');
-                        navbar.classList.add('scrolled-up');
+                        navbar.style.transform = 'translateY(-100%)';
+                        navbar.style.transition = 'transform 0.3s ease-in-out';
+                    } else if (scrollTop < lastScrollTop || scrollTop <= threshold) {
+                        // Scrolling up or at top - show navbar
+                        navbar.style.transform = 'translateY(0)';
+                        navbar.style.transition = 'transform 0.3s ease-in-out';
                     }
                 } else {
                     // On desktop, always show navbar
-                    navbar.classList.remove('scrolled-down');
-                    navbar.classList.add('scrolled-up');
+                    navbar.style.transform = 'translateY(0)';
                 }
                 
                 lastScrollTop = scrollTop;
-            });
+                ticking = false;
+            }
+            
+            function requestTick() {
+                if (!ticking) {
+                    requestAnimationFrame(updateNavbar);
+                    ticking = true;
+                }
+            }
+            
+            window.addEventListener('scroll', requestTick, { passive: true });
             
             // Handle window resize
             window.addEventListener('resize', function() {
                 if (window.innerWidth > 768) {
                     // On desktop, always show navbar
-                    navbar.classList.remove('scrolled-down');
-                    navbar.classList.add('scrolled-up');
+                    navbar.style.transform = 'translateY(0)';
                 }
             });
         }
