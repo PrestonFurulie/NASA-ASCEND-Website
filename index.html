@@ -7,246 +7,409 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Exo+2:wght@300;400;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            --primary-color: #0066cc;
-            --secondary-color: #1a1a2e;
-            --accent-color: #ff6b35;
-            --text-light: #ffffff;
-            --text-dark: #333333;
-            --bg-dark: #0f0f23;
-            --bg-light: #f8f9fa;
+            --nasa-blue: #0B3D91;
+            --nasa-red: #FC3D21;
+            --nasa-white: #FFFFFF;
+            --nasa-gray: #E6E6E6;
+            --nasa-dark: #1a1a1a;
+            --nasa-gold: #FFD700;
+            --nasa-silver: #C0C0C0;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
         }
 
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Exo 2', sans-serif;
             line-height: 1.6;
-            color: var(--text-dark);
+            color: var(--nasa-white);
+            background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 50%, #16213e 100%);
+            overflow-x: hidden;
         }
 
+        /* NASA Header */
+        .nasa-header {
+            background: linear-gradient(90deg, var(--nasa-blue) 0%, #1a237e 50%, var(--nasa-blue) 100%);
+            border-bottom: 3px solid var(--nasa-red);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .nasa-header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="stars" x="0" y="0" width="20" height="20" patternUnits="userSpaceOnUse"><circle cx="10" cy="10" r="0.5" fill="white" opacity="0.3"/></pattern></defs><rect width="100" height="100" fill="url(%23stars)"/></svg>');
+            opacity: 0.1;
+        }
+
+        .nasa-logo {
+            font-family: 'Orbitron', monospace;
+            font-weight: 900;
+            font-size: 2.5rem;
+            color: var(--nasa-white);
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+            position: relative;
+            z-index: 2;
+        }
+
+        .nasa-logo .ascend {
+            color: var(--nasa-red);
+            font-size: 1.8rem;
+        }
+
+        .nasa-nav {
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(10px);
+            border-bottom: 2px solid var(--nasa-red);
+        }
+
+        .nav-link {
+            color: var(--nasa-white) !important;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .nav-link:hover {
+            color: var(--nasa-red) !important;
+            transform: translateY(-2px);
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--nasa-red);
+            transition: width 0.3s ease;
+        }
+
+        .nav-link:hover::after {
+            width: 100%;
+        }
+
+        /* Hero Section */
         .hero-section {
-            height: 100vh;
-            background: linear-gradient(135deg, var(--bg-dark) 0%, #1a1a2e 50%, #16213e 100%);
+            min-height: 100vh;
+            background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 50%, #16213e 100%);
             background-image: 
-                radial-gradient(circle at 20% 80%, rgba(120, 119, 198, 0.3) 0%, transparent 50%),
-                radial-gradient(circle at 80% 20%, rgba(255, 107, 53, 0.15) 0%, transparent 50%);
+                radial-gradient(circle at 20% 80%, rgba(11, 61, 145, 0.3) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(252, 61, 33, 0.2) 0%, transparent 50%),
+                url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000"><defs><pattern id="stars" x="0" y="0" width="50" height="50" patternUnits="userSpaceOnUse"><circle cx="25" cy="25" r="1" fill="white" opacity="0.6"/><circle cx="10" cy="10" r="0.5" fill="white" opacity="0.4"/><circle cx="40" cy="40" r="0.3" fill="white" opacity="0.3"/></pattern></defs><rect width="1000" height="1000" fill="url(%23stars)"/></svg>');
             background-size: cover;
             background-position: center;
             background-attachment: fixed;
             position: relative;
             display: flex;
             align-items: center;
+            overflow: hidden;
         }
 
-        .hero-overlay {
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: rgba(0, 0, 0, 0.4);
-            z-index: 1;
-        }
-
-        .hero-section .container {
+        .hero-content {
             position: relative;
             z-index: 2;
         }
 
-        .card {
-            border: none;
+        .hero-title {
+            font-family: 'Orbitron', monospace;
+            font-size: 4rem;
+            font-weight: 900;
+            color: var(--nasa-white);
+            text-shadow: 3px 3px 6px rgba(0,0,0,0.8);
+            margin-bottom: 1rem;
+            line-height: 1.1;
+        }
+
+        .hero-subtitle {
+            font-size: 1.5rem;
+            color: var(--nasa-gray);
+            margin-bottom: 2rem;
+            font-weight: 300;
+        }
+
+        .hero-description {
+            font-size: 1.2rem;
+            color: var(--nasa-gray);
+            margin-bottom: 3rem;
+            max-width: 600px;
+        }
+
+        .nasa-btn {
+            background: linear-gradient(45deg, var(--nasa-red), #d32f2f);
+            border: 2px solid var(--nasa-red);
+            color: var(--nasa-white);
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            padding: 15px 30px;
+            border-radius: 0;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .nasa-btn:hover {
+            background: linear-gradient(45deg, #d32f2f, var(--nasa-red));
+            color: var(--nasa-white);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(252, 61, 33, 0.4);
+        }
+
+        .nasa-btn-outline {
+            background: transparent;
+            border: 2px solid var(--nasa-white);
+            color: var(--nasa-white);
+        }
+
+        .nasa-btn-outline:hover {
+            background: var(--nasa-white);
+            color: var(--nasa-dark);
+        }
+
+        /* Mission Badge */
+        .mission-badge {
+            background: linear-gradient(45deg, var(--nasa-blue), #1a237e);
+            border: 2px solid var(--nasa-red);
+            border-radius: 10px;
+            padding: 20px;
+            text-align: center;
+            margin: 20px 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .mission-badge::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(255,255,255,0.1), transparent);
+            transform: rotate(45deg);
+            animation: shine 3s infinite;
+        }
+
+        @keyframes shine {
+            0% { transform: translateX(-100%) translateY(-100%) rotate(45deg); }
+            100% { transform: translateX(100%) translateY(100%) rotate(45deg); }
+        }
+
+        /* Cards */
+        .nasa-card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
             border-radius: 15px;
             transition: all 0.3s ease;
-            overflow: hidden;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-        }
-
-        .card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
-        }
-
-        .btn {
-            border-radius: 25px;
-            font-weight: 600;
-            padding: 12px 30px;
-            transition: all 0.3s ease;
-        }
-
-        .btn-primary {
-            background: linear-gradient(45deg, var(--primary-color), #004499);
-            border: none;
-        }
-
-        .btn-primary:hover {
-            background: linear-gradient(45deg, #004499, var(--primary-color));
-            transform: translateY(-2px);
-            box-shadow: 0 10px 20px rgba(0, 102, 204, 0.3);
-        }
-
-        .btn-outline-primary {
-            border: 2px solid var(--primary-color);
-            color: var(--primary-color);
-        }
-
-        .btn-outline-primary:hover {
-            background: var(--primary-color);
-            transform: translateY(-2px);
-        }
-
-        .navbar {
-            backdrop-filter: blur(10px);
-            background-color: rgba(0, 0, 0, 0.9) !important;
-            transition: all 0.3s ease;
-        }
-
-        .navbar-brand {
-            font-size: 1.5rem;
-            font-weight: 700;
-        }
-
-        .navbar-nav .nav-link {
-            font-weight: 500;
-            margin: 0 0.5rem;
-            transition: color 0.3s ease;
-        }
-
-        .navbar-nav .nav-link:hover {
-            color: var(--primary-color) !important;
-        }
-
-        .navbar-nav .nav-link.active {
-            color: var(--primary-color) !important;
-            font-weight: 600;
-        }
-
-        .text-primary { color: var(--primary-color) !important; }
-        .text-success { color: #28a745 !important; }
-        .text-info { color: #17a2b8 !important; }
-        .text-warning { color: #ffc107 !important; }
-
-        .border-left-primary { border-left: 4px solid var(--primary-color) !important; }
-        .border-left-success { border-left: 4px solid #28a745 !important; }
-        .border-left-info { border-left: 4px solid #17a2b8 !important; }
-        .border-left-warning { border-left: 4px solid #ffc107 !important; }
-
-        .dashboard-container {
-            min-height: 100vh;
-            background-color: #f8f9fa;
-            padding-top: 80px;
-        }
-
-        .sidebar {
-            position: fixed;
-            top: 60px;
-            bottom: 0;
-            left: 0;
-            z-index: 100;
-            padding: 0;
-            box-shadow: inset -1px 0 0 rgba(0, 0, 0, .1);
-            background-color: #f8f9fa;
-            border-right: 1px solid #dee2e6;
-            width: 250px;
-        }
-
-        .sidebar .nav-link {
-            color: #333;
-            padding: 1rem;
-            border-bottom: 1px solid #dee2e6;
-            transition: all 0.3s ease;
-        }
-
-        .sidebar .nav-link:hover {
-            background-color: #e9ecef;
-            color: var(--primary-color);
-        }
-
-        .sidebar .nav-link.active {
-            background-color: var(--primary-color);
-            color: white;
-            border-left: 4px solid #004499;
-        }
-
-        .sidebar .nav-link i {
-            margin-right: 0.5rem;
-            width: 20px;
-            text-align: center;
-        }
-
-        main {
-            margin-left: 250px;
-            padding: 2rem;
-        }
-
-        .data-upload-area {
-            border: 2px dashed #dee2e6;
-            border-radius: 10px;
-            padding: 2rem;
-            text-align: center;
-            transition: all 0.3s ease;
-        }
-
-        .data-upload-area:hover {
-            border-color: var(--primary-color);
-            background-color: rgba(0, 102, 204, 0.05);
-        }
-
-        .data-upload-area.dragover {
-            border-color: var(--primary-color);
-            background-color: rgba(0, 102, 204, 0.1);
-        }
-
-        .mission-card {
-            transition: all 0.3s ease;
-        }
-
-        .mission-card:hover {
-            transform: translateY(-3px);
-        }
-
-        .chart-container {
             position: relative;
-            height: 400px;
-            margin: 1rem 0;
+            overflow: hidden;
         }
 
+        .nasa-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+            border-color: var(--nasa-red);
+        }
+
+        .nasa-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--nasa-red), var(--nasa-blue), var(--nasa-red));
+        }
+
+        /* Video Container */
+        .video-container {
+            position: relative;
+            width: 100%;
+            height: 0;
+            padding-bottom: 56.25%; /* 16:9 aspect ratio */
+            border-radius: 15px;
+            overflow: hidden;
+            border: 2px solid var(--nasa-red);
+        }
+
+        .video-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+        /* Social Media Icons */
+        .social-icon {
+            display: inline-block;
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(45deg, var(--nasa-blue), #1a237e);
+            border: 2px solid var(--nasa-red);
+            border-radius: 50%;
+            text-align: center;
+            line-height: 46px;
+            color: var(--nasa-white);
+            font-size: 1.5rem;
+            transition: all 0.3s ease;
+            margin: 0 10px;
+        }
+
+        .social-icon:hover {
+            background: linear-gradient(45deg, var(--nasa-red), #d32f2f);
+            transform: translateY(-5px) scale(1.1);
+            color: var(--nasa-white);
+        }
+
+        /* Statistics */
+        .stat-number {
+            font-family: 'Orbitron', monospace;
+            font-size: 3rem;
+            font-weight: 900;
+            color: var(--nasa-red);
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        }
+
+        .stat-label {
+            font-size: 1.1rem;
+            color: var(--nasa-gray);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* Application Form */
+        .application-form {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border: 2px solid var(--nasa-red);
+            border-radius: 15px;
+            padding: 30px;
+        }
+
+        .form-control {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            color: var(--nasa-white);
+            border-radius: 5px;
+        }
+
+        .form-control:focus {
+            background: rgba(255, 255, 255, 0.15);
+            border-color: var(--nasa-red);
+            color: var(--nasa-white);
+            box-shadow: 0 0 0 0.2rem rgba(252, 61, 33, 0.25);
+        }
+
+        .form-control::placeholder {
+            color: rgba(255, 255, 255, 0.6);
+        }
+
+        /* Footer */
+        .nasa-footer {
+            background: linear-gradient(90deg, var(--nasa-dark) 0%, #0a0a0a 50%, var(--nasa-dark) 100%);
+            border-top: 3px solid var(--nasa-red);
+            padding: 40px 0 20px;
+        }
+
+        /* Responsive Design */
         @media (max-width: 768px) {
-            .hero-section {
-                height: 80vh;
-                text-align: center;
-            }
-            
-            .display-2 {
+            .hero-title {
                 font-size: 2.5rem;
             }
             
-            .sidebar {
-                position: static;
-                height: auto;
-                margin-bottom: 1rem;
-                width: 100%;
+            .hero-subtitle {
+                font-size: 1.2rem;
             }
             
-            main {
-                margin-left: 0;
+            .nasa-logo {
+                font-size: 2rem;
             }
+            
+            .stat-number {
+                font-size: 2rem;
+            }
+        }
+
+        /* Animations */
+        .fade-in {
+            animation: fadeIn 1s ease-in;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .slide-in-left {
+            animation: slideInLeft 1s ease-out;
+        }
+
+        @keyframes slideInLeft {
+            from { opacity: 0; transform: translateX(-50px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+
+        .slide-in-right {
+            animation: slideInRight 1s ease-out;
+        }
+
+        @keyframes slideInRight {
+            from { opacity: 0; transform: translateX(50px); }
+            to { opacity: 1; transform: translateX(0); }
         }
     </style>
 </head>
 <body>
-    <!-- Navigation -->
-    <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
+    <!-- NASA Header -->
+    <header class="nasa-header">
         <div class="container">
-            <a class="navbar-brand" href="#home">
-                <i class="bi bi-rocket-takeoff"></i> NASA ASCEND
-            </a>
+            <div class="row align-items-center py-3">
+                <div class="col-md-6">
+                    <div class="nasa-logo">
+                        NASA <span class="ascend">ASCEND</span>
+                    </div>
+                    <p class="text-white mb-0">Phoenix College High-Altitude Ballooning Program</p>
+                </div>
+                <div class="col-md-6 text-md-end">
+                    <div class="d-flex justify-content-md-end gap-3">
+                        <a href="mailto:pcnasaascend@gmail.com" class="btn btn-outline-light btn-sm">
+                            <i class="bi bi-envelope"></i> Contact
+                        </a>
+                        <a href="https://docs.google.com/forms/d/1IvaVZ_fdOLSo6kH2e1lotQgVj-h5U-hbmM1kddVQEfA" target="_blank" class="btn btn-danger btn-sm">
+                            <i class="bi bi-pencil-square"></i> Apply Now
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg nasa-nav sticky-top">
+        <div class="container">
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav ms-auto">
+                <ul class="navbar-nav mx-auto">
                     <li class="nav-item">
-                        <a class="nav-link active" href="#home">Home</a>
+                        <a class="nav-link" href="#home">Home</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#about">About</a>
@@ -255,17 +418,17 @@
                         <a class="nav-link" href="#missions">Missions</a>
                     </li>
                     <li class="nav-item">
+                        <a class="nav-link" href="#videos">Videos</a>
+                    </li>
+                    <li class="nav-item">
                         <a class="nav-link" href="#arduino">Arduino Code</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#data">Mission Data</a>
+                        <a class="nav-link" href="#application">Apply</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#contact">Contact</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link btn btn-outline-primary ms-2" href="dashboard.html">
-                            <i class="bi bi-person-circle"></i> Student Dashboard
+                        <a class="nav-link" href="dashboard.html">
+                            <i class="bi bi-person-circle"></i> Student Portal
                         </a>
                     </li>
                 </ul>
@@ -275,31 +438,48 @@
 
     <!-- Hero Section -->
     <section id="home" class="hero-section">
-        <div class="hero-overlay"></div>
         <div class="container">
             <div class="row align-items-center">
                 <div class="col-lg-6">
-                    <h1 class="display-2 fw-bold text-white mb-4">
-                        NASA ASCEND Program
-                    </h1>
-                    <p class="lead text-white mb-4">
-                        Phoenix College's high-altitude ballooning project featuring advanced Arduino data collection systems, real-world NASA science, and student data management.
-                    </p>
-                    <div class="d-flex gap-3 flex-wrap">
-                        <a href="#about" class="btn btn-primary btn-lg">
-                            <i class="bi bi-info-circle"></i> Learn More
-                        </a>
-                        <a href="dashboard.html" class="btn btn-outline-light btn-lg">
-                            <i class="bi bi-person-circle"></i> Student Access
-                        </a>
-                        <a href="#arduino" class="btn btn-outline-light btn-lg">
-                            <i class="bi bi-code-slash"></i> Arduino Code
-                        </a>
+                    <div class="hero-content fade-in">
+                        <h1 class="hero-title">
+                            Reach for the <span style="color: var(--nasa-red);">Stars</span>
+                        </h1>
+                        <p class="hero-subtitle">High-Altitude Ballooning Program</p>
+                        <p class="hero-description">
+                            Join Phoenix College's NASA ASCEND program and design, build, and launch scientific payloads to the edge of space. Work with over 100 Arizona STEM students in this unique NASA-funded program.
+                        </p>
+                        <div class="d-flex gap-3 flex-wrap">
+                            <a href="#application" class="btn nasa-btn">
+                                <i class="bi bi-rocket-takeoff"></i> Apply Now
+                            </a>
+                            <a href="#videos" class="btn nasa-btn nasa-btn-outline">
+                                <i class="bi bi-play-circle"></i> Watch Videos
+                            </a>
+                        </div>
                     </div>
                 </div>
                 <div class="col-lg-6">
-                    <div class="text-center">
-                        <i class="bi bi-rocket-takeoff" style="font-size: 15rem; color: rgba(255, 255, 255, 0.1);"></i>
+                    <div class="text-center slide-in-right">
+                        <div class="mission-badge">
+                            <h3 class="text-white mb-3">
+                                <i class="bi bi-rocket-takeoff"></i> Mission Status
+                            </h3>
+                            <div class="row text-center">
+                                <div class="col-4">
+                                    <div class="stat-number">12</div>
+                                    <div class="stat-label">Missions</div>
+                                </div>
+                                <div class="col-4">
+                                    <div class="stat-number">100K</div>
+                                    <div class="stat-label">Feet</div>
+                                </div>
+                                <div class="col-4">
+                                    <div class="stat-number">100+</div>
+                                    <div class="stat-label">Students</div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -310,109 +490,169 @@
     <section id="about" class="py-5">
         <div class="container">
             <div class="row">
-                <div class="col-lg-8 mx-auto text-center">
-                    <h2 class="display-4 fw-bold mb-4">About Our Program</h2>
-                    <p class="lead mb-5">
-                        The NASA ASCEND program provides undergraduate STEM students with hands-on experience in real-world NASA-related science and engineering projects. Our team has developed a sophisticated data collection system for high-altitude balloon missions with integrated student data management.
+                <div class="col-lg-8 mx-auto text-center mb-5">
+                    <h2 class="display-4 fw-bold text-white mb-4">
+                        <i class="bi bi-globe text-primary"></i> About ASCEND
+                    </h2>
+                    <p class="lead text-white">
+                        ASCEND is a high-altitude ballooning project funded by the Arizona/NASA Space Grant. It provides a unique opportunity for undergraduate engineering students to apply their skills and prepare for success in their future careers.
                     </p>
                 </div>
             </div>
             <div class="row g-4">
                 <div class="col-md-4">
-                    <div class="card h-100 text-center p-4">
+                    <div class="nasa-card h-100 text-center p-4">
                         <div class="card-body">
-                            <i class="bi bi-cpu text-primary" style="font-size: 3rem;"></i>
-                            <h5 class="card-title mt-3">Arduino Integration</h5>
-                            <p class="card-text">Advanced sensor integration with BMP390, BNO055, AS7331, and GPS modules for comprehensive data collection.</p>
+                            <i class="bi bi-rocket-takeoff text-danger" style="font-size: 3rem;"></i>
+                            <h5 class="card-title mt-3 text-white">High-Altitude Flight</h5>
+                            <p class="card-text text-white-50">Design and fly balloon-launched scientific payloads up to 100,000 ft. in elevation</p>
                         </div>
                     </div>
                 </div>
                 <div class="col-md-4">
-                    <div class="card h-100 text-center p-4">
+                    <div class="nasa-card h-100 text-center p-4">
                         <div class="card-body">
-                            <i class="bi bi-graph-up text-success" style="font-size: 3rem;"></i>
-                            <h5 class="card-title mt-3">Data Management</h5>
-                            <p class="card-text">Student dashboard for data upload, visualization, and analysis with real-time mission tracking.</p>
+                            <i class="bi bi-people text-primary" style="font-size: 3rem;"></i>
+                            <h5 class="card-title mt-3 text-white">Team Collaboration</h5>
+                            <p class="card-text text-white-50">Work with over 100 Arizona STEM college and university students</p>
                         </div>
                     </div>
                 </div>
                 <div class="col-md-4">
-                    <div class="card h-100 text-center p-4">
+                    <div class="nasa-card h-100 text-center p-4">
                         <div class="card-body">
-                            <i class="bi bi-globe text-info" style="font-size: 3rem;"></i>
-                            <h5 class="card-title mt-3">High Altitude</h5>
-                            <p class="card-text">Reaching altitudes of 28,500m to collect atmospheric data and conduct scientific experiments.</p>
+                            <i class="bi bi-award text-warning" style="font-size: 3rem;"></i>
+                            <h5 class="card-title mt-3 text-white">Career Preparation</h5>
+                            <p class="card-text text-white-50">Apply engineering skills in real-world NASA-related projects</p>
                         </div>
                     </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Videos Section -->
+    <section id="videos" class="py-5" style="background: rgba(255, 255, 255, 0.02);">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 mx-auto text-center mb-5">
+                    <h2 class="display-4 fw-bold text-white mb-4">
+                        <i class="bi bi-play-circle text-danger"></i> Mission Videos
+                    </h2>
+                    <p class="lead text-white">Watch our latest missions and learn about the ASCEND program</p>
+                </div>
+            </div>
+            <div class="row g-4">
+                <div class="col-lg-6">
+                    <div class="nasa-card">
+                        <div class="card-body p-0">
+                            <div class="video-container">
+                                <iframe src="https://www.youtube.com/embed/yOYttE3yrok" 
+                                        title="NASA ASCEND Mission Video" 
+                                        frameborder="0" 
+                                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                                        allowfullscreen>
+                                </iframe>
+                            </div>
+                            <div class="p-3">
+                                <h5 class="text-white">Latest Mission Launch</h5>
+                                <p class="text-white-50">Watch our most recent high-altitude balloon mission</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="nasa-card">
+                        <div class="card-body p-0">
+                            <div class="video-container">
+                                <iframe src="https://docs.google.com/presentation/d/1T_EetMrHb9kHpJyOPQuv0aAwrSRRrxds/embed?start=false&loop=false&delayms=3000" 
+                                        title="NASA ASCEND Presentation" 
+                                        frameborder="0" 
+                                        allowfullscreen>
+                                </iframe>
+                            </div>
+                            <div class="p-3">
+                                <h5 class="text-white">Program Presentation</h5>
+                                <p class="text-white-50">Learn more about the ASCEND program and opportunities</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt-4">
+                <div class="col-12 text-center">
+                    <a href="https://www.youtube.com/playlist?list=PLQsOJLfQLoT17cTOvAlhQz8dC2acgPQXl" target="_blank" class="btn nasa-btn">
+                        <i class="bi bi-collection-play"></i> View All Videos
+                    </a>
                 </div>
             </div>
         </div>
     </section>
 
     <!-- Arduino Code Section -->
-    <section id="arduino" class="py-5 bg-light">
+    <section id="arduino" class="py-5">
         <div class="container">
             <div class="row">
-                <div class="col-lg-8 mx-auto text-center">
-                    <h2 class="display-4 fw-bold mb-4">Arduino Code</h2>
-                    <p class="lead mb-5">
-                        Download our Arduino sketches for high-altitude balloon data collection. Choose between GPS-enabled or simplified versions.
-                    </p>
+                <div class="col-lg-8 mx-auto text-center mb-5">
+                    <h2 class="display-4 fw-bold text-white mb-4">
+                        <i class="bi bi-code-slash text-success"></i> Arduino Code
+                    </h2>
+                    <p class="lead text-white">Download our Arduino sketches for high-altitude balloon data collection</p>
                 </div>
             </div>
             <div class="row g-4">
                 <div class="col-md-4">
-                    <div class="card h-100">
-                        <div class="card-header bg-primary text-white">
-                            <h5 class="mb-0"><i class="bi bi-gps"></i> GPS Version</h5>
+                    <div class="nasa-card h-100">
+                        <div class="card-header" style="background: linear-gradient(45deg, var(--nasa-blue), #1a237e); border-bottom: 2px solid var(--nasa-red);">
+                            <h5 class="mb-0 text-white"><i class="bi bi-gps"></i> GPS Version</h5>
                         </div>
                         <div class="card-body">
-                            <p class="card-text">Complete version with GPS integration for accurate UTC timestamps and location tracking.</p>
-                            <ul class="list-unstyled">
+                            <p class="card-text text-white-50">Complete version with GPS integration for accurate UTC timestamps and location tracking.</p>
+                            <ul class="list-unstyled text-white-50">
                                 <li><i class="bi bi-check text-success"></i> All sensors (BMP390, BNO055, AS7331)</li>
                                 <li><i class="bi bi-check text-success"></i> GPS module integration</li>
                                 <li><i class="bi bi-check text-success"></i> UTC timestamps</li>
                                 <li><i class="bi bi-check text-success"></i> Location tracking</li>
                             </ul>
-                            <a href="arduino/HailMaryV1c_GPS.ino" class="btn btn-primary" download>
+                            <a href="arduino/HailMaryV1c_GPS.ino" class="btn nasa-btn w-100" download>
                                 <i class="bi bi-download"></i> Download
                             </a>
                         </div>
                     </div>
                 </div>
                 <div class="col-md-4">
-                    <div class="card h-100">
-                        <div class="card-header bg-success text-white">
-                            <h5 class="mb-0"><i class="bi bi-cpu"></i> No-GPS Version</h5>
+                    <div class="nasa-card h-100">
+                        <div class="card-header" style="background: linear-gradient(45deg, #28a745, #1e7e34); border-bottom: 2px solid var(--nasa-red);">
+                            <h5 class="mb-0 text-white"><i class="bi bi-cpu"></i> No-GPS Version</h5>
                         </div>
                         <div class="card-body">
-                            <p class="card-text">Simplified version without GPS for basic missions and easier setup.</p>
-                            <ul class="list-unstyled">
+                            <p class="card-text text-white-50">Simplified version without GPS for basic missions and easier setup.</p>
+                            <ul class="list-unstyled text-white-50">
                                 <li><i class="bi bi-check text-success"></i> All sensors (BMP390, BNO055, AS7331)</li>
                                 <li><i class="bi bi-check text-success"></i> millis() timestamps</li>
                                 <li><i class="bi bi-check text-success"></i> Simplified setup</li>
                                 <li><i class="bi bi-check text-success"></i> Enhanced documentation</li>
                             </ul>
-                            <a href="arduino/HailMaryV1c_NoGPS.ino" class="btn btn-success" download>
+                            <a href="arduino/HailMaryV1c_NoGPS.ino" class="btn nasa-btn w-100" download>
                                 <i class="bi bi-download"></i> Download
                             </a>
                         </div>
                     </div>
                 </div>
                 <div class="col-md-4">
-                    <div class="card h-100">
-                        <div class="card-header bg-warning text-dark">
-                            <h5 class="mb-0"><i class="bi bi-archive"></i> Original Version</h5>
+                    <div class="nasa-card h-100">
+                        <div class="card-header" style="background: linear-gradient(45deg, #ffc107, #e0a800); border-bottom: 2px solid var(--nasa-red);">
+                            <h5 class="mb-0 text-dark"><i class="bi bi-archive"></i> Original Version</h5>
                         </div>
                         <div class="card-body">
-                            <p class="card-text">Original working version as a safe backup and reference implementation.</p>
-                            <ul class="list-unstyled">
+                            <p class="card-text text-white-50">Original working version as a safe backup and reference implementation.</p>
+                            <ul class="list-unstyled text-white-50">
                                 <li><i class="bi bi-check text-success"></i> All sensors</li>
                                 <li><i class="bi bi-check text-success"></i> SD card logging</li>
                                 <li><i class="bi bi-check text-success"></i> Error handling</li>
                                 <li><i class="bi bi-check text-success"></i> Data validation</li>
                             </ul>
-                            <a href="arduino/HailMaryV1b.ino" class="btn btn-warning" download>
+                            <a href="arduino/HailMaryV1b.ino" class="btn nasa-btn w-100" download>
                                 <i class="bi bi-download"></i> Download
                             </a>
                         </div>
@@ -422,54 +662,34 @@
         </div>
     </section>
 
-    <!-- Mission Data Section -->
-    <section id="data" class="py-5">
+    <!-- Application Section -->
+    <section id="application" class="py-5" style="background: rgba(255, 255, 255, 0.02);">
         <div class="container">
             <div class="row">
-                <div class="col-lg-8 mx-auto text-center">
-                    <h2 class="display-4 fw-bold mb-4">Mission Data</h2>
-                    <p class="lead mb-5">
-                        View our collected mission data and analysis results from high-altitude balloon flights.
-                    </p>
+                <div class="col-lg-8 mx-auto text-center mb-5">
+                    <h2 class="display-4 fw-bold text-white mb-4">
+                        <i class="bi bi-pencil-square text-danger"></i> Apply to ASCEND
+                    </h2>
+                    <p class="lead text-white">Join our Phoenix College Team and over 100 Arizona STEM students</p>
                 </div>
             </div>
-            <div class="row g-4">
-                <div class="col-md-6">
-                    <div class="card">
-                        <div class="card-body">
-                            <h5 class="card-title"><i class="bi bi-graph-up text-primary"></i> Mission Statistics</h5>
-                            <div class="row text-center">
-                                <div class="col-6">
-                                    <h3 class="text-primary">12</h3>
-                                    <p class="text-muted">Missions Completed</p>
-                                </div>
-                                <div class="col-6">
-                                    <h3 class="text-success">28,500m</h3>
-                                    <p class="text-muted">Peak Altitude</p>
-                                </div>
-                                <div class="col-6">
-                                    <h3 class="text-info">-52°C</h3>
-                                    <p class="text-muted">Min Temperature</p>
-                                </div>
-                                <div class="col-6">
-                                    <h3 class="text-warning">4.2h</h3>
-                                    <p class="text-muted">Avg Duration</p>
-                                </div>
-                            </div>
+            <div class="row">
+                <div class="col-lg-8 mx-auto">
+                    <div class="application-form">
+                        <div class="text-center mb-4">
+                            <h4 class="text-white">Ready to Reach for the Stars?</h4>
+                            <p class="text-white-50">Fill out the application form to join the ASCEND program</p>
                         </div>
-                    </div>
-                </div>
-                <div class="col-md-6">
-                    <div class="card">
-                        <div class="card-body">
-                            <h5 class="card-title"><i class="bi bi-database text-success"></i> Data Collection</h5>
-                            <ul class="list-unstyled">
-                                <li class="mb-2"><i class="bi bi-check-circle text-success"></i> Environmental Data (Pressure, Temperature, Altitude)</li>
-                                <li class="mb-2"><i class="bi bi-check-circle text-success"></i> Motion Data (Gyroscope, Accelerometer)</li>
-                                <li class="mb-2"><i class="bi bi-check-circle text-success"></i> UV Radiation Measurements</li>
-                                <li class="mb-2"><i class="bi bi-check-circle text-success"></i> GPS Tracking & Coordinates</li>
-                                <li class="mb-2"><i class="bi bi-check-circle text-success"></i> Precise UTC Timestamps</li>
-                            </ul>
+                        <div class="text-center">
+                            <a href="https://docs.google.com/forms/d/1IvaVZ_fdOLSo6kH2e1lotQgVj-h5U-hbmM1kddVQEfA" target="_blank" class="btn nasa-btn btn-lg">
+                                <i class="bi bi-pencil-square"></i> Start Application
+                            </a>
+                        </div>
+                        <div class="mt-4 text-center">
+                            <p class="text-white-50">Or contact us directly:</p>
+                            <a href="mailto:pcnasaascend@gmail.com" class="btn nasa-btn-outline">
+                                <i class="bi bi-envelope"></i> pcnasaascend@gmail.com
+                            </a>
                         </div>
                     </div>
                 </div>
@@ -477,43 +697,23 @@
         </div>
     </section>
 
-    <!-- Contact Section -->
-    <section id="contact" class="py-5 bg-light">
+    <!-- Social Media Section -->
+    <section class="py-5">
         <div class="container">
             <div class="row">
                 <div class="col-lg-8 mx-auto text-center">
-                    <h2 class="display-4 fw-bold mb-4">Get Involved</h2>
-                    <p class="lead mb-5">
-                        Interested in joining our program or learning more about high-altitude ballooning?
-                    </p>
-                </div>
-            </div>
-            <div class="row g-4">
-                <div class="col-md-4">
-                    <div class="card text-center">
-                        <div class="card-body">
-                            <i class="bi bi-envelope text-primary" style="font-size: 3rem;"></i>
-                            <h5 class="card-title mt-3">Contact Us</h5>
-                            <p class="card-text">ascend@phoenixcollege.edu</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="card text-center">
-                        <div class="card-body">
-                            <i class="bi bi-mortarboard text-success" style="font-size: 3rem;"></i>
-                            <h5 class="card-title mt-3">Phoenix College</h5>
-                            <p class="card-text">STEM Programs</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="card text-center">
-                        <div class="card-body">
-                            <i class="bi bi-rocket text-info" style="font-size: 3rem;"></i>
-                            <h5 class="card-title mt-3">Arizona Space Grant</h5>
-                            <p class="card-text">NASA Partnership</p>
-                        </div>
+                    <h3 class="text-white mb-4">Follow Our Missions</h3>
+                    <p class="text-white-50 mb-4">Stay updated with our latest launches and discoveries</p>
+                    <div class="d-flex justify-content-center flex-wrap">
+                        <a href="https://www.youtube.com/@pcnasaascend" target="_blank" class="social-icon">
+                            <i class="bi bi-youtube"></i>
+                        </a>
+                        <a href="https://www.tiktok.com/@PCAscend" target="_blank" class="social-icon">
+                            <i class="bi bi-tiktok"></i>
+                        </a>
+                        <a href="mailto:pcnasaascend@gmail.com" class="social-icon">
+                            <i class="bi bi-envelope"></i>
+                        </a>
                     </div>
                 </div>
             </div>
@@ -521,28 +721,41 @@
     </section>
 
     <!-- Footer -->
-    <footer class="bg-dark text-white py-5">
+    <footer class="nasa-footer">
         <div class="container">
             <div class="row">
                 <div class="col-md-6">
-                    <h5><i class="bi bi-rocket-takeoff"></i> NASA ASCEND Program</h5>
-                    <p>Phoenix College's high-altitude ballooning project funded by the Arizona Space Grant Consortium.</p>
+                    <h5 class="text-white">
+                        <i class="bi bi-rocket-takeoff text-danger"></i> NASA ASCEND Program
+                    </h5>
+                    <p class="text-white-50">Phoenix College's high-altitude ballooning project funded by the Arizona Space Grant Consortium.</p>
+                    <div class="d-flex gap-3">
+                        <a href="https://www.phoenixcollege.edu/academics/stem/nasa-ascend-program" target="_blank" class="text-white text-decoration-none">
+                            <i class="bi bi-globe"></i> Phoenix College
+                        </a>
+                        <a href="https://spacegrant.arizona.edu" target="_blank" class="text-white text-decoration-none">
+                            <i class="bi bi-globe"></i> Arizona Space Grant
+                        </a>
+                    </div>
                 </div>
                 <div class="col-md-6 text-md-end">
-                    <h6>Quick Links</h6>
-                    <a href="#arduino" class="text-white text-decoration-none me-3">Arduino Code</a>
-                    <a href="#data" class="text-white text-decoration-none me-3">Mission Data</a>
-                    <a href="dashboard.html" class="text-white text-decoration-none me-3">Student Dashboard</a>
-                    <a href="#contact" class="text-white text-decoration-none">Contact</a>
+                    <h6 class="text-white">Quick Links</h6>
+                    <div class="d-flex flex-column">
+                        <a href="#arduino" class="text-white text-decoration-none mb-2">Arduino Code</a>
+                        <a href="#videos" class="text-white text-decoration-none mb-2">Videos</a>
+                        <a href="#application" class="text-white text-decoration-none mb-2">Apply</a>
+                        <a href="dashboard.html" class="text-white text-decoration-none mb-2">Student Portal</a>
+                        <a href="mailto:pcnasaascend@gmail.com" class="text-white text-decoration-none">Contact</a>
+                    </div>
                 </div>
             </div>
-            <hr class="my-4">
+            <hr class="my-4" style="border-color: var(--nasa-red);">
             <div class="row">
                 <div class="col-md-6">
-                    <p class="mb-0">&copy; 2025 Phoenix College NASA ASCEND Program. All rights reserved.</p>
+                    <p class="mb-0 text-white-50">&copy; 2025 Phoenix College NASA ASCEND Program. All rights reserved.</p>
                 </div>
                 <div class="col-md-6 text-md-end">
-                    <p class="mb-0">Built with ❤️ by the ASCEND Team</p>
+                    <p class="mb-0 text-white-50">Built with ❤️ by the ASCEND Team</p>
                 </div>
             </div>
         </div>
@@ -550,7 +763,6 @@
 
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.min.js"></script>
     
     <!-- Smooth scrolling -->
     <script>
@@ -585,6 +797,24 @@
                     link.classList.add('active');
                 }
             });
+        });
+
+        // Add animation classes on scroll
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('fade-in');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.nasa-card').forEach(card => {
+            observer.observe(card);
         });
     </script>
 </body>
