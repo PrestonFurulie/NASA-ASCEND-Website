@@ -545,6 +545,28 @@
             from { opacity: 0; transform: translateX(50px); }
             to { opacity: 1; transform: translateX(0); }
         }
+        
+        /* Mobile navigation scroll behavior */
+        @media (max-width: 768px) {
+            .nasa-nav {
+                position: fixed !important;
+                top: 0;
+                left: 0;
+                right: 0;
+                z-index: 1030;
+                transition: transform 0.3s ease-in-out;
+                will-change: transform;
+            }
+            
+            .nasa-nav.hidden {
+                transform: translateY(-100%);
+            }
+            
+            /* Add padding to body to account for fixed navbar */
+            body {
+                padding-top: 70px;
+            }
+        }
     </style>
 </head>
 <body>
@@ -988,6 +1010,55 @@
         document.querySelectorAll('.nasa-card').forEach(card => {
             observer.observe(card);
         });
+        
+        // Mobile navigation scroll behavior
+        function initializeMobileNavScroll() {
+            let lastScrollTop = 0;
+            const navbar = document.querySelector('.nasa-nav');
+            const threshold = 10; // Minimum scroll distance to trigger hide/show
+            let ticking = false;
+            
+            function updateNavbar() {
+                const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+                
+                // Only apply on mobile devices
+                if (window.innerWidth <= 768) {
+                    if (scrollTop > lastScrollTop && scrollTop > threshold) {
+                        // Scrolling down - hide navbar
+                        navbar.classList.add('hidden');
+                    } else if (scrollTop < lastScrollTop || scrollTop <= threshold) {
+                        // Scrolling up or at top - show navbar
+                        navbar.classList.remove('hidden');
+                    }
+                } else {
+                    // On desktop, always show navbar
+                    navbar.classList.remove('hidden');
+                }
+                
+                lastScrollTop = scrollTop;
+                ticking = false;
+            }
+            
+            function requestTick() {
+                if (!ticking) {
+                    requestAnimationFrame(updateNavbar);
+                    ticking = true;
+                }
+            }
+            
+            window.addEventListener('scroll', requestTick, { passive: true });
+            
+            // Handle window resize
+            window.addEventListener('resize', function() {
+                if (window.innerWidth > 768) {
+                    // On desktop, always show navbar
+                    navbar.classList.remove('hidden');
+                }
+            });
+        }
+        
+        // Initialize mobile navigation scroll behavior
+        initializeMobileNavScroll();
     </script>
 </body>
 </html>
