@@ -583,6 +583,9 @@
                     <a class="nav-link" href="#resources" onclick="showSection('resources')">
                         <i class="bi bi-folder"></i> Resources
                     </a>
+                    <a class="nav-link" href="https://drive.google.com/drive/folders/1wMJEczyzzUIv9Cpgv1OYHESlPpEa_-Tx?usp=drive_link" target="_blank">
+                        <i class="bi bi-google-drive"></i> Team Drive
+                    </a>
                     <a class="nav-link" href="#profile" onclick="showSection('profile')">
                         <i class="bi bi-person"></i> Profile
                     </a>
@@ -769,8 +772,37 @@
                     <div class="row g-4">
                         <div class="col-md-8">
                             <div class="nasa-card">
+                                <div class="card-header" style="background: rgba(11, 61, 145, 0.2); border-bottom: 1px solid rgba(255, 255, 255, 0.1);">
+                                    <h5 class="text-white mb-0"><i class="bi bi-google-drive"></i> Team Google Drive Access</h5>
+                                </div>
+                                <div class="card-body">
+                                    <div class="text-center mb-4">
+                                        <i class="bi bi-google-drive text-primary" style="font-size: 3rem;"></i>
+                                        <h5 class="text-white mt-3">NASA ASCEND Team Drive</h5>
+                                        <p class="text-white-50">Access shared files and upload mission data</p>
+                                    </div>
+                                    
+                                    <div class="d-grid gap-2 mb-4">
+                                        <a href="https://drive.google.com/drive/folders/1wMJEczyzzUIv9Cpgv1OYHESlPpEa_-Tx?usp=drive_link" 
+                                           target="_blank" 
+                                           class="btn nasa-btn btn-lg">
+                                            <i class="bi bi-box-arrow-up-right"></i> Open Google Drive
+                                        </a>
+                                        <button class="btn nasa-btn-outline" onclick="showUploadInstructions()">
+                                            <i class="bi bi-info-circle"></i> Upload Instructions
+                                        </button>
+                                    </div>
+                                    
+                                    <div class="alert alert-info" style="background: rgba(11, 61, 145, 0.2); border: 1px solid rgba(11, 61, 145, 0.3); color: var(--nasa-white);">
+                                        <i class="bi bi-lightbulb"></i>
+                                        <strong>Quick Access:</strong> Click the button above to open the team Google Drive folder where you can view shared files and upload your mission data.
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="nasa-card mt-4">
                                 <div class="card-header" style="background: rgba(252, 61, 33, 0.2); border-bottom: 1px solid rgba(255, 255, 255, 0.1);">
-                                    <h5 class="text-white mb-0">Upload Data Files</h5>
+                                    <h5 class="text-white mb-0">Local File Upload</h5>
                                 </div>
                                 <div class="card-body">
                                     <div class="data-upload-area" id="uploadArea">
@@ -1744,6 +1776,78 @@
                     }, 200);
                 }
             }
+        }
+        
+        // Google Drive upload instructions
+        function showUploadInstructions() {
+            const modal = document.createElement('div');
+            modal.className = 'modal fade';
+            modal.innerHTML = `
+                <div class="modal-dialog modal-lg">
+                    <div class="modal-content" style="background: var(--nasa-dark); border: 1px solid rgba(255, 255, 255, 0.1);">
+                        <div class="modal-header" style="border-bottom: 1px solid rgba(255, 255, 255, 0.1);">
+                            <h5 class="modal-title text-white">
+                                <i class="bi bi-google-drive text-primary"></i> Google Drive Upload Instructions
+                            </h5>
+                            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                        </div>
+                        <div class="modal-body text-white">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <h6 class="text-danger mb-3">📁 How to Upload Files:</h6>
+                                    <ol class="text-white-50">
+                                        <li>Click "Open Google Drive" button above</li>
+                                        <li>Sign in with your Maricopa email</li>
+                                        <li>Navigate to the NASA ASCEND folder</li>
+                                        <li>Click "New" → "File upload" or drag & drop</li>
+                                        <li>Select your mission data files</li>
+                                        <li>Files will be shared with the team</li>
+                                    </ol>
+                                </div>
+                                <div class="col-md-6">
+                                    <h6 class="text-primary mb-3">📋 File Organization:</h6>
+                                    <ul class="text-white-50">
+                                        <li><strong>Mission Data:</strong> CSV files from Arduino</li>
+                                        <li><strong>Documentation:</strong> Reports and notes</li>
+                                        <li><strong>Images:</strong> Photos from missions</li>
+                                        <li><strong>Videos:</strong> Mission recordings</li>
+                                    </ul>
+                                    
+                                    <h6 class="text-success mb-3">✅ Best Practices:</h6>
+                                    <ul class="text-white-50">
+                                        <li>Use descriptive filenames</li>
+                                        <li>Include mission date in filename</li>
+                                        <li>Organize by mission folders</li>
+                                        <li>Add brief descriptions</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            
+                            <div class="alert alert-info mt-3" style="background: rgba(11, 61, 145, 0.2); border: 1px solid rgba(11, 61, 145, 0.3);">
+                                <i class="bi bi-info-circle"></i>
+                                <strong>Need Help?</strong> Contact the team leads if you have trouble accessing or uploading files to the shared drive.
+                            </div>
+                        </div>
+                        <div class="modal-footer" style="border-top: 1px solid rgba(255, 255, 255, 0.1);">
+                            <button type="button" class="btn nasa-btn-outline" data-bs-dismiss="modal">Got It!</button>
+                            <a href="https://drive.google.com/drive/folders/1wMJEczyzzUIv9Cpgv1OYHESlPpEa_-Tx?usp=drive_link" 
+                               target="_blank" 
+                               class="btn nasa-btn">
+                                <i class="bi bi-box-arrow-up-right"></i> Open Drive Now
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            `;
+            
+            document.body.appendChild(modal);
+            const bsModal = new bootstrap.Modal(modal);
+            bsModal.show();
+            
+            // Clean up modal after it's hidden
+            modal.addEventListener('hidden.bs.modal', function() {
+                document.body.removeChild(modal);
+            });
         }
     </script>
 </body>
