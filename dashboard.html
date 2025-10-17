@@ -285,6 +285,31 @@
             background: rgba(252, 61, 33, 0.2) !important;
             color: var(--nasa-white) !important;
         }
+        
+        /* Top navigation styling */
+        .navbar .nav-link {
+            color: var(--nasa-white) !important;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            padding: 0.5rem 1rem;
+        }
+        
+        .navbar .nav-link:hover {
+            color: var(--nasa-red) !important;
+            background: rgba(252, 61, 33, 0.1);
+            border-radius: 5px;
+        }
+        
+        .navbar-brand {
+            color: var(--nasa-white) !important;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+        
+        .navbar-brand:hover {
+            color: var(--nasa-red) !important;
+            text-decoration: none;
+        }
 
         @media (max-width: 768px) {
             .sidebar {
@@ -475,7 +500,7 @@
         <!-- Navigation -->
         <nav class="navbar navbar-expand-lg nasa-header fixed-top">
             <div class="container">
-                <a class="navbar-brand nasa-logo" href="index.html">
+                <a class="navbar-brand nasa-logo" href="index.html" onclick="goToHome()" style="cursor: pointer;">
                     NASA <span class="ascend">ASCEND</span>
                 </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
@@ -484,10 +509,27 @@
                 <div class="collapse navbar-collapse" id="navbarNav">
                     <ul class="navbar-nav ms-auto">
                         <li class="nav-item">
-                            <a class="nav-link" href="index.html">Home</a>
+                            <a class="nav-link" href="index.html" onclick="goToHome()">
+                                <i class="bi bi-house"></i> Home
+                            </a>
                         </li>
                         <li class="nav-item">
-                            <span class="nav-link" id="userEmail"></span>
+                            <a class="nav-link" href="#arduino" onclick="goToArduino()">
+                                <i class="bi bi-code-slash"></i> Arduino Code
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#videos" onclick="goToVideos()">
+                                <i class="bi bi-play-circle"></i> Videos
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#application" onclick="goToApplication()">
+                                <i class="bi bi-pencil-square"></i> Apply
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <span class="nav-link text-white-50" id="userEmail"></span>
                         </li>
                         <li class="nav-item">
                             <button class="nav-link btn nasa-btn-outline" onclick="logout()">
@@ -1347,6 +1389,23 @@
             const sizes = ['Bytes', 'KB', 'MB', 'GB'];
             const i = Math.floor(Math.log(bytes) / Math.log(k));
             return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
+        }
+        
+        // Navigation functions for top bar
+        function goToHome() {
+            window.location.href = 'index.html';
+        }
+        
+        function goToArduino() {
+            window.location.href = 'index.html#arduino';
+        }
+        
+        function goToVideos() {
+            window.location.href = 'index.html#videos';
+        }
+        
+        function goToApplication() {
+            window.location.href = 'index.html#application';
         }
 
         function initializeCharts() {
