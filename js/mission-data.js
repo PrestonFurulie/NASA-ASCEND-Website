@@ -420,3 +420,4 @@ class MissionDataManager {
 // Initialize global data manager
 window.missionDataManager = new MissionDataManager();
 
+
