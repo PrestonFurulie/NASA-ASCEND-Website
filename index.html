@@ -126,15 +126,15 @@
         .hero-section::before {
             content: '';
             position: absolute;
-            top: 20%;
-            right: 5%;
-            width: 250px;
-            height: 250px;
+            top: 10%;
+            right: 2%;
+            width: 200px;
+            height: 200px;
             background-image: url('images/pc-nasa-ascend-logo.png');
             background-size: contain;
             background-repeat: no-repeat;
             background-position: center;
-            opacity: 0.06;
+            opacity: 0.05;
             z-index: 1;
         }
 
@@ -154,13 +154,23 @@
         }
 
         /* Responsive adjustments for background logos */
-        @media (max-width: 768px) {
+        @media (max-width: 992px) {
             .hero-section::before {
                 width: 150px;
                 height: 150px;
-                top: 15%;
-                right: 3%;
-                opacity: 0.04;
+                top: 8%;
+                right: 1%;
+                opacity: 0.03;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .hero-section::before {
+                width: 120px;
+                height: 120px;
+                top: 5%;
+                right: 1%;
+                opacity: 0.02;
             }
             
             #past-teams::before {
@@ -1108,7 +1118,6 @@
                 <div class="col-md-6 text-md-end">
                     <h6 class="text-white">Quick Links</h6>
                     <div class="d-flex flex-column">
-                        <a href="#arduino" class="text-white text-decoration-none mb-2">Arduino Code</a>
                         <a href="#videos" class="text-white text-decoration-none mb-2">Videos</a>
                         <a href="#application" class="text-white text-decoration-none mb-2">Apply</a>
                         <a href="dashboard.html" class="text-white text-decoration-none mb-2">Student Portal</a>
