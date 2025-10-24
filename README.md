@@ -69,8 +69,8 @@ NASA-ASCEND-Website/
 ## 🎯 Demo Access
 
 ### Student Dashboard
-- **Email**: student@phoenixcollege.edu
-- **Password**: student123
+- **Email**: abc123456789@maricopa.edu
+- **Password**: HIDDEN
 
 ### Features Available
 - Mission management and tracking
@@ -99,10 +99,15 @@ The system collects comprehensive data from high-altitude balloon missions:
 
 ## 👥 Team Members
 
-- **Preston Furulie**: Project Lead, Arduino Development, Hardware Integration
-- **Angela Trainor**: Software Engineer, Data Analysis, Visualization
-- **Marquis Muza**: Hardware Engineer, Sensor Integration, PCB Design
-- **Ethan Pierson**: Data Scientist, Mission Analysis, Statistics
+- **Preston**
+- **Jose**
+- **Emma**
+- **Loukas**
+- **Garret**
+- **Adam**
+- **Nate**
+- **Dr. Ong*
+
 
 ## 📈 Mission Statistics
 
@@ -129,5 +134,6 @@ This project is part of the Phoenix College NASA ASCEND program. For questions o
 ---
 
 **Built with ❤️ by the Phoenix College NASA ASCEND Team**
+
 
 
