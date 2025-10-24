@@ -1055,7 +1055,7 @@
             const email = document.getElementById('email').value;
             const password = document.getElementById('password').value;
             
-            // Accept any email with @maricopa.edu domain and exact password "PCNasa!"
+            // Accept any email with @maricopa.edu domain and group password
             const emailPattern = /^[a-zA-Z0-9._%+-]+@maricopa\.edu$/;
             
             if (emailPattern.test(email) && password === "PCNasa!") {
@@ -1064,7 +1064,7 @@
                 document.getElementById('userEmail').textContent = email;
                 initializeDashboard();
             } else {
-                alert('Please use your Maricopa email address (@maricopa.edu) and the password "PCNasa!".');
+                alert('Please use your Maricopa email address (@maricopa.edu) and the password.');
             }
         });
 
