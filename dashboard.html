@@ -1049,31 +1049,80 @@
     <script src="js/mission-data.js"></script>
     
     <script>
+        const GROUP_PASSWORD = 'PCNasa!';
+        let dashboardInitialized = false;
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const storedAuth = sessionStorage.getItem('nasaAscendAuth') === 'true';
+            const storedUser = sessionStorage.getItem('nasaAscendUser');
+            if (storedAuth && storedUser) {
+                showDashboard(storedUser);
+            } else {
+                const loginModal = document.getElementById('loginModal');
+                const dashboard = document.getElementById('dashboard');
+                if (loginModal) {
+                    loginModal.style.display = 'block';
+                }
+                if (dashboard) {
+                    dashboard.style.display = 'none';
+                }
+            }
+        });
+
         // Login functionality
-        document.getElementById('loginForm').addEventListener('submit', function(e) {
+        const loginForm = document.getElementById('loginForm');
+        if (loginForm) {
+            loginForm.addEventListener('submit', function(e) {
             e.preventDefault();
-            const email = document.getElementById('email').value;
+            const emailInput = document.getElementById('email');
+            const passwordInput = document.getElementById('password');
+
+            if (!emailInput || !passwordInput) {
+                return;
+            }
+
+            const email = emailInput.value.trim().toLowerCase();
             const password = document.getElementById('password').value;
             
             // Accept any email with @maricopa.edu domain and group password
             const emailPattern = /^[a-zA-Z0-9._%+-]+@maricopa\.edu$/;
             
-            if (emailPattern.test(email) && password === "PCNasa!") {
-                document.getElementById('loginModal').style.display = 'none';
-                document.getElementById('dashboard').style.display = 'block';
-                document.getElementById('userEmail').textContent = email;
-                initializeDashboard();
+            if (emailPattern.test(email) && password === GROUP_PASSWORD) {
+                sessionStorage.setItem('nasaAscendUser', email);
+                sessionStorage.setItem('nasaAscendAuth', 'true');
+                showDashboard(email);
             } else {
                 alert('Please use your Maricopa email address (@maricopa.edu) and the password.');
             }
-        });
+            });
+        }
+
+        function showDashboard(email) {
+            const loginModal = document.getElementById('loginModal');
+            const dashboard = document.getElementById('dashboard');
+            const userEmailElement = document.getElementById('userEmail');
+
+            if (loginModal) {
+                loginModal.style.display = 'none';
+            }
+
+            if (dashboard) {
+                dashboard.style.display = 'block';
+            }
+
+            if (userEmailElement) {
+                userEmailElement.textContent = email;
+            }
+
+            if (!dashboardInitialized) {
+                initializeDashboard();
+            }
+        }
 
         function logout() {
-            // Clear any stored data
-            localStorage.removeItem('nasa-ascend-data');
-            
-            // Redirect to home page
-            window.location.href = 'index.html';
+            sessionStorage.removeItem('nasaAscendUser');
+            sessionStorage.removeItem('nasaAscendAuth');
+            window.location.href = 'login.html';
         }
 
         function showSection(sectionName) {
@@ -1095,6 +1144,12 @@
         }
 
         function initializeDashboard() {
+            if (dashboardInitialized) {
+                return;
+            }
+
+            dashboardInitialized = true;
+
             // Initialize charts
             initializeCharts();
             
