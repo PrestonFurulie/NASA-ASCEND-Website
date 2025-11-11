@@ -197,6 +197,31 @@
             background: linear-gradient(90deg, var(--nasa-red), var(--nasa-blue), var(--nasa-red));
         }
 
+        .dashboard-video {
+            position: relative;
+            width: 100%;
+            padding-bottom: 56.25%;
+            border-radius: 12px;
+            overflow: hidden;
+            border: 2px solid rgba(255, 255, 255, 0.15);
+            background: #000;
+        }
+
+        .dashboard-video iframe,
+        .dashboard-video video {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
+            object-fit: cover;
+        }
+
+        .dashboard-video video {
+            background: #000;
+        }
+
         .data-upload-area {
             border: 2px dashed rgba(255, 255, 255, 0.3);
             border-radius: 10px;
@@ -676,6 +701,43 @@
                                             </div>
                                         </div>
                                     </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row g-4 mt-2">
+                        <div class="col-md-6">
+                            <div class="nasa-card">
+                                <div class="card-header" style="background: rgba(11, 61, 145, 0.2); border-bottom: 1px solid rgba(255, 255, 255, 0.1);">
+                                    <h5 class="text-white mb-0"><i class="bi bi-camera-video text-danger"></i> Mission Footage – Field Team Cut</h5>
+                                </div>
+                                <div class="card-body">
+                                    <div class="dashboard-video">
+                                        <video autoplay muted loop playsinline controlslist="nodownload noplaybackrate" disablepictureinpicture>
+                                            <source src="https://drive.google.com/uc?export=download&id=1WgyyB7uIqssObClnxc7_MmzVhOKOLBOe" type="video/mp4">
+                                            Your browser does not support embedded mission footage. <a href="https://drive.google.com/file/d/1WgyyB7uIqssObClnxc7_MmzVhOKOLBOe/view?t=51" target="_blank" rel="noopener">Open the video</a>.
+                                        </video>
+                                    </div>
+                                    <p class="text-white-50 small mt-3 mb-0">Automatically plays muted for quick status review. Unmute after download if you need full audio from the recovery crew.</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="nasa-card">
+                                <div class="card-header" style="background: rgba(252, 61, 33, 0.2); border-bottom: 1px solid rgba(255, 255, 255, 0.1);">
+                                    <h5 class="text-white mb-0"><i class="bi bi-youtube text-danger"></i> Launch Highlight – YouTube</h5>
+                                </div>
+                                <div class="card-body">
+                                    <div class="dashboard-video">
+                                        <iframe 
+                                            src="https://www.youtube.com/embed/e0H5dvRLPfE?autoplay=1&mute=1&controls=0&loop=1&playlist=e0H5dvRLPfE" 
+                                            title="NASA ASCEND Launch Highlight" 
+                                            allow="autoplay; encrypted-media; picture-in-picture" 
+                                            allowfullscreen>
+                                        </iframe>
+                                    </div>
+                                    <p class="text-white-50 small mt-3 mb-0">Looping launch highlight from our public channel for quick briefings without disrupting operations.</p>
                                 </div>
                             </div>
                         </div>
