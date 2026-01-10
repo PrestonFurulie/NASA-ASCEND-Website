@@ -1,0 +1,28 @@
+{
+  "name": "nasa-ascend-website",
+  "version": "1.0.0",
+  "description": "NASA ASCEND - Phoenix College High-Altitude Ballooning Program Website",
+  "main": "index.html",
+  "scripts": {
+    "start": "npx http-server -p 8000 -o",
+    "dev": "npx http-server -p 8000 -o",
+    "deploy:netlify": "netlify deploy --prod",
+    "deploy:vercel": "vercel --prod"
+  },
+  "keywords": [
+    "nasa",
+    "ascend",
+    "phoenix-college",
+    "high-altitude-ballooning",
+    "space-grant",
+    "arizona"
+  ],
+  "author": "Phoenix College NASA ASCEND Program",
+  "license": "UNLICENSED",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/yourusername/nasa-ascend-website.git"
+  },
+  "devDependencies": {},
+  "dependencies": {}
+}
