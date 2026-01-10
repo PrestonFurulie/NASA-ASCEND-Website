@@ -772,6 +772,173 @@ section {
     gap: 20px;
 }
 
+/* Program History Section */
+.program-history {
+    margin: 4rem 0;
+    padding: 2.5rem;
+    background: rgba(11, 61, 145, 0.15);
+    border-radius: 15px;
+    border: 1px solid rgba(11, 61, 145, 0.3);
+}
+
+.program-history h3 {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 2rem;
+    color: var(--text-white);
+    margin-bottom: 2rem;
+    text-align: center;
+    text-transform: uppercase;
+}
+
+.history-timeline {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+.history-item {
+    display: flex;
+    gap: 2rem;
+    align-items: flex-start;
+    padding: 1.5rem;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 10px;
+    border-left: 4px solid var(--nasa-red);
+    transition: all 0.3s ease;
+}
+
+.history-item:hover {
+    transform: translateX(10px);
+    background: rgba(255, 255, 255, 0.08);
+    border-left-color: var(--accent-gold);
+}
+
+.history-year {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: var(--accent-gold);
+    min-width: 120px;
+    text-align: center;
+    padding: 0.5rem;
+    background: rgba(252, 61, 33, 0.2);
+    border-radius: 5px;
+}
+
+.history-content {
+    flex: 1;
+}
+
+.history-content h4 {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 1.3rem;
+    color: var(--text-white);
+    margin-bottom: 0.5rem;
+}
+
+.history-content p {
+    color: var(--text-gray);
+    line-height: 1.7;
+}
+
+/* Curriculum Section */
+.curriculum-section {
+    margin: 4rem 0;
+    padding: 2.5rem;
+    background: rgba(255, 255, 255, 0.03);
+    border-radius: 15px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.curriculum-section h3 {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 2rem;
+    color: var(--text-white);
+    margin-bottom: 1rem;
+    text-align: center;
+    text-transform: uppercase;
+}
+
+.curriculum-intro {
+    text-align: center;
+    color: var(--text-gray);
+    margin-bottom: 2rem;
+    font-size: 1.1rem;
+    line-height: 1.7;
+}
+
+.curriculum-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+    margin-top: 2rem;
+}
+
+.curriculum-card {
+    background: rgba(11, 61, 145, 0.2);
+    padding: 2rem;
+    border-radius: 10px;
+    border: 1px solid rgba(11, 61, 145, 0.4);
+    transition: all 0.3s ease;
+}
+
+.curriculum-card:hover {
+    transform: translateY(-5px);
+    border-color: var(--nasa-red);
+    box-shadow: 0 10px 30px rgba(252, 61, 33, 0.2);
+}
+
+.curriculum-card h4 {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 1.3rem;
+    color: var(--accent-gold);
+    margin-bottom: 1rem;
+    text-transform: uppercase;
+}
+
+.curriculum-card ul {
+    list-style: none;
+    padding: 0;
+}
+
+.curriculum-card li {
+    color: var(--text-gray);
+    padding: 0.5rem 0;
+    padding-left: 1.5rem;
+    position: relative;
+    line-height: 1.6;
+}
+
+.curriculum-card li::before {
+    content: '▸';
+    position: absolute;
+    left: 0;
+    color: var(--nasa-red);
+    font-weight: bold;
+}
+
+/* Publication Journals */
+.publication-journals {
+    margin-top: 2rem;
+    padding: 1.5rem;
+    background: rgba(11, 61, 145, 0.15);
+    border-radius: 10px;
+    border: 1px solid rgba(11, 61, 145, 0.3);
+}
+
+.publication-journals h4 {
+    font-family: 'Orbitron', sans-serif;
+    color: var(--text-white);
+    margin-bottom: 0.5rem;
+    font-size: 1.1rem;
+}
+
+.publication-journals p {
+    color: var(--text-gray);
+    line-height: 1.7;
+    font-size: 0.95rem;
+}
+
 .pillar-item {
     display: flex;
     align-items: flex-start;
