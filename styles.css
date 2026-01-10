@@ -532,6 +532,47 @@ section {
     font-weight: bold;
 }
 
+.mission-scientific-data {
+    background: rgba(252, 61, 33, 0.1);
+    padding: 1.5rem;
+    border-radius: 8px;
+    margin: 1.5rem 0;
+    border-left: 3px solid var(--nasa-red);
+}
+
+.mission-scientific-data strong {
+    color: var(--accent-gold);
+    font-family: 'Orbitron', sans-serif;
+    font-size: 1rem;
+    display: block;
+    margin-bottom: 1rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.mission-scientific-data ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.mission-scientific-data li {
+    color: var(--text-gray);
+    padding: 8px 0;
+    padding-left: 25px;
+    position: relative;
+    line-height: 1.6;
+}
+
+.mission-scientific-data li::before {
+    content: '•';
+    position: absolute;
+    left: 0;
+    color: var(--accent-gold);
+    font-size: 1.5rem;
+    line-height: 0.8;
+}
+
 .mission-team {
     color: var(--text-light-gray);
     font-size: 0.95rem;
@@ -596,6 +637,97 @@ section {
     color: var(--nasa-red);
     font-size: 1.5rem;
     line-height: 1;
+}
+
+.timeline-item li strong {
+    color: var(--accent-gold);
+    font-weight: 600;
+}
+
+/* Atmospheric Layers */
+.atmospheric-layers {
+    background: rgba(255, 255, 255, 0.05);
+    padding: 2.5rem;
+    border-radius: 15px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    margin-top: 3rem;
+}
+
+.atmospheric-layers h3 {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 1.8rem;
+    color: var(--text-white);
+    margin-bottom: 1rem;
+}
+
+.atmospheric-layers > p {
+    color: var(--text-gray);
+    margin-bottom: 2rem;
+    line-height: 1.8;
+}
+
+.layers-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 25px;
+}
+
+.layer-card {
+    background: rgba(11, 61, 145, 0.2);
+    padding: 2rem;
+    border-radius: 10px;
+    border-left: 3px solid var(--nasa-blue);
+    transition: all 0.3s ease;
+}
+
+.layer-card.troposphere {
+    border-left-color: #4CAF50;
+}
+
+.layer-card.tropopause {
+    border-left-color: #FFC107;
+}
+
+.layer-card.stratosphere {
+    border-left-color: #2196F3;
+}
+
+.layer-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 5px 20px rgba(11, 61, 145, 0.3);
+}
+
+.layer-card h4 {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 1.3rem;
+    color: var(--accent-gold);
+    margin-bottom: 1rem;
+}
+
+.layer-card ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.layer-card li {
+    color: var(--text-gray);
+    padding: 8px 0;
+    padding-left: 25px;
+    position: relative;
+    line-height: 1.6;
+}
+
+.layer-card li::before {
+    content: '▸';
+    position: absolute;
+    left: 0;
+    color: var(--nasa-red);
+    font-weight: bold;
+}
+
+.layer-card li strong {
+    color: var(--text-white);
 }
 
 /* Telemetry & Data Section */
@@ -1878,6 +2010,60 @@ section {
 .email-link:hover {
     color: var(--text-white);
     text-decoration: underline;
+}
+
+/* Mission Statistics Overview */
+.mission-stats-overview {
+    background: rgba(255, 255, 255, 0.05);
+    padding: 3rem;
+    border-radius: 15px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    margin-bottom: 3rem;
+}
+
+.overview-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 25px;
+}
+
+.overview-card {
+    background: rgba(11, 61, 145, 0.2);
+    padding: 2rem;
+    border-radius: 10px;
+    text-align: center;
+    border-left: 3px solid var(--nasa-blue);
+    transition: all 0.3s ease;
+}
+
+.overview-card:hover {
+    transform: translateY(-5px);
+    border-left-color: var(--nasa-red);
+    box-shadow: 0 5px 20px rgba(252, 61, 33, 0.2);
+}
+
+.overview-card h3 {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 1rem;
+    color: var(--accent-gold);
+    margin-bottom: 1rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.overview-number {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 2.5rem;
+    font-weight: 900;
+    color: var(--text-white);
+    margin-bottom: 0.5rem;
+    line-height: 1;
+}
+
+.overview-card p {
+    color: var(--text-light-gray);
+    font-size: 0.9rem;
+    margin: 0;
 }
 
 /* FAQ Section */
