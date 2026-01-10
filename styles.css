@@ -1967,9 +1967,278 @@ section {
     margin: 0;
 }
 
+/* Partnerships & Sponsors Section */
+.partners {
+    background: var(--space-dark);
+    padding: 100px 0;
+}
+
+.partners-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+    margin-bottom: 3rem;
+}
+
+.partner-card {
+    background: rgba(255, 255, 255, 0.05);
+    padding: 2.5rem;
+    border-radius: 10px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    transition: all 0.3s ease;
+    text-align: center;
+}
+
+.partner-card.primary {
+    border-color: var(--nasa-red);
+    background: rgba(252, 61, 33, 0.1);
+    box-shadow: 0 0 30px rgba(252, 61, 33, 0.2);
+}
+
+.partner-card:hover {
+    transform: translateY(-5px);
+    border-color: var(--nasa-blue);
+    box-shadow: 0 10px 30px rgba(11, 61, 145, 0.3);
+}
+
+.partner-logo {
+    font-size: 4rem;
+    margin-bottom: 1rem;
+}
+
+.partner-card h3 {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 1.4rem;
+    color: var(--text-white);
+    margin-bottom: 0.5rem;
+}
+
+.partner-role {
+    color: var(--nasa-red);
+    font-weight: 600;
+    margin-bottom: 1rem;
+    font-size: 0.95rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.partner-card > p {
+    color: var(--text-gray);
+    line-height: 1.7;
+    margin-bottom: 1.5rem;
+    text-align: left;
+}
+
+.partner-contributions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: center;
+    padding-top: 1rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.partner-contributions span {
+    padding: 5px 12px;
+    background: rgba(11, 61, 145, 0.3);
+    color: var(--text-gray);
+    border-radius: 15px;
+    font-size: 0.85rem;
+    border: 1px solid rgba(11, 61, 145, 0.5);
+}
+
+.sponsors-section {
+    background: rgba(255, 255, 255, 0.05);
+    padding: 2.5rem;
+    border-radius: 15px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    margin-top: 3rem;
+}
+
+.sponsors-section h3 {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 1.8rem;
+    color: var(--text-white);
+    margin-bottom: 2rem;
+    text-align: center;
+}
+
+.sponsors-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+}
+
+.sponsor-item {
+    background: rgba(11, 61, 145, 0.2);
+    padding: 1.5rem;
+    border-radius: 8px;
+    border-left: 3px solid var(--nasa-blue);
+    color: var(--text-gray);
+    line-height: 1.6;
+}
+
+.sponsor-item strong {
+    color: var(--accent-gold);
+    display: block;
+    margin-bottom: 0.5rem;
+    font-family: 'Orbitron', sans-serif;
+}
+
+/* Mission Timeline History Section */
+.timeline-history {
+    background: var(--space-light);
+    padding: 100px 0;
+}
+
+.timeline-container {
+    position: relative;
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 2rem 0;
+}
+
+.timeline-container::before {
+    content: '';
+    position: absolute;
+    left: 50%;
+    top: 0;
+    bottom: 0;
+    width: 3px;
+    background: linear-gradient(180deg, var(--nasa-red) 0%, var(--nasa-blue) 100%);
+    transform: translateX(-50%);
+}
+
+.timeline-item {
+    position: relative;
+    margin-bottom: 3rem;
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+}
+
+.timeline-item:nth-child(odd) {
+    flex-direction: row;
+}
+
+.timeline-item:nth-child(even) {
+    flex-direction: row-reverse;
+}
+
+.timeline-date {
+    flex: 0 0 150px;
+    text-align: center;
+    font-family: 'Orbitron', sans-serif;
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: var(--accent-gold);
+    background: var(--space-dark);
+    padding: 1rem;
+    border-radius: 10px;
+    border: 2px solid var(--nasa-red);
+    position: relative;
+    z-index: 2;
+}
+
+.timeline-content {
+    flex: 1;
+    background: rgba(255, 255, 255, 0.05);
+    padding: 2rem;
+    border-radius: 10px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    transition: all 0.3s ease;
+}
+
+.timeline-content:hover {
+    transform: translateY(-3px);
+    border-color: var(--nasa-blue);
+    box-shadow: 0 5px 20px rgba(11, 61, 145, 0.2);
+}
+
+.timeline-content h3 {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 1.5rem;
+    color: var(--text-white);
+    margin-bottom: 1rem;
+}
+
+.timeline-content p {
+    color: var(--text-gray);
+    margin-bottom: 0.5rem;
+    line-height: 1.6;
+}
+
+.timeline-content strong {
+    color: var(--accent-gold);
+}
+
 /* Contact Section */
 .contact {
-    background: var(--space-light);
+    background: var(--space-dark);
+}
+
+.contact-details {
+    margin: 1.5rem 0;
+    padding: 1.5rem;
+    background: rgba(11, 61, 145, 0.2);
+    border-radius: 8px;
+    border-left: 3px solid var(--nasa-blue);
+}
+
+.contact-details p {
+    color: var(--text-gray);
+    margin-bottom: 0.8rem;
+    line-height: 1.6;
+}
+
+.contact-details a {
+    color: var(--nasa-red);
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.contact-details a:hover {
+    color: var(--accent-gold);
+}
+
+.contact-content {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 40px;
+    margin-top: 3rem;
+}
+
+.social-links {
+    text-align: center;
+}
+
+.social-links h3 {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+    color: var(--text-white);
+}
+
+.social-links p {
+    color: var(--text-gray);
+    margin-bottom: 1.5rem;
+}
+
+.social-icons {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+}
+
+.social-icon {
+    font-size: 2.5rem;
+    text-decoration: none;
+    transition: transform 0.3s ease;
+    display: inline-block;
+}
+
+.social-icon:hover {
+    transform: scale(1.2) rotate(5deg);
 }
 
 .contact-content {
