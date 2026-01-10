@@ -394,31 +394,85 @@
                     </div>
                     <div class="timeline-item">
                         <div class="timeline-phase">Launch & Recovery (T-0 to T+6 hrs)</div>
-                        <ul>
-                            <li><strong>T-60 min:</strong> Arrive at launch site, set up ground station, initialize GPS tracking</li>
-                            <li><strong>T-45 min:</strong> Final payload checks, battery voltage verification, sensor initialization</li>
-                            <li><strong>T-30 min:</strong> Balloon inflation begins, helium fill rate monitoring, payload attachment</li>
-                            <li><strong>T-15 min:</strong> Final systems check, telemetry link verification, recovery team positioning</li>
-                            <li><strong>T-5 min:</strong> Launch authorization, final countdown, weather clearance</li>
-                            <li><strong>T-0:</strong> Launch! Balloon release, initial tracking, ascent phase begins</li>
-                            <li><strong>T+0-90 min:</strong> Ascent phase - payload climbs at ~5 m/s to burst altitude</li>
-                            <li><strong>T+90-120 min:</strong> Stratospheric data collection at peak altitude (26-29 km)</li>
-                            <li><strong>T+120-180 min:</strong> Balloon burst, descent phase begins with parachute deployment</li>
-                            <li><strong>T+180-240 min:</strong> Descent tracking, recovery team navigation using GPS coordinates</li>
-                            <li><strong>T+240-360 min:</strong> Payload recovery, physical inspection, data retrieval, team debrief</li>
-                        </ul>
+                        <div class="nasa-process-timeline">
+                            <div class="process-step highlight">
+                                <span class="process-code">T-60 min</span>
+                                <strong>Arrive at Launch Site</strong> - Ground station setup, GPS tracking initialization, weather assessment (GO/NO-GO decision point #1)
+                            </div>
+                            <div class="process-step">
+                                <span class="process-code">T-45 min</span>
+                                <strong>Final Payload Checks</strong> - Battery voltage verification (11.1V nominal), sensor initialization, telemetry link test (915 MHz LoRa)
+                            </div>
+                            <div class="process-step">
+                                <span class="process-code">T-30 min</span>
+                                <strong>Balloon Inflation</strong> - Helium fill begins (target: 2.8 kg lift), fill rate monitoring (0.5 kg/min), payload attachment to balloon system
+                            </div>
+                            <div class="process-step">
+                                <span class="process-code">T-15 min</span>
+                                <strong>Final Systems Check</strong> - Telemetry link verification (packet success rate > 95%), GPS lock confirmed (dual GPS), recovery team positioning
+                            </div>
+                            <div class="process-step highlight">
+                                <span class="process-code">T-5 min</span>
+                                <strong>Launch Authorization</strong> - Final countdown, weather clearance (wind < 10 knots, visibility > 5 miles), team briefing complete, GO/NO-GO decision #2
+                            </div>
+                            <div class="process-step highlight">
+                                <span class="process-code">T-0 LAUNCH</span>
+                                <strong>LIFTOFF!</strong> - Balloon release, initial tracking confirmed, ascent phase begins (nominal rate: 5 m/s), Mission Control monitoring active
+                            </div>
+                            <div class="process-step">
+                                <span class="process-code">T+0 to T+90 min</span>
+                                <strong>Ascent Phase</strong> - Payload climbs at ~5 m/s to burst altitude, continuous data collection (1 Hz), real-time telemetry transmission, GPS tracking (1 min cadence)
+                            </div>
+                            <div class="process-step">
+                                <span class="process-code">T+90 to T+120 min</span>
+                                <strong>Stratospheric Data Collection</strong> - Peak altitude achieved (26-29 km), maximum data collection period, temperature inversion documented, ozone layer measurements
+                            </div>
+                            <div class="process-step">
+                                <span class="process-code">T+120 to T+180 min</span>
+                                <strong>Descent Phase</strong> - Balloon burst (altitude-dependent), parachute deployment confirmed, descent tracking begins (rate: ~10 m/s), recovery team navigation
+                            </div>
+                            <div class="process-step">
+                                <span class="process-code">T+180 to T+240 min</span>
+                                <strong>Recovery Operations</strong> - Descent tracking via GPS coordinates, recovery team navigation using coordinates, amateur radio network coordination, landing site prediction
+                            </div>
+                            <div class="process-step highlight">
+                                <span class="process-code">T+240 to T+360 min</span>
+                                <strong>Payload Recovery</strong> - Physical inspection, data retrieval from SD cards (32GB), team debrief, mission success confirmed, 100% recovery rate maintained
+                            </div>
+                        </div>
                     </div>
                     <div class="timeline-item">
                         <div class="timeline-phase">Post-Flight (T+48 hrs to T+8 weeks)</div>
-                        <ul>
-                            <li><strong>T+48 hrs:</strong> Data extraction from SD cards, telemetry log parsing, initial data review</li>
-                            <li><strong>T+1 week:</strong> Data ingest into ASCEND analysis pipeline (Python, MATLAB), quality control checks</li>
-                            <li><strong>T+2 weeks:</strong> Data analysis, visualization creation, sensor calibration validation</li>
-                            <li><strong>T+3-4 weeks:</strong> Team briefing with NASA mentors, preliminary findings review, peer review preparation</li>
-                            <li><strong>T+5-6 weeks:</strong> Scientific paper writing, data interpretation, results discussion</li>
-                            <li><strong>T+7-8 weeks:</strong> Publication submission, symposium poster creation, presentation preparation</li>
-                            <li><strong>Ongoing:</strong> Mission data archive, contribution to ASCEND historical database, future mission planning</li>
-                        </ul>
+                        <div class="nasa-process-timeline">
+                            <div class="process-step">
+                                <span class="process-code">T+48 hrs</span>
+                                <strong>Data Extraction</strong> - SD card data retrieval, telemetry log parsing, initial data review, quality control checks
+                            </div>
+                            <div class="process-step">
+                                <span class="process-code">T+1 week</span>
+                                <strong>Data Ingest</strong> - ASCEND analysis pipeline (Python, MATLAB), quality control checks, sensor calibration validation, NOAA comparison data integration
+                            </div>
+                            <div class="process-step">
+                                <span class="process-code">T+2 weeks</span>
+                                <strong>Data Analysis</strong> - Visualization creation, statistical analysis, NOAA comparison (correlation analysis), scientific interpretation, temperature/pressure/humidity profiles
+                            </div>
+                            <div class="process-step">
+                                <span class="process-code">T+3 to T+4 weeks</span>
+                                <strong>NASA Mentor Briefing</strong> - Team briefing with NASA mentors (Dr. Eddie Ong, Ernest Villicaña), preliminary findings review, peer review preparation, AZ Space Grant debrief
+                            </div>
+                            <div class="process-step">
+                                <span class="process-code">T+5 to T+6 weeks</span>
+                                <strong>Scientific Paper Writing</strong> - Data interpretation, results discussion, methodology documentation, NASA format compliance, peer review process
+                            </div>
+                            <div class="process-step">
+                                <span class="process-code">T+7 to T+8 weeks</span>
+                                <strong>Publication & Presentation</strong> - Publication submission, symposium poster creation, Arizona Space Grant presentation preparation, NASA symposium participation
+                            </div>
+                            <div class="process-step">
+                                <span class="process-code">Ongoing</span>
+                                <strong>Mission Archive</strong> - Mission data archive (ASCEND historical database), contribution to NASA Space Grant research, future mission planning, continuous improvement
+                            </div>
+                        </div>
                     </div>
                 </div>
                 
