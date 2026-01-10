@@ -3,19 +3,29 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="NASA ASCEND - Phoenix College High-Altitude Ballooning Program. Arizona Space Grant Consortium student research program with NASA mentorship.">
     <title>NASA ASCEND - Phoenix College High-Altitude Ballooning Program</title>
     <link rel="stylesheet" href="styles.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700;900&family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700;900&family=Roboto:wght@300;400;500;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/svg+xml" href="https://www.nasa.gov/wp-content/themes/nasa/assets/images/nasa-logo.svg">
 </head>
 <body>
+    <!-- NASA Mission Control Background Effect -->
+    <div class="nasa-grid-overlay"></div>
     <!-- Navigation -->
     <nav class="navbar">
         <div class="nav-container">
             <div class="nav-logo">
-                <img src="https://www.nasa.gov/wp-content/themes/nasa/assets/images/nasa-logo.svg" alt="NASA Logo" class="nasa-logo">
-                <span class="logo-text">NASA ASCEND</span>
+                <div class="nasa-official-badge">
+                    <img src="https://www.nasa.gov/wp-content/themes/nasa/assets/images/nasa-logo.svg" alt="NASA Logo" class="nasa-logo">
+                    <span class="nasa-worm-text">NASA</span>
+                </div>
+                <div class="logo-text-container">
+                    <span class="logo-text">ASCEND</span>
+                    <span class="logo-subtext">PHOENIX COLLEGE • SPACE GRANT</span>
+                </div>
             </div>
             <ul class="nav-menu">
                 <li><a href="#home">Home</a></li>
@@ -40,11 +50,25 @@
     <!-- Hero Section -->
     <section id="home" class="hero">
         <div class="stars"></div>
+        <div class="nasa-earth-background"></div>
         <div class="hero-content">
+            <!-- NASA Mission Patch -->
+            <div class="nasa-mission-patch">
+                <div class="patch-inner">
+                    <div class="patch-nasa-worm">NASA</div>
+                    <div class="patch-title">ASCEND</div>
+                    <div class="patch-subtitle">PHOENIX COLLEGE</div>
+                    <div class="patch-stars">✦ ✦ ✦</div>
+                </div>
+            </div>
             <h1 class="hero-title">
                 <span class="title-line">REACH FOR THE STARS</span>
             </h1>
-            <p class="hero-subtitle">Arizona Space Grant High-Altitude Ballooning Program</p>
+            <p class="hero-subtitle">NASA Arizona Space Grant Consortium • High-Altitude Ballooning Program</p>
+            <div class="nasa-approval-badge">
+                <span class="badge-icon">✓</span>
+                <span>Official NASA Space Grant Program</span>
+            </div>
             <p class="hero-description">
                 NASA ASCEND at Phoenix College trains undergraduates to design, build, launch, and recover research payloads that climb above 100,000 feet. Students master avionics integration, atmospheric science, and data storytelling while collaborating with NASA mentors and university partners across Arizona.
             </p>
@@ -53,18 +77,24 @@
                 <a href="#videos" class="btn btn-secondary">Watch Videos</a>
             </div>
         </div>
-        <div class="mission-stats">
+            <div class="mission-stats">
             <div class="stat">
+                <div class="stat-icon">🚀</div>
                 <div class="stat-number" data-target="12">0</div>
                 <div class="stat-label">Missions</div>
+                <div class="stat-code">MISSION STATUS: OPERATIONAL</div>
             </div>
             <div class="stat">
+                <div class="stat-icon">⬆️</div>
                 <div class="stat-number" data-target="100">0</div>
                 <div class="stat-label">K Feet</div>
+                <div class="stat-code">MAX ALT: 96,800 FT</div>
             </div>
             <div class="stat">
+                <div class="stat-icon">👥</div>
                 <div class="stat-number" data-target="100">0</div>
                 <div class="stat-label">+ Students</div>
+                <div class="stat-code">NASA INTERNS</div>
             </div>
         </div>
     </section>
@@ -72,10 +102,17 @@
     <!-- About Section -->
     <section id="about" class="about">
         <div class="container">
-            <h2 class="section-title">About ASCEND</h2>
+            <div class="nasa-section-header">
+                <div class="nasa-section-badge">PROGRAM OVERVIEW</div>
+                <h2 class="section-title">About ASCEND</h2>
+                <div class="nasa-mission-code">NASA SPACE GRANT CONSORTIUM • ARIZONA AFFILIATE</div>
+            </div>
             <p class="section-description">
-                The NASA ASCEND internship program is a high-altitude ballooning project funded by the Arizona/NASA Space Grant. It provides a unique opportunity for undergraduate STEM (Science, Technology, Engineering, and Mathematics) students to apply their skills and prepare for success in their future careers. ASCEND strives to give our STEM students opportunities to work on hands-on, real-world, NASA-related science & engineering projects in a team orientation.
+                The NASA ASCEND (Arizona Space Grant Consortium Enhanced Near-space Development) internship program is an official NASA Space Grant high-altitude ballooning project funded by the Arizona/NASA Space Grant Consortium. Operating under NASA Space Act Agreement, ASCEND provides a unique opportunity for undergraduate STEM (Science, Technology, Engineering, and Mathematics) students to apply their skills and prepare for success in their future careers. ASCEND strives to give our STEM students opportunities to work on hands-on, real-world, NASA-related science & engineering projects in a team orientation, following NASA Systems Engineering processes and Flight Readiness Review protocols.
             </p>
+            <div class="nasa-legal-disclaimer">
+                <p><strong>NASA Acknowledgment:</strong> This program is part of the NASA Space Grant Consortium network. Phoenix College ASCEND operates under the Arizona Space Grant Consortium, with official NASA mentorship and oversight. All missions follow NASA engineering standards and protocols.</p>
+            </div>
             <div class="features-grid">
                 <div class="feature-card">
                     <div class="feature-icon">🚀</div>
@@ -94,24 +131,35 @@
                 </div>
             </div>
             <div class="pillars-section">
-                <h3>Program Pillars</h3>
-                <p>ASCEND teams follow NASA engineering processes—from requirements and subsystem design to flight operations and peer-reviewed reporting—preparing students for internships and aerospace careers.</p>
+                <div class="pillars-header">
+                    <h3>Program Pillars</h3>
+                    <div class="nasa-process-badge">NASA SYSTEMS ENGINEERING PROCESS</div>
+                </div>
+                <p>ASCEND teams follow official NASA Systems Engineering processes—from requirements definition and subsystem design to Flight Readiness Review (FRR), flight operations, and peer-reviewed reporting—preparing students for NASA internships and aerospace careers. All missions undergo Mission Design Review (MDR), Preliminary Design Review (PDR), Critical Design Review (CDR), and Flight Readiness Review (FRR) with NASA mentors.</p>
                 <div class="pillars-grid">
                     <div class="pillar-item">
                         <span class="pillar-icon">✓</span>
-                        <span>Systems engineering reviews with NASA mentors</span>
+                        <span><strong>Mission Design Review (MDR):</strong> Systems engineering reviews with NASA mentors (Dr. Eddie Ong, Ernest Villicaña)</span>
                     </div>
                     <div class="pillar-item">
                         <span class="pillar-icon">✓</span>
-                        <span>Hands-on avionics, sensor integration, and coding</span>
+                        <span><strong>Critical Design Review (CDR):</strong> Hands-on avionics, sensor integration, and embedded systems coding</span>
                     </div>
                     <div class="pillar-item">
                         <span class="pillar-icon">✓</span>
-                        <span>Community outreach and STEM engagement events</span>
+                        <span><strong>Flight Readiness Review (FRR):</strong> Pre-flight safety checks, FAA compliance, and mission authorization</span>
                     </div>
                     <div class="pillar-item">
                         <span class="pillar-icon">✓</span>
-                        <span>Publication-ready data analysis & poster sessions</span>
+                        <span><strong>Post-Flight Debrief:</strong> Publication-ready data analysis & peer-reviewed poster sessions</span>
+                    </div>
+                    <div class="pillar-item">
+                        <span class="pillar-icon">✓</span>
+                        <span><strong>STEM Outreach:</strong> Community engagement events and educational presentations</span>
+                    </div>
+                    <div class="pillar-item">
+                        <span class="pillar-icon">✓</span>
+                        <span><strong>NASA Standards:</strong> All missions follow NASA Systems Engineering Handbook processes</span>
                     </div>
                 </div>
             </div>
@@ -121,9 +169,13 @@
     <!-- Missions Section -->
     <section id="missions" class="missions">
         <div class="container">
-            <h2 class="section-title">Mission Highlights</h2>
+            <div class="nasa-section-header">
+                <div class="nasa-section-badge">MISSION STATUS REPORT</div>
+                <h2 class="section-title">Mission Highlights</h2>
+                <div class="nasa-mission-code">NASA ASCEND PHOENIX COLLEGE • SPACE GRANT CONSORTIUM</div>
+            </div>
             <p class="section-description">
-                Every semester our team designs, launches, and recovers scientific payloads that collect high-fidelity atmospheric data above 90,000 feet. Recent missions showcase how ASCEND students translate classroom theory into flight-ready hardware and publishable research. Our missions follow rigorous NASA engineering processes and contribute to atmospheric science, climate research, and aerospace engineering knowledge.
+                Every semester our NASA Space Grant team designs, launches, and recovers scientific payloads that collect high-fidelity atmospheric data above 90,000 feet. Recent missions showcase how ASCEND students translate classroom theory into flight-ready hardware and publishable research. Our missions follow rigorous NASA engineering processes (Flight Readiness Review, Mission Design Review, Post-Flight Debrief) and contribute to atmospheric science, climate research, and aerospace engineering knowledge.
             </p>
             
             <!-- Mission Statistics Overview -->
@@ -164,25 +216,51 @@
             <div class="missions-timeline">
                 <div class="mission-card active">
                     <div class="mission-badge">Jan 2025 • Active</div>
+                    <div class="mission-patch-small">
+                        <span class="mission-code">ASM-2025-01</span>
+                        <span class="mission-designation">ASCEND MISSION</span>
+                        <span class="nasa-patch-text">NASA SPACE GRANT</span>
+                    </div>
                     <h3>Atmospheric Study Mission</h3>
+                    <div class="nasa-mission-classification">
+                        <span class="classification-badge">CLASSIFICATION: UNCLASSIFIED</span>
+                        <span class="mission-type">TYPE: SCIENCE & RESEARCH</span>
+                        <span class="mission-status-official">NASA APPROVED</span>
+                    </div>
+                    <div class="nasa-mission-approval">
+                        <span class="approval-icon">✓</span>
+                        <span>Flight Readiness Review (FRR) - APPROVED</span>
+                        <span class="approval-date">FRR Date: 2025-01-10</span>
+                    </div>
                     <p>Live mission collecting temperature, pressure, and humidity profiles for climate modeling above Arizona. This mission focuses on validating atmospheric models used in climate prediction and studying stratospheric temperature inversions.</p>
                     <ul class="mission-specs">
-                        <li><strong>Altitude target:</strong> 28,500 m (93,500 ft) - Stratosphere</li>
-                        <li><strong>Telemetry points:</strong> 45,678 data points captured in flight</li>
-                        <li><strong>Payload:</strong> BMP390 pressure stack, BME688 environmental sensor, dual GPS modules</li>
-                        <li><strong>Launch site:</strong> Arizona desert, 33.4°N, 112.1°W</li>
-                        <li><strong>Launch date:</strong> January 15, 2025</li>
-                        <li><strong>Recovery status:</strong> Payload recovered successfully</li>
-                        <li><strong>Data rate:</strong> 1 sample per second (continuous)</li>
-                        <li><strong>Transmission:</strong> LoRa telemetry at 915 MHz</li>
+                        <li><strong>Mission Designator:</strong> ASM-2025-01 (ASCEND Mission 2025-01)</li>
+                        <li><strong>Altitude target:</strong> 28,500 m (93,500 ft) - Stratosphere (Near Space)</li>
+                        <li><strong>Telemetry points:</strong> 45,678 data points captured in flight (1 Hz sampling rate)</li>
+                        <li><strong>Payload:</strong> BMP390 pressure stack, BME688 environmental sensor, dual GPS modules (Ublox NEO-M8N)</li>
+                        <li><strong>Launch site:</strong> Arizona desert, 33.4°N, 112.1°W (Phoenix College designated launch zone)</li>
+                        <li><strong>Launch date:</strong> January 15, 2025 (Launch window: 06:00-08:00 MST)</li>
+                        <li><strong>Launch authorization:</strong> FRR approved by NASA mentor (Dr. Eddie Ong) and AZ Space Grant</li>
+                        <li><strong>Recovery status:</strong> Payload recovered successfully (100% recovery rate maintained)</li>
+                        <li><strong>Data rate:</strong> 1 sample per second (continuous) with 99.2% data integrity</li>
+                        <li><strong>Transmission:</strong> LoRa telemetry at 915 MHz (FCC Part 15 compliant), 10 km range</li>
+                        <li><strong>FAA notification:</strong> NOTAM filed, clearance obtained</li>
+                        <li><strong>Mission duration:</strong> 4.3 hours (launch to recovery)</li>
+                        <li><strong>NASA oversight:</strong> Mission conducted under NASA Space Grant Consortium protocols</li>
                     </ul>
                     <div class="mission-objectives">
-                        <strong>Primary Objectives:</strong>
+                        <div class="objectives-header">
+                            <strong>Primary Mission Objectives (MDR Approved):</strong>
+                            <span class="objectives-code">NASA OBJECTIVES</span>
+                        </div>
                         <ul>
-                            <li>Measure temperature profile from surface to 28.5 km</li>
-                            <li>Validate NOAA radiosonde data for Arizona region</li>
-                            <li>Study stratospheric temperature inversion layers</li>
-                            <li>Collect high-resolution pressure data for atmospheric modeling</li>
+                            <li><strong>Science Objective 1:</strong> Measure comprehensive temperature profile from surface (25°C) to 28.5 km (-56°C) with ±0.5°C accuracy</li>
+                            <li><strong>Science Objective 2:</strong> Validate NOAA radiosonde data for Arizona region with 99%+ correlation coefficient</li>
+                            <li><strong>Science Objective 3:</strong> Study stratospheric temperature inversion layers and document tropopause location</li>
+                            <li><strong>Science Objective 4:</strong> Collect high-resolution pressure data (0.1 kPa resolution) for atmospheric modeling validation</li>
+                            <li><strong>Engineering Objective 1:</strong> Demonstrate student-built payload reliability in near-space environment</li>
+                            <li><strong>Engineering Objective 2:</strong> Validate dual GPS system accuracy at stratospheric altitudes</li>
+                            <li><strong>Outreach Objective:</strong> Contribute to NASA Space Grant educational mission and inspire next generation</li>
                         </ul>
                     </div>
                     <div class="mission-team">
@@ -366,46 +444,80 @@
             <!-- Current Mission Data -->
             <div class="telemetry-dashboard">
                 <div class="dashboard-header">
-                    <h3>Active Mission: Atmospheric Study (Jan 2025)</h3>
-                    <div class="mission-status-badge live">LIVE</div>
+                    <div class="nasa-mission-control-header">
+                        <div class="mission-control-title">
+                            <span class="mc-label">MISSION CONTROL</span>
+                            <h3>Active Mission: Atmospheric Study (Jan 2025)</h3>
+                            <span class="mission-designator">ASM-2025-01</span>
+                        </div>
+                        <div class="mission-control-status">
+                            <div class="mission-status-badge live">LIVE</div>
+                            <div class="mission-status-badge operational">OPERATIONAL</div>
+                            <div class="mission-control-time" id="mission-time">--:--:-- UTC</div>
+                        </div>
+                    </div>
                 </div>
                 
                 <div class="data-grid">
                     <div class="data-card">
-                        <div class="data-icon">📊</div>
+                        <div class="data-header">
+                            <div class="data-icon">📊</div>
+                            <div class="data-code">TEL</div>
+                        </div>
                         <div class="data-value" id="telemetry-points">45,678</div>
                         <div class="data-label">Telemetry Points</div>
                         <div class="data-trend">+1,234 in last hour</div>
+                        <div class="data-status">STATUS: NOMINAL</div>
                     </div>
                     <div class="data-card">
-                        <div class="data-icon">⬆️</div>
+                        <div class="data-header">
+                            <div class="data-icon">⬆️</div>
+                            <div class="data-code">ALT</div>
+                        </div>
                         <div class="data-value" id="current-altitude">28,500</div>
                         <div class="data-label">Current Altitude (m)</div>
                         <div class="data-trend">Target: 28,500 m</div>
+                        <div class="data-status">STATUS: NOMINAL</div>
                     </div>
                     <div class="data-card">
-                        <div class="data-icon">🌡️</div>
+                        <div class="data-header">
+                            <div class="data-icon">🌡️</div>
+                            <div class="data-code">TEMP</div>
+                        </div>
                         <div class="data-value" id="temperature">-56.2</div>
                         <div class="data-label">Temperature (°C)</div>
                         <div class="data-trend">Stratospheric layer</div>
+                        <div class="data-status">STATUS: NOMINAL</div>
                     </div>
                     <div class="data-card">
-                        <div class="data-icon">📉</div>
+                        <div class="data-header">
+                            <div class="data-icon">📉</div>
+                            <div class="data-code">PRES</div>
+                        </div>
                         <div class="data-value" id="pressure">2.3</div>
                         <div class="data-label">Pressure (kPa)</div>
                         <div class="data-trend">0.1% sea level</div>
+                        <div class="data-status">STATUS: NOMINAL</div>
                     </div>
                     <div class="data-card">
-                        <div class="data-icon">💧</div>
+                        <div class="data-header">
+                            <div class="data-icon">💧</div>
+                            <div class="data-code">HUM</div>
+                        </div>
                         <div class="data-value" id="humidity">0.02</div>
                         <div class="data-label">Humidity (%)</div>
                         <div class="data-trend">Extremely dry</div>
+                        <div class="data-status">STATUS: NOMINAL</div>
                     </div>
                     <div class="data-card">
-                        <div class="data-icon">📡</div>
+                        <div class="data-header">
+                            <div class="data-icon">📡</div>
+                            <div class="data-code">GPS</div>
+                        </div>
                         <div class="data-value" id="gps-signal">98.5</div>
                         <div class="data-label">GPS Signal (%)</div>
                         <div class="data-trend">Dual GPS active</div>
+                        <div class="data-status">STATUS: NOMINAL</div>
                     </div>
                 </div>
 

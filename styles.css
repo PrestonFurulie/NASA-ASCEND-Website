@@ -1,17 +1,23 @@
-/* NASA-Inspired Stylesheet for ASCEND Website */
+/* NASA-Inspired Stylesheet for ASCEND Website - Official NASA Space Grant Program */
 
 :root {
     --nasa-red: #FC3D21;
     --nasa-blue: #0B3D91;
+    --nasa-worm-red: #E31837;
+    --nasa-worm-blue: #006BB6;
     --space-dark: #0a0e27;
     --space-darker: #050812;
     --space-light: #1a1f3a;
     --accent-gold: #FFD700;
+    --mission-control-green: #00FF41;
+    --mission-control-amber: #FFB000;
     --text-white: #ffffff;
     --text-gray: #e0e0e0;
     --text-light-gray: #b0b0b0;
     --gradient-space: linear-gradient(135deg, #0a0e27 0%, #1a1f3a 50%, #0a0e27 100%);
     --gradient-hero: linear-gradient(180deg, #050812 0%, #0a0e27 50%, #1a1f3a 100%);
+    --gradient-nasa: linear-gradient(135deg, #0B3D91 0%, #FC3D21 100%);
+    --gradient-worm: linear-gradient(90deg, #E31837 0%, #006BB6 100%);
 }
 
 * {
@@ -30,6 +36,36 @@ body {
     color: var(--text-white);
     line-height: 1.6;
     overflow-x: hidden;
+    position: relative;
+}
+
+/* NASA Mission Control Grid Overlay */
+.nasa-grid-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        linear-gradient(rgba(0, 255, 65, 0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0, 255, 65, 0.03) 1px, transparent 1px);
+    background-size: 50px 50px;
+    pointer-events: none;
+    z-index: 1;
+    opacity: 0.5;
+}
+
+/* NASA Earth Background */
+.nasa-earth-background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle at 30% 50%, rgba(11, 61, 145, 0.2) 0%, transparent 50%),
+                radial-gradient(circle at 70% 80%, rgba(252, 61, 33, 0.1) 0%, transparent 40%);
+    z-index: 1;
+    pointer-events: none;
 }
 
 .container {
@@ -43,11 +79,23 @@ body {
     position: fixed;
     top: 0;
     width: 100%;
-    background: rgba(10, 14, 39, 0.95);
-    backdrop-filter: blur(10px);
+    background: rgba(10, 14, 39, 0.98);
+    backdrop-filter: blur(15px);
     z-index: 1000;
-    border-bottom: 2px solid rgba(252, 61, 33, 0.3);
+    border-bottom: 2px solid rgba(252, 61, 33, 0.5);
     padding: 1rem 0;
+    box-shadow: 0 2px 20px rgba(0, 0, 0, 0.5);
+}
+
+.navbar::before {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--nasa-red), transparent);
+    opacity: 0.5;
 }
 
 .nav-container {
@@ -65,18 +113,73 @@ body {
     gap: 15px;
 }
 
+.nasa-official-badge {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 5px 15px;
+    background: rgba(11, 61, 145, 0.2);
+    border: 1px solid rgba(11, 61, 145, 0.5);
+    border-radius: 5px;
+    position: relative;
+}
+
+.nasa-official-badge::before {
+    content: 'OFFICIAL';
+    position: absolute;
+    top: -8px;
+    right: 5px;
+    font-size: 0.6rem;
+    font-family: 'Space Mono', monospace;
+    color: var(--mission-control-green);
+    background: var(--space-dark);
+    padding: 0 5px;
+    letter-spacing: 1px;
+    font-weight: 700;
+}
+
 .nasa-logo {
-    height: 40px;
+    height: 35px;
     width: auto;
     filter: brightness(1.2);
+}
+
+.nasa-worm-text {
+    font-family: 'Space Mono', monospace;
+    font-size: 1.3rem;
+    font-weight: 700;
+    background: var(--gradient-worm);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    letter-spacing: 3px;
+}
+
+.logo-text-container {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
 }
 
 .logo-text {
     font-family: 'Orbitron', sans-serif;
     font-size: 1.5rem;
     font-weight: 700;
-    color: var(--text-white);
-    letter-spacing: 2px;
+    background: var(--gradient-worm);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    letter-spacing: 3px;
+    line-height: 1;
+}
+
+.logo-subtext {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.65rem;
+    color: var(--text-light-gray);
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    font-weight: 400;
 }
 
 .nav-menu {
@@ -124,6 +227,124 @@ body {
     background: var(--gradient-hero);
     padding-top: 100px;
     overflow: hidden;
+    z-index: 2;
+}
+
+/* NASA Mission Patch */
+.nasa-mission-patch {
+    width: 180px;
+    height: 180px;
+    margin: 0 auto 2rem;
+    position: relative;
+    z-index: 3;
+    animation: float 6s ease-in-out infinite;
+}
+
+@keyframes float {
+    0%, 100% { transform: translateY(0px) rotate(0deg); }
+    50% { transform: translateY(-10px) rotate(2deg); }
+}
+
+.patch-inner {
+    width: 100%;
+    height: 100%;
+    border: 4px solid var(--accent-gold);
+    border-radius: 50%;
+    background: linear-gradient(135deg, rgba(252, 61, 33, 0.2) 0%, rgba(11, 61, 145, 0.2) 100%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    position: relative;
+    box-shadow: 
+        0 0 30px rgba(255, 215, 0, 0.3),
+        inset 0 0 30px rgba(11, 61, 145, 0.2);
+}
+
+.patch-inner::before {
+    content: '';
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    right: -2px;
+    bottom: -2px;
+    border-radius: 50%;
+    background: linear-gradient(45deg, var(--nasa-red), var(--nasa-blue), var(--accent-gold));
+    z-index: -1;
+    animation: rotate-border 10s linear infinite;
+}
+
+@keyframes rotate-border {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+.patch-nasa-worm {
+    font-family: 'Space Mono', monospace;
+    font-size: 2rem;
+    font-weight: 700;
+    background: var(--gradient-worm);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    letter-spacing: 4px;
+    margin-bottom: 0.5rem;
+}
+
+.patch-title {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 1.8rem;
+    font-weight: 900;
+    color: var(--accent-gold);
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    margin-bottom: 0.3rem;
+}
+
+.patch-subtitle {
+    font-family: 'Roboto', sans-serif;
+    font-size: 0.7rem;
+    color: var(--text-gray);
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin-bottom: 0.5rem;
+}
+
+.patch-stars {
+    color: var(--accent-gold);
+    font-size: 1.2rem;
+    letter-spacing: 10px;
+}
+
+/* NASA Approval Badge */
+.nasa-approval-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 8px 20px;
+    background: rgba(0, 255, 65, 0.15);
+    border: 1px solid var(--mission-control-green);
+    border-radius: 20px;
+    margin-top: 1rem;
+    font-size: 0.9rem;
+    color: var(--mission-control-green);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.badge-icon {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: var(--mission-control-green);
+    color: var(--space-dark);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 0.8rem;
 }
 
 .stars {
@@ -263,26 +484,72 @@ body {
     margin-top: 4rem;
     flex-wrap: wrap;
     justify-content: center;
+    padding: 2rem;
+    background: rgba(0, 0, 0, 0.3);
+    border-radius: 15px;
+    border: 1px solid rgba(252, 61, 33, 0.3);
+    backdrop-filter: blur(10px);
 }
 
 .stat {
     text-align: center;
+    position: relative;
+    padding: 1rem;
+    min-width: 150px;
+}
+
+.stat::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 60px;
+    height: 2px;
+    background: var(--nasa-red);
 }
 
 .stat-number {
     font-family: 'Orbitron', sans-serif;
     font-size: 3.5rem;
     font-weight: 900;
-    color: var(--accent-gold);
+    background: linear-gradient(135deg, var(--accent-gold) 0%, #FFA500 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
     line-height: 1;
     margin-bottom: 0.5rem;
+    text-shadow: 0 0 20px rgba(255, 215, 0, 0.5);
+}
+
+.stat-icon {
+    font-size: 2rem;
+    margin-bottom: 0.5rem;
+    opacity: 0.8;
 }
 
 .stat-label {
     font-size: 1rem;
-    color: var(--text-light-gray);
+    color: var(--text-gray);
     text-transform: uppercase;
     letter-spacing: 2px;
+    font-family: 'Space Mono', monospace;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+}
+
+.stat-code {
+    font-size: 0.7rem;
+    color: var(--mission-control-green);
+    font-family: 'Space Mono', monospace;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-top: 0.5rem;
+    padding: 4px 8px;
+    background: rgba(0, 255, 65, 0.1);
+    border: 1px solid rgba(0, 255, 65, 0.3);
+    border-radius: 4px;
 }
 
 /* Section Styles */
@@ -298,9 +565,28 @@ section {
     margin-bottom: 1rem;
     color: var(--text-white);
     text-transform: uppercase;
-    letter-spacing: 3px;
+    letter-spacing: 4px;
     position: relative;
     padding-bottom: 20px;
+    text-shadow: 0 0 10px rgba(252, 61, 33, 0.5);
+}
+
+.section-title::before {
+    content: '▸';
+    position: absolute;
+    left: calc(50% - 80px);
+    top: 0;
+    color: var(--nasa-red);
+    font-size: 1.5rem;
+}
+
+.section-title::after {
+    content: '◂';
+    position: absolute;
+    right: calc(50% - 80px);
+    top: 0;
+    color: var(--nasa-red);
+    font-size: 1.5rem;
 }
 
 .section-title::after {
@@ -309,9 +595,45 @@ section {
     bottom: 0;
     left: 50%;
     transform: translateX(-50%);
-    width: 100px;
+    width: 150px;
     height: 3px;
-    background: linear-gradient(90deg, transparent, var(--nasa-red), transparent);
+    background: linear-gradient(90deg, transparent, var(--nasa-red), var(--accent-gold), var(--nasa-red), transparent);
+    box-shadow: 0 0 10px rgba(252, 61, 33, 0.5);
+}
+
+/* NASA Section Header */
+.nasa-section-header {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.nasa-section-badge {
+    display: inline-block;
+    padding: 8px 25px;
+    background: rgba(0, 255, 65, 0.15);
+    border: 2px solid var(--mission-control-green);
+    border-radius: 20px;
+    font-family: 'Space Mono', monospace;
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: var(--mission-control-green);
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    margin-bottom: 1rem;
+    box-shadow: 0 0 15px rgba(0, 255, 65, 0.3);
+}
+
+.nasa-mission-code {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.9rem;
+    color: var(--text-light-gray);
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin-top: 1rem;
+    padding: 10px 20px;
+    background: rgba(0, 0, 0, 0.3);
+    border-left: 3px solid var(--nasa-red);
+    display: inline-block;
 }
 
 .section-description {
@@ -321,6 +643,31 @@ section {
     font-size: 1.1rem;
     color: var(--text-gray);
     line-height: 1.8;
+}
+
+/* NASA Legal Disclaimer */
+.nasa-legal-disclaimer {
+    background: rgba(11, 61, 145, 0.2);
+    padding: 1.5rem;
+    border-radius: 10px;
+    border-left: 3px solid var(--nasa-blue);
+    margin: 2rem auto;
+    max-width: 800px;
+}
+
+.nasa-legal-disclaimer p {
+    color: var(--text-gray);
+    line-height: 1.8;
+    margin: 0;
+    font-size: 0.95rem;
+}
+
+.nasa-legal-disclaimer strong {
+    color: var(--accent-gold);
+    font-family: 'Orbitron', sans-serif;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-size: 0.9rem;
 }
 
 /* About Section */
@@ -373,6 +720,21 @@ section {
     padding: 2.5rem;
     border-radius: 10px;
     border: 1px solid rgba(11, 61, 145, 0.5);
+    position: relative;
+}
+
+.pillars-section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, var(--nasa-red), var(--accent-gold), var(--nasa-blue));
+}
+
+.pillars-header {
+    margin-bottom: 1.5rem;
 }
 
 .pillars-section h3 {
@@ -380,6 +742,23 @@ section {
     font-size: 1.8rem;
     margin-bottom: 1rem;
     color: var(--text-white);
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+.nasa-process-badge {
+    display: inline-block;
+    padding: 6px 15px;
+    background: rgba(252, 61, 33, 0.15);
+    border: 1px solid var(--nasa-red);
+    border-radius: 15px;
+    font-family: 'Space Mono', monospace;
+    font-size: 0.75rem;
+    color: var(--nasa-red);
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin-top: 0.5rem;
 }
 
 .pillars-section > p {
@@ -398,13 +777,34 @@ section {
     align-items: flex-start;
     gap: 15px;
     color: var(--text-gray);
+    padding: 12px;
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: 8px;
+    border-left: 2px solid var(--nasa-blue);
+    transition: all 0.3s ease;
+}
+
+.pillar-item:hover {
+    background: rgba(0, 0, 0, 0.3);
+    border-left-color: var(--nasa-red);
+    transform: translateX(5px);
 }
 
 .pillar-icon {
-    color: var(--accent-gold);
+    color: var(--mission-control-green);
     font-weight: bold;
     font-size: 1.2rem;
     flex-shrink: 0;
+    text-shadow: 0 0 5px rgba(0, 255, 65, 0.5);
+}
+
+.pillar-item strong {
+    color: var(--accent-gold);
+    font-family: 'Space Mono', monospace;
+    font-size: 0.85rem;
+    letter-spacing: 1px;
+    display: block;
+    margin-bottom: 0.3rem;
 }
 
 /* Missions Section */
@@ -423,13 +823,174 @@ section {
     background: rgba(255, 255, 255, 0.05);
     padding: 2.5rem;
     border-radius: 10px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
     border-left: 4px solid var(--nasa-blue);
     transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.mission-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 100px;
+    height: 100px;
+    background: radial-gradient(circle, rgba(252, 61, 33, 0.1) 0%, transparent 70%);
+    pointer-events: none;
 }
 
 .mission-card.active {
     border-left-color: var(--nasa-red);
     box-shadow: 0 0 30px rgba(252, 61, 33, 0.3);
+    border: 1px solid var(--nasa-red);
+    background: rgba(252, 61, 33, 0.05);
+}
+
+.mission-card.active::before {
+    background: radial-gradient(circle, rgba(252, 61, 33, 0.2) 0%, transparent 70%);
+}
+
+/* Mission Patch Small */
+.mission-patch-small {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 5px;
+    margin: 1rem 0;
+    padding: 15px;
+    background: rgba(0, 0, 0, 0.3);
+    border-radius: 8px;
+    border: 2px solid rgba(252, 61, 33, 0.3);
+    position: relative;
+}
+
+.mission-patch-small::before {
+    content: '';
+    position: absolute;
+    top: -1px;
+    left: -1px;
+    right: -1px;
+    bottom: -1px;
+    border-radius: 8px;
+    background: linear-gradient(45deg, var(--nasa-red), var(--nasa-blue), var(--accent-gold));
+    z-index: -1;
+    opacity: 0.3;
+}
+
+.mission-code {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.9rem;
+    color: var(--mission-control-green);
+    font-weight: 700;
+    letter-spacing: 2px;
+}
+
+.mission-designation {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 0.75rem;
+    color: var(--accent-gold);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.nasa-patch-text {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.65rem;
+    color: var(--nasa-red);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-weight: 700;
+    margin-top: 5px;
+    padding-top: 5px;
+    border-top: 1px solid rgba(252, 61, 33, 0.3);
+}
+
+.mission-status-official {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.75rem;
+    color: var(--mission-control-green);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    padding: 4px 10px;
+    background: rgba(0, 255, 65, 0.1);
+    border: 1px solid rgba(0, 255, 65, 0.3);
+    border-radius: 4px;
+}
+
+.nasa-mission-approval {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+    justify-content: center;
+    padding: 12px;
+    background: rgba(0, 255, 65, 0.1);
+    border: 1px solid rgba(0, 255, 65, 0.3);
+    border-radius: 8px;
+    margin: 1rem 0;
+    font-family: 'Space Mono', monospace;
+    font-size: 0.85rem;
+    color: var(--mission-control-green);
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.approval-icon {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    background: var(--mission-control-green);
+    color: var(--space-dark);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 900;
+    font-size: 1rem;
+    flex-shrink: 0;
+}
+
+.approval-date {
+    font-size: 0.75rem;
+    color: var(--text-light-gray);
+    font-weight: 400;
+    margin-left: auto;
+}
+
+.nasa-mission-classification {
+    display: flex;
+    gap: 15px;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin: 1rem 0;
+    padding: 10px;
+    background: rgba(11, 61, 145, 0.2);
+    border-radius: 8px;
+    border-left: 3px solid var(--nasa-blue);
+}
+
+.classification-badge,
+.mission-type {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.75rem;
+    color: var(--text-light-gray);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    padding: 4px 10px;
+    background: rgba(0, 0, 0, 0.3);
+    border-radius: 4px;
+}
+
+.classification-badge {
+    color: var(--mission-control-green);
+    border: 1px solid rgba(0, 255, 65, 0.3);
+}
+
+.mission-type {
+    color: var(--accent-gold);
+    border: 1px solid rgba(255, 215, 0, 0.3);
 }
 
 .mission-card:hover {
@@ -497,17 +1058,56 @@ section {
     padding: 1.5rem;
     border-radius: 8px;
     margin: 1.5rem 0;
+    border: 1px solid rgba(11, 61, 145, 0.5);
     border-left: 3px solid var(--nasa-blue);
+    position: relative;
+}
+
+.mission-objectives::before {
+    content: 'OBJECTIVES';
+    position: absolute;
+    top: -10px;
+    left: 20px;
+    font-size: 0.7rem;
+    font-family: 'Space Mono', monospace;
+    color: var(--nasa-blue);
+    background: var(--space-dark);
+    padding: 0 8px;
+    letter-spacing: 2px;
+    font-weight: 700;
+    text-transform: uppercase;
+}
+
+.objectives-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 1rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid rgba(11, 61, 145, 0.5);
 }
 
 .mission-objectives strong {
     color: var(--accent-gold);
     font-family: 'Orbitron', sans-serif;
     font-size: 1rem;
-    display: block;
-    margin-bottom: 1rem;
     text-transform: uppercase;
     letter-spacing: 1px;
+}
+
+.objectives-code {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.75rem;
+    color: var(--mission-control-green);
+    font-weight: 700;
+    letter-spacing: 2px;
+    padding: 4px 10px;
+    background: rgba(0, 255, 65, 0.1);
+    border: 1px solid rgba(0, 255, 65, 0.3);
+    border-radius: 4px;
+    text-transform: uppercase;
 }
 
 .mission-objectives ul {
@@ -745,19 +1345,95 @@ section {
 }
 
 .dashboard-header {
+    margin-bottom: 2rem;
+    padding-bottom: 1.5rem;
+    border-bottom: 2px solid rgba(252, 61, 33, 0.3);
+    position: relative;
+}
+
+.dashboard-header::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 100%;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--mission-control-green), transparent);
+    opacity: 0.5;
+}
+
+/* NASA Mission Control Header */
+.nasa-mission-control-header {
     display: flex;
     justify-content: space-between;
-    align-items: center;
-    margin-bottom: 2rem;
-    padding-bottom: 1rem;
-    border-bottom: 2px solid rgba(252, 61, 33, 0.3);
+    align-items: flex-start;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.mission-control-title {
+    flex: 1;
+    min-width: 300px;
+}
+
+.mc-label {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.8rem;
+    color: var(--mission-control-green);
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    font-weight: 700;
+    display: block;
+    margin-bottom: 0.5rem;
+    text-shadow: 0 0 10px rgba(0, 255, 65, 0.5);
 }
 
 .dashboard-header h3 {
     font-family: 'Orbitron', sans-serif;
     font-size: 1.8rem;
     color: var(--text-white);
-    margin: 0;
+    margin: 0.5rem 0;
+    text-shadow: 0 0 10px rgba(252, 61, 33, 0.5);
+}
+
+.mission-designator {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.9rem;
+    color: var(--accent-gold);
+    font-weight: 700;
+    letter-spacing: 2px;
+    display: inline-block;
+    padding: 4px 12px;
+    background: rgba(255, 215, 0, 0.1);
+    border: 1px solid rgba(255, 215, 0, 0.3);
+    border-radius: 4px;
+    margin-top: 0.5rem;
+}
+
+.mission-control-status {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    align-items: flex-end;
+}
+
+.mission-status-badge.operational {
+    background: var(--mission-control-green);
+    color: var(--space-dark);
+    animation: pulse-badge 2s ease-in-out infinite;
+}
+
+.mission-control-time {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.9rem;
+    color: var(--mission-control-green);
+    font-weight: 700;
+    letter-spacing: 2px;
+    padding: 8px 15px;
+    background: rgba(0, 255, 65, 0.1);
+    border: 1px solid rgba(0, 255, 65, 0.3);
+    border-radius: 5px;
+    text-shadow: 0 0 10px rgba(0, 255, 65, 0.5);
 }
 
 .mission-status-badge {
@@ -791,20 +1467,54 @@ section {
     background: rgba(11, 61, 145, 0.2);
     padding: 1.5rem;
     border-radius: 10px;
+    border: 1px solid rgba(11, 61, 145, 0.5);
     border-left: 3px solid var(--nasa-blue);
     text-align: center;
     transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.data-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, var(--mission-control-green), transparent);
+    opacity: 0.3;
 }
 
 .data-card:hover {
     transform: translateY(-5px);
     border-left-color: var(--nasa-red);
     box-shadow: 0 5px 20px rgba(252, 61, 33, 0.2);
+    border-color: var(--nasa-red);
+}
+
+.data-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
 }
 
 .data-icon {
     font-size: 2.5rem;
-    margin-bottom: 0.5rem;
+}
+
+.data-code {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.75rem;
+    color: var(--mission-control-green);
+    font-weight: 700;
+    letter-spacing: 2px;
+    padding: 4px 8px;
+    background: rgba(0, 255, 65, 0.1);
+    border: 1px solid rgba(0, 255, 65, 0.3);
+    border-radius: 4px;
+    text-transform: uppercase;
 }
 
 .data-value {
@@ -828,6 +1538,22 @@ section {
     font-size: 0.85rem;
     color: var(--text-light-gray);
     font-style: italic;
+    margin-bottom: 0.5rem;
+}
+
+.data-status {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.7rem;
+    color: var(--mission-control-green);
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    margin-top: 0.5rem;
+    padding: 4px 8px;
+    background: rgba(0, 255, 65, 0.1);
+    border: 1px solid rgba(0, 255, 65, 0.3);
+    border-radius: 4px;
+    display: inline-block;
 }
 
 .charts-section {

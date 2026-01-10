@@ -243,7 +243,23 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Simulate real-time data updates
     startTelemetryUpdates();
+    
+    // Update Mission Control Time
+    updateMissionControlTime();
+    setInterval(updateMissionControlTime, 1000);
 });
+
+// Mission Control Time Display
+function updateMissionControlTime() {
+    const missionTimeEl = document.getElementById('mission-time');
+    if (missionTimeEl) {
+        const now = new Date();
+        const hours = String(now.getUTCHours()).padStart(2, '0');
+        const minutes = String(now.getUTCMinutes()).padStart(2, '0');
+        const seconds = String(now.getUTCSeconds()).padStart(2, '0');
+        missionTimeEl.textContent = `${hours}:${minutes}:${seconds} UTC`;
+    }
+}
 
 // Telemetry Data Visualization
 function initializeTelemetryCharts() {
