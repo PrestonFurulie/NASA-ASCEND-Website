@@ -1,0 +1,1876 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Dashboard - NASA ASCEND Program</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Exo+2:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --nasa-blue: #0B3D91;
+            --nasa-red: #FC3D21;
+            --nasa-white: #FFFFFF;
+            --nasa-gray: #E6E6E6;
+            --nasa-dark: #1a1a1a;
+            --nasa-gold: #FFD700;
+            --nasa-silver: #C0C0C0;
+        }
+
+        body {
+            font-family: 'Exo 2', sans-serif;
+            line-height: 1.6;
+            color: var(--nasa-white);
+            background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 50%, #16213e 100%);
+            min-height: 100vh;
+        }
+
+        .nasa-header {
+            background: linear-gradient(90deg, var(--nasa-blue) 0%, #1a237e 50%, var(--nasa-blue) 100%);
+            border-bottom: 3px solid var(--nasa-red);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .nasa-header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="stars" x="0" y="0" width="20" height="20" patternUnits="userSpaceOnUse"><circle cx="10" cy="10" r="0.5" fill="white" opacity="0.3"/></pattern></defs><rect width="100" height="100" fill="url(%23stars)"/></svg>');
+            opacity: 0.1;
+        }
+
+        .nasa-logo {
+            font-family: 'Orbitron', monospace;
+            font-weight: 900;
+            font-size: 2rem;
+            color: var(--nasa-white);
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+            position: relative;
+            z-index: 2;
+        }
+
+        .nasa-logo .ascend {
+            color: var(--nasa-red);
+            font-size: 1.5rem;
+        }
+
+        .login-container {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 50%, #16213e 100%);
+            background-image: 
+                radial-gradient(circle at 20% 80%, rgba(11, 61, 145, 0.3) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(252, 61, 33, 0.2) 0%, transparent 50%);
+        }
+
+        .login-card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border: 2px solid var(--nasa-red);
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .login-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--nasa-red), var(--nasa-blue), var(--nasa-red));
+        }
+
+        .nasa-btn {
+            background: linear-gradient(45deg, var(--nasa-red), #d32f2f);
+            border: 2px solid var(--nasa-red);
+            color: var(--nasa-white);
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            padding: 12px 30px;
+            border-radius: 0;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .nasa-btn:hover {
+            background: linear-gradient(45deg, #d32f2f, var(--nasa-red));
+            color: var(--nasa-white);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(252, 61, 33, 0.4);
+        }
+
+        .nasa-btn-outline {
+            background: transparent;
+            border: 2px solid var(--nasa-white);
+            color: var(--nasa-white);
+        }
+
+        .nasa-btn-outline:hover {
+            background: var(--nasa-white);
+            color: var(--nasa-dark);
+        }
+
+        .dashboard-container {
+            min-height: 100vh;
+            padding-top: 80px;
+        }
+
+        .sidebar {
+            position: fixed;
+            top: 60px;
+            bottom: 0;
+            left: 0;
+            z-index: 100;
+            padding: 0;
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(10px);
+            border-right: 2px solid var(--nasa-red);
+            width: 250px;
+        }
+
+        .sidebar .nav-link {
+            color: var(--nasa-white);
+            padding: 1rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .sidebar .nav-link:hover {
+            background: rgba(252, 61, 33, 0.2);
+            color: var(--nasa-red);
+        }
+
+        .sidebar .nav-link.active {
+            background: linear-gradient(45deg, var(--nasa-red), #d32f2f);
+            color: var(--nasa-white);
+            border-left: 4px solid var(--nasa-blue);
+        }
+
+        .sidebar .nav-link i {
+            margin-right: 0.5rem;
+            width: 20px;
+            text-align: center;
+        }
+
+        main {
+            margin-left: 250px;
+            padding: 2rem;
+        }
+
+        .nasa-card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .nasa-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+            border-color: var(--nasa-red);
+        }
+
+        .nasa-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--nasa-red), var(--nasa-blue), var(--nasa-red));
+        }
+
+        .dashboard-video {
+            position: relative;
+            width: 100%;
+            padding-bottom: 56.25%;
+            border-radius: 12px;
+            overflow: hidden;
+            border: 2px solid rgba(255, 255, 255, 0.15);
+            background: #000;
+        }
+
+        .dashboard-video iframe,
+        .dashboard-video video {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
+            object-fit: cover;
+        }
+
+        .dashboard-video video {
+            background: #000;
+        }
+
+        .data-upload-area {
+            border: 2px dashed rgba(255, 255, 255, 0.3);
+            border-radius: 10px;
+            padding: 2rem;
+            text-align: center;
+            transition: all 0.3s ease;
+            background: rgba(255, 255, 255, 0.02);
+        }
+
+        .data-upload-area:hover {
+            border-color: var(--nasa-red);
+            background: rgba(252, 61, 33, 0.1);
+        }
+
+        .data-upload-area.dragover {
+            border-color: var(--nasa-red);
+            background: rgba(252, 61, 33, 0.2);
+        }
+
+        .chart-container {
+            position: relative;
+            height: 400px;
+            margin: 1rem 0;
+        }
+
+        .stat-number {
+            font-family: 'Orbitron', monospace;
+            font-size: 2.5rem;
+            font-weight: 900;
+            color: var(--nasa-red);
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        }
+
+        .stat-label {
+            font-size: 1rem;
+            color: var(--nasa-gray);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .form-control {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            color: var(--nasa-white);
+            border-radius: 5px;
+        }
+
+        .form-control:focus {
+            background: rgba(255, 255, 255, 0.15);
+            border-color: var(--nasa-red);
+            color: var(--nasa-white);
+            box-shadow: 0 0 0 0.2rem rgba(252, 61, 33, 0.25);
+        }
+
+        .form-control::placeholder {
+            color: rgba(255, 255, 255, 0.6);
+        }
+
+        .table {
+            color: var(--nasa-white);
+        }
+
+        .table th {
+            background: rgba(252, 61, 33, 0.2);
+            border-color: rgba(255, 255, 255, 0.1);
+            color: var(--nasa-white);
+        }
+
+        .table td {
+            border-color: rgba(255, 255, 255, 0.1);
+        }
+
+        .badge {
+            font-size: 0.75rem;
+            padding: 0.375rem 0.75rem;
+        }
+        
+        /* Enhanced list group item styling */
+        .list-group-item-action:hover {
+            background: rgba(252, 61, 33, 0.15) !important;
+            color: var(--nasa-white) !important;
+            transform: translateX(5px);
+        }
+        
+        .list-group-item-action:focus {
+            background: rgba(252, 61, 33, 0.2) !important;
+            color: var(--nasa-white) !important;
+        }
+        
+        /* Top navigation styling */
+        .navbar .nav-link {
+            color: var(--nasa-white) !important;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            padding: 0.5rem 1rem;
+        }
+        
+        .navbar .nav-link:hover {
+            color: var(--nasa-red) !important;
+            background: rgba(252, 61, 33, 0.1);
+            border-radius: 5px;
+        }
+        
+        .navbar-brand {
+            color: var(--nasa-white) !important;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+        
+        .navbar-brand:hover {
+            color: var(--nasa-red) !important;
+            text-decoration: none;
+        }
+        
+        /* Mobile navigation scroll behavior */
+        .navbar {
+            transition: transform 0.3s ease-in-out;
+        }
+        
+        @media (max-width: 768px) {
+            .navbar {
+                position: fixed !important;
+                top: 0;
+                left: 0;
+                right: 0;
+                z-index: 1030;
+                will-change: transform;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .navbar {
+                position: fixed;
+                top: 0;
+                left: 0;
+                right: 0;
+                z-index: 1030;
+            }
+            
+            .sidebar {
+                position: static;
+                height: auto;
+                margin-bottom: 1rem;
+                width: 100%;
+                border-right: none;
+                border-bottom: 2px solid var(--nasa-red);
+            }
+            
+            .sidebar .nav {
+                flex-direction: row;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            
+            .sidebar .nav-link {
+                flex: 1;
+                min-width: 120px;
+                text-align: center;
+                padding: 0.75rem 0.5rem;
+                font-size: 0.8rem;
+            }
+            
+            .sidebar .nav-link i {
+                display: block;
+                margin-bottom: 0.25rem;
+                margin-right: 0;
+            }
+            
+            main {
+                margin-left: 0;
+                padding: 1rem;
+            }
+            
+            .dashboard-container {
+                padding-top: 20px;
+            }
+            
+            .nasa-card {
+                margin-bottom: 1rem;
+            }
+            
+            .nasa-card .card-body {
+                padding: 1rem;
+            }
+            
+            .stat-number {
+                font-size: 2rem;
+            }
+            
+            .chart-container {
+                height: 300px;
+            }
+            
+            .table-responsive {
+                font-size: 0.8rem;
+            }
+            
+            .btn {
+                font-size: 0.8rem;
+                padding: 0.5rem 1rem;
+            }
+            
+            .nasa-btn {
+                padding: 10px 16px;
+                font-size: 0.8rem;
+            }
+            
+            .login-card {
+                margin: 1rem;
+            }
+            
+            .login-card .card-body {
+                padding: 2rem;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .sidebar .nav-link {
+                min-width: 100px;
+                font-size: 0.7rem;
+                padding: 0.5rem 0.25rem;
+            }
+            
+            .sidebar .nav-link i {
+                font-size: 0.9rem;
+            }
+            
+            main {
+                padding: 0.5rem;
+            }
+            
+            .stat-number {
+                font-size: 1.5rem;
+            }
+            
+            .stat-label {
+                font-size: 0.8rem;
+            }
+            
+            .chart-container {
+                height: 250px;
+            }
+            
+            .nasa-card .card-header {
+                padding: 0.75rem;
+                font-size: 0.9rem;
+            }
+            
+            .nasa-card .card-body {
+                padding: 0.75rem;
+            }
+            
+            .table {
+                font-size: 0.7rem;
+            }
+            
+            .btn {
+                font-size: 0.7rem;
+                padding: 0.4rem 0.8rem;
+            }
+            
+            .nasa-btn {
+                padding: 8px 12px;
+                font-size: 0.7rem;
+            }
+            
+            .login-card .card-body {
+                padding: 1.5rem;
+            }
+            
+            .modal-dialog {
+                margin: 0.5rem;
+            }
+            
+            .modal-content {
+                font-size: 0.9rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Login Modal -->
+    <div id="loginModal" class="login-container">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-md-6 col-lg-4">
+                    <div class="card login-card">
+                        <div class="card-body p-5">
+                            <div class="text-center mb-4">
+                                <div class="nasa-logo mb-3">
+                                    NASA <span class="ascend">ASCEND</span>
+                                </div>
+                                <p class="text-white-50">Student Dashboard Access</p>
+                            </div>
+                            <form id="loginForm">
+                                <div class="mb-3">
+                                    <label for="email" class="form-label text-white">Email Address</label>
+                                    <input type="email" class="form-control" id="email" required>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="password" class="form-label text-white">Password</label>
+                                    <input type="password" class="form-control" id="password" required>
+                                </div>
+                                <div class="d-grid">
+                                    <button type="submit" class="btn nasa-btn">
+                                        <i class="bi bi-box-arrow-in-right"></i> Login
+                                    </button>
+                                </div>
+                            </form>
+                            <div class="text-center mt-3">
+                                <small class="text-white-50">
+                                    Use your Maricopa email address (@maricopa.edu) and group password<br>
+                                    <small>Examples: abc123456789@maricopa.edu, joe123456789@maricopa.edu</small>
+                                </small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Dashboard (Hidden initially) -->
+    <div id="dashboard" style="display: none;">
+        <!-- Navigation -->
+        <nav class="navbar navbar-expand-lg nasa-header fixed-top">
+            <div class="container">
+                <a class="navbar-brand nasa-logo" href="index.html" style="cursor: pointer;">
+                    NASA <span class="ascend">ASCEND</span>
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav ms-auto">
+                        <li class="nav-item">
+                            <a class="nav-link" href="index.html">
+                                <i class="bi bi-house"></i> Home
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="index.html#videos">
+                                <i class="bi bi-play-circle"></i> Videos
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="index.html#application">
+                                <i class="bi bi-pencil-square"></i> Apply
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <span class="nav-link text-white-50" id="userEmail"></span>
+                        </li>
+                        <li class="nav-item">
+                            <button class="nav-link btn nasa-btn-outline" onclick="logout()">
+                                <i class="bi bi-box-arrow-right"></i> Logout
+                            </button>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <div class="dashboard-container">
+            <div class="sidebar">
+                <nav class="nav flex-column">
+                    <a class="nav-link active" href="#overview" onclick="showSection('overview')">
+                        <i class="bi bi-house"></i> Overview
+                    </a>
+                    <a class="nav-link" href="#missions" onclick="showSection('missions')">
+                        <i class="bi bi-rocket"></i> My Missions
+                    </a>
+                    <a class="nav-link" href="#data-upload" onclick="showSection('data-upload')">
+                        <i class="bi bi-cloud-upload"></i> Upload Data
+                    </a>
+                    <a class="nav-link" href="#data-analysis" onclick="showSection('data-analysis')">
+                        <i class="bi bi-graph-up"></i> Data Analysis
+                    </a>
+                    <a class="nav-link" href="#resources" onclick="showSection('resources')">
+                        <i class="bi bi-folder"></i> Resources
+                    </a>
+                    <a class="nav-link" href="https://drive.google.com/drive/folders/1wMJEczyzzUIv9Cpgv1OYHESlPpEa_-Tx?usp=drive_link" target="_blank">
+                        <i class="bi bi-google-drive"></i> Team Drive
+                    </a>
+                    <a class="nav-link" href="#profile" onclick="showSection('profile')">
+                        <i class="bi bi-person"></i> Profile
+                    </a>
+                </nav>
+            </div>
+
+            <main>
+                <!-- Overview Section -->
+                <div id="overview-section" class="content-section">
+                    <div class="d-flex justify-content-between align-items-center mb-4">
+                        <h2 class="text-white"><i class="bi bi-house text-danger"></i> Mission Control Dashboard</h2>
+                        <span class="badge bg-success">Operational</span>
+                    </div>
+                    
+                    <div class="row g-4 mb-4">
+                        <div class="col-md-3">
+                            <div class="nasa-card text-center">
+                                <div class="card-body">
+                                    <i class="bi bi-rocket text-danger" style="font-size: 2rem;"></i>
+                                    <div class="stat-number">1</div>
+                                    <div class="stat-label">Active Missions</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="nasa-card text-center">
+                                <div class="card-body">
+                                    <i class="bi bi-file-earmark-text text-primary" style="font-size: 2rem;"></i>
+                                    <div class="stat-number">14</div>
+                                    <div class="stat-label">Past Launches</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="nasa-card text-center">
+                                <div class="card-body">
+                                    <i class="bi bi-graph-up text-success" style="font-size: 2rem;"></i>
+                                    <div class="stat-number">142.3GB</div>
+                                    <div class="stat-label">Data Collected</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="nasa-card text-center">
+                                <div class="card-body">
+                                    <i class="bi bi-trophy text-warning" style="font-size: 2rem;"></i>
+                                    <div class="stat-number">7</div>
+                                    <div class="stat-label">Years Completed</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row g-4">
+                        <div class="col-md-8">
+                            <div class="nasa-card">
+                                <div class="card-header" style="background: rgba(252, 61, 33, 0.2); border-bottom: 1px solid rgba(255, 255, 255, 0.1);">
+                                    <h5 class="text-white mb-0"><i class="bi bi-graph-up text-danger"></i> Recent Mission Data</h5>
+                                </div>
+                                <div class="card-body">
+                                    <div class="chart-container">
+                                        <canvas id="missionChart"></canvas>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="nasa-card">
+                                <div class="card-header" style="background: rgba(252, 61, 33, 0.2); border-bottom: 1px solid rgba(255, 255, 255, 0.1);">
+                                    <h5 class="text-white mb-0"><i class="bi bi-bell text-warning"></i> Mission Alerts</h5>
+                                </div>
+                                <div class="card-body">
+                                    <div class="list-group list-group-flush">
+                                        <div class="list-group-item d-flex justify-content-between align-items-start" style="background: transparent; border-color: rgba(255, 255, 255, 0.1);">
+                                            <div>
+                                                <h6 class="mb-1 text-white">YouTube Upload</h6>
+                                                <p class="mb-1 text-white-50">https://www.youtube.com/@pcnasaascend/videos</p>
+                                                <small class="text-white-50">2 hours ago</small>
+                                            </div>
+                                        </div>
+                                        <div class="list-group-item d-flex justify-content-between align-items-start" style="background: transparent; border-color: rgba(255, 255, 255, 0.1);">
+                                            <div>
+                                                <h6 class="mb-1 text-white">Mission Start</h6>
+                                                <p class="mb-1 text-white-50">High-altitude balloon launch</p>
+                                                <small class="text-white-50">SCHEDULED:11/22/25</small>
+                                            </div>
+                                        </div>
+                                        <div class="list-group-item d-flex justify-content-between align-items-start" style="background: transparent; border-color: rgba(255, 255, 255, 0.1);">
+                                            <div>
+                                                <h6 class="mb-1 text-white">Analysis Complete</h6>
+                                                <p class="mb-1 text-white-50">Temperature profile analysis</p>
+                                                <small class="text-white-50">1 day ago</small>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row g-4 mt-2">
+                        <div class="col-md-6">
+                            <div class="nasa-card">
+                                <div class="card-header" style="background: rgba(11, 61, 145, 0.2); border-bottom: 1px solid rgba(255, 255, 255, 0.1);">
+                                    <h5 class="text-white mb-0"><i class="bi bi-camera-video text-danger"></i> Mission Footage – Field Team Cut</h5>
+                                </div>
+                                <div class="card-body">
+                                    <div class="dashboard-video">
+                                        <video autoplay muted loop playsinline controlslist="nodownload noplaybackrate" disablepictureinpicture>
+                                            <source src="https://drive.google.com/uc?export=download&id=1WgyyB7uIqssObClnxc7_MmzVhOKOLBOe" type="video/mp4">
+                                            Your browser does not support embedded mission footage. <a href="https://drive.google.com/file/d/1WgyyB7uIqssObClnxc7_MmzVhOKOLBOe/view?t=51" target="_blank" rel="noopener">Open the video</a>.
+                                        </video>
+                                    </div>
+                                    <p class="text-white-50 small mt-3 mb-0">Automatically plays muted for quick status review. Unmute after download if you need full audio from the recovery crew.</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="nasa-card">
+                                <div class="card-header" style="background: rgba(252, 61, 33, 0.2); border-bottom: 1px solid rgba(255, 255, 255, 0.1);">
+                                    <h5 class="text-white mb-0"><i class="bi bi-youtube text-danger"></i> Launch Highlight – YouTube</h5>
+                                </div>
+                                <div class="card-body">
+                                    <div class="dashboard-video">
+                                        <iframe 
+                                            src="https://www.youtube.com/embed/e0H5dvRLPfE?autoplay=1&mute=1&controls=0&loop=1&playlist=e0H5dvRLPfE" 
+                                            title="NASA ASCEND Launch Highlight" 
+                                            allow="autoplay; encrypted-media; picture-in-picture" 
+                                            allowfullscreen>
+                                        </iframe>
+                                    </div>
+                                    <p class="text-white-50 small mt-3 mb-0">Looping launch highlight from our public channel for quick briefings without disrupting operations.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Missions Section -->
+                <div id="missions-section" class="content-section" style="display: none;">
+                    <div class="d-flex justify-content-between align-items-center mb-4">
+                        <h2 class="text-white"><i class="bi bi-rocket text-danger"></i> Mission Control</h2>
+                        <button class="btn nasa-btn" data-bs-toggle="modal" data-bs-target="#newMissionModal">
+                            <i class="bi bi-plus"></i> New Mission
+                        </button>
+                    </div>
+
+                    <div class="row g-4">
+                        <div class="col-md-6 col-lg-4">
+                            <div class="nasa-card">
+                                <div class="card-header" style="background: linear-gradient(45deg, var(--nasa-blue), #1a237e); border-bottom: 2px solid var(--nasa-red);">
+                                    <h5 class="mb-0 text-white">Mission 2025-002</h5>
+                                </div>
+                                <div class="card-body">
+                                    <p class="card-text text-white-50">High-altitude atmospheric study</p>
+                                    <div class="mb-2">
+                                        <span class="badge bg-success">Active</span>
+                                        <span class="badge bg-info">TESTING REQUIRED</span>
+                                    </div>
+                                    <div class="progress mb-2" style="height: 8px;">
+                                        <div class="progress-bar" style="width: 75%; background: linear-gradient(45deg, var(--nasa-red), #d32f2f);"></div>
+                                    </div>
+                                    <small class="text-white-50">85% Complete</small>
+                                </div>
+                                <div class="card-footer" style="background: rgba(255, 255, 255, 0.05); border-top: 1px solid rgba(255, 255, 255, 0.1);">
+                                    <button class="btn btn-sm nasa-btn-outline">View Details</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-lg-4">
+                            <div class="nasa-card">
+                                <div class="card-header" style="background: linear-gradient(45deg, #28a745, #1e7e34); border-bottom: 2px solid var(--nasa-red);">
+                                    <h5 class="mb-0 text-white">Mission 2024-012</h5>
+                                </div>
+                                <div class="card-body">
+                                    <p class="card-text text-white-50">UV radiation measurement</p>
+                                    <div class="mb-2">
+                                        <span class="badge bg-success">Completed</span>
+                                        <span class="badge bg-warning">No GPS</span>
+                                    </div>
+                                    <div class="progress mb-2" style="height: 8px;">
+                                        <div class="progress-bar bg-success" style="width: 100%;"></div>
+                                    </div>
+                                    <small class="text-white-50">Completed</small>
+                                </div>
+                                <div class="card-footer" style="background: rgba(255, 255, 255, 0.05); border-top: 1px solid rgba(255, 255, 255, 0.1);">
+                                    <button class="btn btn-sm nasa-btn-outline">View Results</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-lg-4">
+                            <div class="nasa-card">
+                                <div class="card-header" style="background: linear-gradient(45deg, #ffc107, #e0a800); border-bottom: 2px solid var(--nasa-red);">
+                                    <h5 class="mb-0 text-dark">Mission 2024-011</h5>
+                                </div>
+                                <div class="card-body">
+                                    <p class="card-text text-white-50">Temperature profile analysis</p>
+                                    <div class="mb-2">
+                                        <span class="badge bg-warning">Completed</span>
+                                        <span class="badge bg-info">Software Update Enabled</span>
+                                    </div>
+                                    <div class="progress mb-2" style="height: 8px;">
+                                        <div class="progress-bar bg-warning" style="width: 90%;"></div>
+                                    </div>
+                                    <small class="text-white-50">100% Complete</small>
+                                </div>
+                                <div class="card-footer" style="background: rgba(255, 255, 255, 0.05); border-top: 1px solid rgba(255, 255, 255, 0.1);">
+                                    <button class="btn btn-sm nasa-btn-outline">View Details</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Data Upload Section -->
+                <div id="data-upload-section" class="content-section" style="display: none;">
+                    <div class="d-flex justify-content-between align-items-center mb-4">
+                        <h2 class="text-white"><i class="bi bi-cloud-upload text-danger"></i> Mission Data Upload</h2>
+                    </div>
+
+                    <div class="row g-4">
+                        <div class="col-md-8">
+                            <div class="nasa-card">
+                                <div class="card-header" style="background: rgba(11, 61, 145, 0.2); border-bottom: 1px solid rgba(255, 255, 255, 0.1);">
+                                    <h5 class="text-white mb-0"><i class="bi bi-google-drive"></i> Team Google Drive Access</h5>
+                                </div>
+                                <div class="card-body">
+                                    <div class="text-center mb-4">
+                                        <i class="bi bi-google-drive text-primary" style="font-size: 3rem;"></i>
+                                        <h5 class="text-white mt-3">NASA ASCEND Team Drive</h5>
+                                        <p class="text-white-50">Access shared files and upload mission data</p>
+                                    </div>
+                                    
+                                    <div class="d-grid gap-2 mb-4">
+                                        <a href="https://drive.google.com/drive/folders/1wMJEczyzzUIv9Cpgv1OYHESlPpEa_-Tx?usp=drive_link" 
+                                           target="_blank" 
+                                           class="btn nasa-btn btn-lg">
+                                            <i class="bi bi-box-arrow-up-right"></i> Open Google Drive
+                                        </a>
+                                        <button class="btn nasa-btn-outline" onclick="showUploadInstructions()">
+                                            <i class="bi bi-info-circle"></i> Upload Instructions
+                                        </button>
+                                    </div>
+                                    
+                                    <div class="alert alert-info" style="background: rgba(11, 61, 145, 0.2); border: 1px solid rgba(11, 61, 145, 0.3); color: var(--nasa-white);">
+                                        <i class="bi bi-lightbulb"></i>
+                                        <strong>Quick Access:</strong> Click the button above to open the team Google Drive folder where you can view shared files and upload your mission data.
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="nasa-card mt-4">
+                                <div class="card-header" style="background: rgba(252, 61, 33, 0.2); border-bottom: 1px solid rgba(255, 255, 255, 0.1);">
+                                    <h5 class="text-white mb-0">Local File Upload</h5>
+                                </div>
+                                <div class="card-body">
+                                    <div class="data-upload-area" id="uploadArea">
+                                        <i class="bi bi-cloud-upload text-danger" style="font-size: 3rem;"></i>
+                                        <h5 class="text-white mt-3">Drag & Drop Files Here</h5>
+                                        <p class="text-white-50">or click to browse</p>
+                                        <input type="file" id="fileInput" multiple accept=".csv,.txt,.json" style="display: none;">
+                                        <button class="btn nasa-btn" onclick="document.getElementById('fileInput').click()">
+                                            <i class="bi bi-folder2-open"></i> Choose Files
+                                        </button>
+                                    </div>
+                                    
+                                    <div class="mt-4">
+                                        <h6 class="text-white">Supported File Types:</h6>
+                                        <ul class="list-unstyled text-white-50">
+                                            <li><i class="bi bi-check text-success"></i> CSV files (.csv)</li>
+                                            <li><i class="bi bi-check text-success"></i> Text files (.txt)</li>
+                                            <li><i class="bi bi-check text-success"></i> JSON files (.json)</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="nasa-card">
+                                <div class="card-header" style="background: rgba(252, 61, 33, 0.2); border-bottom: 1px solid rgba(255, 255, 255, 0.1);">
+                                    <h5 class="text-white mb-0">Upload Progress</h5>
+                                </div>
+                                <div class="card-body">
+                                    <div id="uploadProgress" style="display: none;">
+                                        <div class="progress mb-2" style="height: 8px;">
+                                            <div class="progress-bar" id="progressBar" style="width: 0%; background: linear-gradient(45deg, var(--nasa-red), #d32f2f);"></div>
+                                        </div>
+                                        <small id="progressText" class="text-white-50">0% Complete</small>
+                                    </div>
+                                    <div id="uploadStatus">
+                                        <p class="text-white-50">No files selected</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row mt-4">
+                        <div class="col-12">
+                            <div class="nasa-card">
+                                <div class="card-header" style="background: rgba(252, 61, 33, 0.2); border-bottom: 1px solid rgba(255, 255, 255, 0.1);">
+                                    <h5 class="text-white mb-0">Recent Uploads</h5>
+                                </div>
+                                <div class="card-body">
+                                    <div class="table-responsive">
+                                        <table class="table">
+                                            <thead>
+                                                <tr>
+                                                    <th class="text-white">Filename</th>
+                                                    <th class="text-white">Mission</th>
+                                                    <th class="text-white">Size</th>
+                                                    <th class="text-white">Upload Date</th>
+                                                    <th class="text-white">Status</th>
+                                                    <th class="text-white">Actions</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody id="uploadTable">
+                                                <tr>
+                                                    <td class="text-white">Mission_2025_001.csv</td>
+                                                    <td class="text-white">Mission 2025-001</td>
+                                                    <td class="text-white">2.3 MB</td>
+                                                    <td class="text-white">2025-01-17 10:30</td>
+                                                    <td><span class="badge bg-success">Processed</span></td>
+                                                    <td>
+                                                        <button class="btn btn-sm nasa-btn-outline">View</button>
+                                                        <button class="btn btn-sm btn-outline-danger">Delete</button>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="text-white">Temperature_Profile.txt</td>
+                                                    <td class="text-white">Mission 2024-012</td>
+                                                    <td class="text-white">1.8 MB</td>
+                                                    <td class="text-white">2025-01-16 14:22</td>
+                                                    <td><span class="badge bg-success">Processed</span></td>
+                                                    <td>
+                                                        <button class="btn btn-sm nasa-btn-outline">View</button>
+                                                        <button class="btn btn-sm btn-outline-danger">Delete</button>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Data Analysis Section -->
+                <div id="data-analysis-section" class="content-section" style="display: none;">
+                    <div class="d-flex justify-content-between align-items-center mb-4">
+                        <h2 class="text-white"><i class="bi bi-graph-up text-danger"></i> Mission Data Analysis</h2>
+                        <button class="btn nasa-btn">
+                            <i class="bi bi-download"></i> Export Data
+                        </button>
+                    </div>
+
+                    <div class="row g-4">
+                        <div class="col-md-6">
+                            <div class="nasa-card">
+                                <div class="card-header" style="background: rgba(252, 61, 33, 0.2); border-bottom: 1px solid rgba(255, 255, 255, 0.1);">
+                                    <h5 class="text-white mb-0">Temperature vs Altitude</h5>
+                                </div>
+                                <div class="card-body">
+                                    <div class="chart-container">
+                                        <canvas id="tempChart"></canvas>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="nasa-card">
+                                <div class="card-header" style="background: rgba(252, 61, 33, 0.2); border-bottom: 1px solid rgba(255, 255, 255, 0.1);">
+                                    <h5 class="text-white mb-0">Pressure vs Altitude</h5>
+                                </div>
+                                <div class="card-body">
+                                    <div class="chart-container">
+                                        <canvas id="pressureChart"></canvas>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="nasa-card">
+                                <div class="card-header" style="background: rgba(252, 61, 33, 0.2); border-bottom: 1px solid rgba(255, 255, 255, 0.1);">
+                                    <h5 class="text-white mb-0">UV Radiation Levels</h5>
+                                </div>
+                                <div class="card-body">
+                                    <div class="chart-container">
+                                        <canvas id="uvChart"></canvas>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="nasa-card">
+                                <div class="card-header" style="background: rgba(252, 61, 33, 0.2); border-bottom: 1px solid rgba(255, 255, 255, 0.1);">
+                                    <h5 class="text-white mb-0">Mission Statistics</h5>
+                                </div>
+                                <div class="card-body">
+                                    <div class="row text-center">
+                                        <div class="col-6">
+                                            <div class="stat-number">28,500m</div>
+                                            <div class="stat-label">Max Altitude</div>
+                                        </div>
+                                        <div class="col-6">
+                                            <div class="stat-number">-52°C</div>
+                                            <div class="stat-label">Min Temperature</div>
+                                        </div>
+                                        <div class="col-6">
+                                            <div class="stat-number">4.2h</div>
+                                            <div class="stat-label">Duration</div>
+                                        </div>
+                                        <div class="col-6">
+                                            <div class="stat-number">45,678</div>
+                                            <div class="stat-label">Data Points</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Resources Section -->
+                <div id="resources-section" class="content-section" style="display: none;">
+                    <div class="d-flex justify-content-between align-items-center mb-4">
+                        <h2 class="text-white"><i class="bi bi-folder text-danger"></i> Mission Resources</h2>
+                    </div>
+                        <div class="col-md-6">
+                            <div class="nasa-card">
+                                <div class="card-header" style="background: rgba(252, 61, 33, 0.2); border-bottom: 1px solid rgba(255, 255, 255, 0.1);">
+                                    <h5 class="text-white mb-0"><i class="bi bi-book text-info"></i> Documentation</h5>
+                                </div>
+                                <div class="card-body">
+                                    <div class="list-group list-group-flush">
+                                        <a href="#" class="list-group-item list-group-item-action" style="background: rgba(255, 255, 255, 0.05); border-color: rgba(255, 255, 255, 0.2); color: var(--nasa-white) !important; transition: all 0.3s ease;" onclick="downloadDocument('hardware-setup')">
+                                            <i class="bi bi-file-text text-danger"></i> <strong>Hardware Setup Guide</strong>
+                                        </a>
+                                        <a href="#" class="list-group-item list-group-item-action" style="background: rgba(255, 255, 255, 0.05); border-color: rgba(255, 255, 255, 0.2); color: var(--nasa-white) !important; transition: all 0.3s ease;" onclick="downloadDocument('data-analysis')">
+                                            <i class="bi bi-file-text text-success"></i> <strong>Data Analysis Tutorial</strong>
+                                        </a>
+                                        <a href="#" class="list-group-item list-group-item-action" style="background: rgba(255, 255, 255, 0.05); border-color: rgba(255, 255, 255, 0.2); color: var(--nasa-white) !important; transition: all 0.3s ease;" onclick="downloadDocument('mission-procedures')">
+                                            <i class="bi bi-file-text text-info"></i> <strong>Mission Procedures</strong>
+                                        </a>
+                                        <a href="#" class="list-group-item list-group-item-action" style="background: rgba(255, 255, 255, 0.05); border-color: rgba(255, 255, 255, 0.2); color: var(--nasa-white) !important; transition: all 0.3s ease;" onclick="downloadDocument('troubleshooting')">
+                                            <i class="bi bi-file-text text-warning"></i> <strong>Troubleshooting Guide</strong>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+    <!-- New Mission Modal -->
+    <div class="modal fade" id="newMissionModal" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content" style="background: rgba(26, 26, 46, 0.95); backdrop-filter: blur(10px); border: 2px solid var(--nasa-red);">
+                <div class="modal-header" style="background: linear-gradient(45deg, var(--nasa-red), #d32f2f); border-bottom: 1px solid rgba(255, 255, 255, 0.1);">
+                    <h5 class="modal-title text-white">Create New Mission</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" style="filter: invert(1);"></button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="mb-3">
+                            <label for="missionName" class="form-label text-white">Mission Name</label>
+                            <input type="text" class="form-control" id="missionName" placeholder="e.g., Mission 2025-002">
+                        </div>
+                        <div class="mb-3">
+                            <label for="missionType" class="form-label text-white">Mission Type</label>
+                            <select class="form-select" id="missionType">
+                                <option value="atmospheric">Atmospheric Study</option>
+                                <option value="uv">UV Radiation</option>
+                                <option value="temperature">Temperature Profile</option>
+                                <option value="pressure">Pressure Analysis</option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label for="gpsEnabled" class="form-label text-white">GPS Enabled</label>
+                            <select class="form-select" id="gpsEnabled">
+                                <option value="yes">Yes</option>
+                                <option value="no">No</option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label for="missionDescription" class="form-label text-white">Description</label>
+                            <textarea class="form-control" id="missionDescription" rows="3"></textarea>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer" style="border-top: 1px solid rgba(255, 255, 255, 0.1);">
+                    <button type="button" class="btn nasa-btn-outline" data-bs-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn nasa-btn">Create Mission</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.min.js"></script>
+    <script src="js/mission-data.js"></script>
+    
+    <script>
+        const GROUP_PASSWORD = 'PCNasa!';
+        let dashboardInitialized = false;
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const storedAuth = sessionStorage.getItem('nasaAscendAuth') === 'true';
+            const storedUser = sessionStorage.getItem('nasaAscendUser');
+            if (storedAuth && storedUser) {
+                showDashboard(storedUser);
+            } else {
+                const loginModal = document.getElementById('loginModal');
+                const dashboard = document.getElementById('dashboard');
+                if (loginModal) {
+                    loginModal.style.display = 'block';
+                }
+                if (dashboard) {
+                    dashboard.style.display = 'none';
+                }
+            }
+        });
+
+        // Login functionality
+        const loginForm = document.getElementById('loginForm');
+        if (loginForm) {
+            loginForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            const emailInput = document.getElementById('email');
+            const passwordInput = document.getElementById('password');
+
+            if (!emailInput || !passwordInput) {
+                return;
+            }
+
+            const email = emailInput.value.trim().toLowerCase();
+            const password = document.getElementById('password').value;
+            
+            // Accept any email with @maricopa.edu domain and group password
+            const emailPattern = /^[a-zA-Z0-9._%+-]+@maricopa\.edu$/;
+            
+            if (emailPattern.test(email) && password === GROUP_PASSWORD) {
+                sessionStorage.setItem('nasaAscendUser', email);
+                sessionStorage.setItem('nasaAscendAuth', 'true');
+                showDashboard(email);
+            } else {
+                alert('Please use your Maricopa email address (@maricopa.edu) and the password.');
+            }
+            });
+        }
+
+        function showDashboard(email) {
+            const loginModal = document.getElementById('loginModal');
+            const dashboard = document.getElementById('dashboard');
+            const userEmailElement = document.getElementById('userEmail');
+
+            if (loginModal) {
+                loginModal.style.display = 'none';
+            }
+
+            if (dashboard) {
+                dashboard.style.display = 'block';
+            }
+
+            if (userEmailElement) {
+                userEmailElement.textContent = email;
+            }
+
+            if (!dashboardInitialized) {
+                initializeDashboard();
+            }
+        }
+
+        function logout() {
+            sessionStorage.removeItem('nasaAscendUser');
+            sessionStorage.removeItem('nasaAscendAuth');
+            window.location.href = 'login.html';
+        }
+
+        function showSection(sectionName) {
+            // Hide all sections
+            document.querySelectorAll('.content-section').forEach(section => {
+                section.style.display = 'none';
+            });
+            
+            // Remove active class from all nav links
+            document.querySelectorAll('.sidebar .nav-link').forEach(link => {
+                link.classList.remove('active');
+            });
+            
+            // Show selected section
+            document.getElementById(sectionName + '-section').style.display = 'block';
+            
+            // Add active class to clicked nav link
+            event.target.classList.add('active');
+        }
+
+        function initializeDashboard() {
+            if (dashboardInitialized) {
+                return;
+            }
+
+            dashboardInitialized = true;
+
+            // Initialize charts
+            initializeCharts();
+            
+            // Initialize file upload
+            initializeFileUpload();
+            
+            // Load real mission data
+            loadMissionData();
+            
+            // Initialize mobile navigation scroll behavior
+            initializeMobileNavScroll();
+        }
+        
+        function initializeMobileNavScroll() {
+            let lastScrollTop = 0;
+            const navbar = document.querySelector('.navbar');
+            const threshold = 10; // Minimum scroll distance to trigger hide/show
+            let ticking = false;
+            
+            function updateNavbar() {
+                const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+                
+                // Only apply on mobile devices
+                if (window.innerWidth <= 768) {
+                    if (scrollTop > lastScrollTop && scrollTop > threshold) {
+                        // Scrolling down - hide navbar
+                        navbar.style.transform = 'translateY(-100%)';
+                        navbar.style.transition = 'transform 0.3s ease-in-out';
+                    } else if (scrollTop < lastScrollTop || scrollTop <= threshold) {
+                        // Scrolling up or at top - show navbar
+                        navbar.style.transform = 'translateY(0)';
+                        navbar.style.transition = 'transform 0.3s ease-in-out';
+                    }
+                } else {
+                    // On desktop, always show navbar
+                    navbar.style.transform = 'translateY(0)';
+                }
+                
+                lastScrollTop = scrollTop;
+                ticking = false;
+            }
+            
+            function requestTick() {
+                if (!ticking) {
+                    requestAnimationFrame(updateNavbar);
+                    ticking = true;
+                }
+            }
+            
+            window.addEventListener('scroll', requestTick, { passive: true });
+            
+            // Handle window resize
+            window.addEventListener('resize', function() {
+                if (window.innerWidth > 768) {
+                    // On desktop, always show navbar
+                    navbar.style.transform = 'translateY(0)';
+                }
+            });
+        }
+        
+        function loadMissionData() {
+            const dataManager = window.missionDataManager;
+            const stats = dataManager.getStatistics();
+            const missions = dataManager.getMissions();
+            
+            // Update statistics
+            updateStatistics(stats);
+            
+            // Update mission cards
+            updateMissionCards(missions);
+            
+            // Update recent uploads table
+            updateUploadsTable(missions);
+        }
+        
+        function updateStatistics(stats) {
+            // Update overview statistics
+            document.querySelector('.stat-number').textContent = stats.activeMissions;
+            document.querySelectorAll('.stat-number')[1].textContent = stats.completedMissions;
+            document.querySelectorAll('.stat-number')[2].textContent = stats.totalDataSize;
+            document.querySelectorAll('.stat-number')[3].textContent = stats.totalMissions;
+        }
+        
+        function updateMissionCards(missions) {
+            const missionsContainer = document.querySelector('#missions-section .row');
+            if (!missionsContainer) return;
+            
+            // Clear existing cards
+            missionsContainer.innerHTML = '';
+            
+            // Create mission cards
+            missions.forEach(mission => {
+                const card = createMissionCard(mission);
+                missionsContainer.appendChild(card);
+            });
+        }
+        
+        function createMissionCard(mission) {
+            const col = document.createElement('div');
+            col.className = 'col-md-6 col-lg-4';
+            
+            const statusClass = {
+                'Active': 'bg-success',
+                'Completed': 'bg-success',
+                'In Review': 'bg-warning'
+            }[mission.status] || 'bg-secondary';
+            
+            const statusText = {
+                'Active': 'Active',
+                'Completed': 'Completed',
+                'In Review': 'In Review'
+            }[mission.status] || mission.status;
+            
+            col.innerHTML = `
+                <div class="nasa-card">
+                    <div class="card-header" style="background: linear-gradient(45deg, var(--nasa-blue), #1a237e); border-bottom: 2px solid var(--nasa-red);">
+                        <h5 class="mb-0 text-white">${mission.name}</h5>
+                    </div>
+                    <div class="card-body">
+                        <p class="card-text text-white-50">${mission.description}</p>
+                        <div class="mb-2">
+                            <span class="badge ${statusClass}">${statusText}</span>
+                            <span class="badge bg-info">${mission.gpsEnabled ? 'GPS' : 'No GPS'}</span>
+                        </div>
+                        <div class="progress mb-2" style="height: 8px;">
+                            <div class="progress-bar" style="width: ${mission.progress}%; background: linear-gradient(45deg, var(--nasa-red), #d32f2f);"></div>
+                        </div>
+                        <small class="text-white-50">${mission.progress}% Complete</small>
+                        <div class="mt-2">
+                            <small class="text-white-50">
+                                <i class="bi bi-calendar"></i> ${mission.date} | 
+                                <i class="bi bi-clock"></i> ${mission.duration} | 
+                                <i class="bi bi-arrow-up"></i> ${mission.maxAltitude}
+                            </small>
+                        </div>
+                    </div>
+                    <div class="card-footer" style="background: rgba(255, 255, 255, 0.05); border-top: 1px solid rgba(255, 255, 255, 0.1);">
+                        <button class="btn btn-sm nasa-btn-outline" onclick="viewMissionDetails('${mission.id}')">View Details</button>
+                    </div>
+                </div>
+            `;
+            
+            return col;
+        }
+        
+        function updateUploadsTable(missions) {
+            const tableBody = document.getElementById('uploadTable');
+            if (!tableBody) return;
+            
+            // Clear existing rows
+            tableBody.innerHTML = '';
+            
+            // Get all files from all missions
+            const allFiles = [];
+            missions.forEach(mission => {
+                mission.files.forEach(file => {
+                    allFiles.push({
+                        ...file,
+                        missionId: mission.id,
+                        missionName: mission.name
+                    });
+                });
+            });
+            
+            // Sort by upload date (newest first)
+            allFiles.sort((a, b) => new Date(b.uploadDate) - new Date(a.uploadDate));
+            
+            // Create table rows
+            allFiles.forEach(file => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td class="text-white">${file.name}</td>
+                    <td class="text-white">${file.missionName}</td>
+                    <td class="text-white">${file.size}</td>
+                    <td class="text-white">${file.uploadDate}</td>
+                    <td><span class="badge bg-success">${file.status}</span></td>
+                    <td>
+                        <button class="btn btn-sm nasa-btn-outline" onclick="viewFile('${file.name}')">View</button>
+                        <button class="btn btn-sm btn-outline-danger" onclick="deleteFile('${file.name}')">Delete</button>
+                    </td>
+                `;
+                tableBody.appendChild(row);
+            });
+        }
+        
+        function viewMissionDetails(missionId) {
+            const mission = window.missionDataManager.getMissionById(missionId);
+            if (mission) {
+                alert(`Mission Details:\n\nName: ${mission.name}\nDate: ${mission.date}\nStatus: ${mission.status}\nType: ${mission.type}\nDuration: ${mission.duration}\nMax Altitude: ${mission.maxAltitude}\nMin Temperature: ${mission.minTemperature}\nData Points: ${mission.dataPoints.toLocaleString()}\n\nTeam: ${mission.team.join(', ')}`);
+            }
+        }
+        
+        function viewFile(fileName) {
+            alert(`Viewing file: ${fileName}\n\nThis would open the file viewer in a real application.`);
+        }
+        
+        function deleteFile(fileName) {
+            if (confirm(`Are you sure you want to delete ${fileName}?`)) {
+                alert(`File ${fileName} deleted successfully.`);
+                // In a real application, this would remove the file from the data
+            }
+        }
+        
+        function downloadDocument(docType) {
+            const documents = {
+                'hardware-setup': {
+                    name: 'Hardware_Setup_Guide.pdf',
+                    content: 'This is a placeholder for the Hardware Setup Guide. In a real application, this would be a PDF file with detailed instructions for setting up the Arduino hardware.'
+                },
+                'data-analysis': {
+                    name: 'Data_Analysis_Tutorial.pdf',
+                    content: 'This is a placeholder for the Data Analysis Tutorial. In a real application, this would be a PDF file with step-by-step instructions for analyzing mission data.'
+                },
+                'mission-procedures': {
+                    name: 'Mission_Procedures.pdf',
+                    content: 'This is a placeholder for the Mission Procedures document. In a real application, this would be a PDF file with detailed procedures for conducting balloon missions.'
+                },
+                'troubleshooting': {
+                    name: 'Troubleshooting_Guide.pdf',
+                    content: 'This is a placeholder for the Troubleshooting Guide. In a real application, this would be a PDF file with solutions to common problems encountered during missions.'
+                }
+            };
+            
+            const doc = documents[docType];
+            if (doc) {
+                // Create a temporary download link
+                const element = document.createElement('a');
+                const file = new Blob([doc.content], {type: 'text/plain'});
+                element.href = URL.createObjectURL(file);
+                element.download = doc.name;
+                document.body.appendChild(element);
+                element.click();
+                document.body.removeChild(element);
+                
+                // Show success message
+                showNotification(`Downloading ${doc.name}...`, 'success');
+            }
+        }
+        
+        function showNotification(message, type = 'info') {
+            // Create notification element
+            const notification = document.createElement('div');
+            notification.className = `alert alert-${type === 'success' ? 'success' : 'info'} alert-dismissible fade show position-fixed`;
+            notification.style.cssText = 'top: 20px; right: 20px; z-index: 9999; min-width: 300px;';
+            notification.innerHTML = `
+                ${message}
+                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+            `;
+            
+            document.body.appendChild(notification);
+            
+            // Auto-remove after 3 seconds
+            setTimeout(() => {
+                if (notification.parentNode) {
+                    notification.parentNode.removeChild(notification);
+                }
+            }, 3000);
+        }
+        
+        function uploadToRepository(file) {
+            // Simulate file upload to repository
+            const formData = new FormData();
+            formData.append('file', file);
+            
+            // Show upload progress
+            showNotification(`Uploading ${file.name} to repository...`, 'info');
+            
+            // Simulate upload delay
+            setTimeout(() => {
+                showNotification(`${file.name} uploaded successfully to repository!`, 'success');
+                
+                // Add to recent uploads table
+                addFileToUploadsTable({
+                    name: file.name,
+                    missionName: 'Repository Upload',
+                    size: formatFileSize(file.size),
+                    uploadDate: new Date().toLocaleString(),
+                    status: 'Processed'
+                });
+            }, 2000);
+        }
+        
+        function addFileToUploadsTable(file) {
+            const tableBody = document.getElementById('uploadTable');
+            if (tableBody) {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td class="text-white">${file.name}</td>
+                    <td class="text-white">${file.missionName}</td>
+                    <td class="text-white">${file.size}</td>
+                    <td class="text-white">${file.uploadDate}</td>
+                    <td><span class="badge bg-success">${file.status}</span></td>
+                    <td>
+                        <button class="btn btn-sm nasa-btn-outline" onclick="viewFile('${file.name}')">View</button>
+                        <button class="btn btn-sm btn-outline-danger" onclick="deleteFile('${file.name}')">Delete</button>
+                    </td>
+                `;
+                tableBody.insertBefore(row, tableBody.firstChild);
+            }
+        }
+        
+        function formatFileSize(bytes) {
+            if (bytes === 0) return '0 Bytes';
+            const k = 1024;
+            const sizes = ['Bytes', 'KB', 'MB', 'GB'];
+            const i = Math.floor(Math.log(bytes) / Math.log(k));
+            return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
+        }
+        
+        // Navigation functions for top bar
+        function goToHome() {
+            window.location.href = 'index.html';
+        }
+        
+        function goToArduino() {
+            window.location.href = 'index.html#arduino';
+        }
+        
+        function goToVideos() {
+            window.location.href = 'index.html#videos';
+        }
+        
+        function goToApplication() {
+            window.location.href = 'index.html#application';
+        }
+
+        function initializeCharts() {
+            const dataManager = window.missionDataManager;
+            const chartData = dataManager.getChartData();
+            
+            // Mission Chart
+            const missionCtx = document.getElementById('missionChart').getContext('2d');
+            new Chart(missionCtx, {
+                type: 'line',
+                data: {
+                    labels: chartData.missionTimeline.map(item => item.month),
+                    datasets: [{
+                        label: 'Missions Completed',
+                        data: chartData.missionTimeline.map(item => item.missions),
+                        borderColor: '#FC3D21',
+                        backgroundColor: 'rgba(252, 61, 33, 0.1)',
+                        tension: 0.4
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            labels: {
+                                color: '#FFFFFF'
+                            }
+                        }
+                    },
+                    scales: {
+                        x: {
+                            ticks: {
+                                color: '#FFFFFF'
+                            },
+                            grid: {
+                                color: 'rgba(255, 255, 255, 0.1)'
+                            }
+                        },
+                        y: {
+                            ticks: {
+                                color: '#FFFFFF'
+                            },
+                            grid: {
+                                color: 'rgba(255, 255, 255, 0.1)'
+                            }
+                        }
+                    }
+                }
+            });
+
+            // Temperature Chart
+            const tempCtx = document.getElementById('tempChart').getContext('2d');
+            new Chart(tempCtx, {
+                type: 'scatter',
+                data: {
+                    datasets: [{
+                        label: 'Temperature vs Altitude',
+                        data: chartData.temperatureProfile.map(point => ({
+                            x: point.altitude,
+                            y: point.temperature
+                        })),
+                        borderColor: '#FC3D21',
+                        backgroundColor: 'rgba(252, 61, 33, 0.1)'
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            labels: {
+                                color: '#FFFFFF'
+                            }
+                        }
+                    },
+                    scales: {
+                        x: {
+                            title: {
+                                display: true,
+                                text: 'Altitude (m)',
+                                color: '#FFFFFF'
+                            },
+                            ticks: {
+                                color: '#FFFFFF'
+                            },
+                            grid: {
+                                color: 'rgba(255, 255, 255, 0.1)'
+                            }
+                        },
+                        y: {
+                            title: {
+                                display: true,
+                                text: 'Temperature (°C)',
+                                color: '#FFFFFF'
+                            },
+                            ticks: {
+                                color: '#FFFFFF'
+                            },
+                            grid: {
+                                color: 'rgba(255, 255, 255, 0.1)'
+                            }
+                        }
+                    }
+                }
+            });
+
+            // Pressure Chart
+            const pressureCtx = document.getElementById('pressureChart').getContext('2d');
+            new Chart(pressureCtx, {
+                type: 'line',
+                data: {
+                    labels: chartData.pressureProfile.map(point => `${point.altitude/1000}km`),
+                    datasets: [{
+                        label: 'Pressure (hPa)',
+                        data: chartData.pressureProfile.map(point => point.pressure),
+                        borderColor: '#28a745',
+                        backgroundColor: 'rgba(40, 167, 69, 0.1)',
+                        tension: 0.4
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            labels: {
+                                color: '#FFFFFF'
+                            }
+                        }
+                    },
+                    scales: {
+                        x: {
+                            ticks: {
+                                color: '#FFFFFF'
+                            },
+                            grid: {
+                                color: 'rgba(255, 255, 255, 0.1)'
+                            }
+                        },
+                        y: {
+                            ticks: {
+                                color: '#FFFFFF'
+                            },
+                            grid: {
+                                color: 'rgba(255, 255, 255, 0.1)'
+                            }
+                        }
+                    }
+                }
+            });
+
+            // UV Chart
+            const uvCtx = document.getElementById('uvChart').getContext('2d');
+            new Chart(uvCtx, {
+                type: 'bar',
+                data: {
+                    labels: chartData.uvRadiation.map(item => item.wavelength),
+                    datasets: [{
+                        label: 'UV Radiation Levels',
+                        data: chartData.uvRadiation.map(item => item.intensity),
+                        backgroundColor: [
+                            'rgba(252, 61, 33, 0.8)',
+                            'rgba(11, 61, 145, 0.8)',
+                            'rgba(255, 193, 7, 0.8)',
+                            'rgba(40, 167, 69, 0.8)'
+                        ]
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            labels: {
+                                color: '#FFFFFF'
+                            }
+                        }
+                    },
+                    scales: {
+                        x: {
+                            ticks: {
+                                color: '#FFFFFF'
+                            },
+                            grid: {
+                                color: 'rgba(255, 255, 255, 0.1)'
+                            }
+                        },
+                        y: {
+                            ticks: {
+                                color: '#FFFFFF'
+                            },
+                            grid: {
+                                color: 'rgba(255, 255, 255, 0.1)'
+                            }
+                        }
+                    }
+                }
+            });
+        }
+
+        function initializeFileUpload() {
+            const uploadArea = document.getElementById('uploadArea');
+            const fileInput = document.getElementById('fileInput');
+            const progressDiv = document.getElementById('uploadProgress');
+            const progressBar = document.getElementById('progressBar');
+            const progressText = document.getElementById('progressText');
+            const uploadStatus = document.getElementById('uploadStatus');
+
+            // Drag and drop functionality
+            uploadArea.addEventListener('dragover', function(e) {
+                e.preventDefault();
+                uploadArea.classList.add('dragover');
+            });
+
+            uploadArea.addEventListener('dragleave', function(e) {
+                e.preventDefault();
+                uploadArea.classList.remove('dragover');
+            });
+
+            uploadArea.addEventListener('drop', function(e) {
+                e.preventDefault();
+                uploadArea.classList.remove('dragover');
+                const files = e.dataTransfer.files;
+                handleFiles(files);
+            });
+
+            // Click to upload
+            uploadArea.addEventListener('click', function() {
+                fileInput.click();
+            });
+
+            fileInput.addEventListener('change', function() {
+                handleFiles(this.files);
+            });
+
+            function handleFiles(files) {
+                if (files.length > 0) {
+                    uploadStatus.innerHTML = `<p class="text-info">${files.length} file(s) selected - uploading to repository...</p>`;
+                    progressDiv.style.display = 'block';
+                    
+                    // Upload each file to repository
+                    Array.from(files).forEach((file, index) => {
+                        setTimeout(() => {
+                            uploadToRepository(file);
+                        }, index * 1000); // Stagger uploads
+                    });
+                    
+                    // Simulate upload progress
+                    let progress = 0;
+                    const interval = setInterval(() => {
+                        progress += Math.random() * 15;
+                        if (progress >= 100) {
+                            progress = 100;
+                            clearInterval(interval);
+                            uploadStatus.innerHTML = '<p class="text-success">All files uploaded to repository!</p>';
+                        }
+                        progressBar.style.width = progress + '%';
+                        progressText.textContent = Math.round(progress) + '% Complete';
+                    }, 200);
+                }
+            }
+        }
+        
+        // Google Drive upload instructions
+        function showUploadInstructions() {
+            const modal = document.createElement('div');
+            modal.className = 'modal fade';
+            modal.innerHTML = `
+                <div class="modal-dialog modal-lg">
+                    <div class="modal-content" style="background: var(--nasa-dark); border: 1px solid rgba(255, 255, 255, 0.1);">
+                        <div class="modal-header" style="border-bottom: 1px solid rgba(255, 255, 255, 0.1);">
+                            <h5 class="modal-title text-white">
+                                <i class="bi bi-google-drive text-primary"></i> Google Drive Upload Instructions
+                            </h5>
+                            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                        </div>
+                        <div class="modal-body text-white">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <h6 class="text-danger mb-3">📁 How to Upload Files:</h6>
+                                    <ol class="text-white-50">
+                                        <li>Click "Open Google Drive" button above</li>
+                                        <li>Sign in with your Maricopa email</li>
+                                        <li>Navigate to the NASA ASCEND folder</li>
+                                        <li>Click "New" → "File upload" or drag & drop</li>
+                                        <li>Select your mission data files</li>
+                                        <li>Files will be shared with the team</li>
+                                    </ol>
+                                </div>
+                                <div class="col-md-6">
+                                    <h6 class="text-primary mb-3">📋 File Organization:</h6>
+                                    <ul class="text-white-50">
+                                        <li><strong>Mission Data:</strong> CSV files from Arduino</li>
+                                        <li><strong>Documentation:</strong> Reports and notes</li>
+                                        <li><strong>Images:</strong> Photos from missions</li>
+                                        <li><strong>Videos:</strong> Mission recordings</li>
+                                    </ul>
+                                    
+                                    <h6 class="text-success mb-3">✅ Best Practices:</h6>
+                                    <ul class="text-white-50">
+                                        <li>Use descriptive filenames</li>
+                                        <li>Include mission date in filename</li>
+                                        <li>Organize by mission folders</li>
+                                        <li>Add brief descriptions</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            
+                            <div class="alert alert-info mt-3" style="background: rgba(11, 61, 145, 0.2); border: 1px solid rgba(11, 61, 145, 0.3);">
+                                <i class="bi bi-info-circle"></i>
+                                <strong>Need Help?</strong> Contact the team leads if you have trouble accessing or uploading files to the shared drive.
+                            </div>
+                        </div>
+                        <div class="modal-footer" style="border-top: 1px solid rgba(255, 255, 255, 0.1);">
+                            <button type="button" class="btn nasa-btn-outline" data-bs-dismiss="modal">Got It!</button>
+                            <a href="https://drive.google.com/drive/folders/1wMJEczyzzUIv9Cpgv1OYHESlPpEa_-Tx?usp=drive_link" 
+                               target="_blank" 
+                               class="btn nasa-btn">
+                                <i class="bi bi-box-arrow-up-right"></i> Open Drive Now
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            `;
+            
+            document.body.appendChild(modal);
+            const bsModal = new bootstrap.Modal(modal);
+            bsModal.show();
+            
+            // Clean up modal after it's hidden
+            modal.addEventListener('hidden.bs.modal', function() {
+                document.body.removeChild(modal);
+            });
+        }
+    </script>
+</body>
+</html>
