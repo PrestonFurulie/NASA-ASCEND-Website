@@ -50,3 +50,24 @@ yarn.lock
 # Deployment files
 .netlify/
 .vercel/
+
+# Sensitive/Secret Information - DO NOT COMMIT
+login.js
+dashboard.html
+login.html
+js/mission-data.js
+*.secret
+*.private
+secrets/
+private/
+credentials/
+config/secrets.json
+.env.secret
+.env.production
+*.key
+*.pem
+*.p12
+*.pfx
+# Presentation notes and internal docs
+Presentation notes
+DEPLOYMENT.md

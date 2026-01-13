@@ -110,76 +110,15 @@ body {
 .nav-logo {
     display: flex;
     align-items: center;
-    gap: 15px;
-}
-
-.nasa-official-badge {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    padding: 5px 15px;
-    background: rgba(11, 61, 145, 0.2);
-    border: 1px solid rgba(11, 61, 145, 0.5);
-    border-radius: 5px;
-    position: relative;
-}
-
-.nasa-official-badge::before {
-    content: 'OFFICIAL';
-    position: absolute;
-    top: -8px;
-    right: 5px;
-    font-size: 0.6rem;
-    font-family: 'Space Mono', monospace;
-    color: var(--mission-control-green);
-    background: var(--space-dark);
-    padding: 0 5px;
-    letter-spacing: 1px;
-    font-weight: 700;
-}
-
-.nasa-logo {
-    height: 35px;
-    width: auto;
-    filter: brightness(1.2);
-}
-
-.nasa-worm-text {
-    font-family: 'Space Mono', monospace;
-    font-size: 1.3rem;
-    font-weight: 700;
-    background: var(--gradient-worm);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-    letter-spacing: 3px;
-}
-
-.logo-text-container {
-    display: flex;
-    flex-direction: column;
-    gap: 2px;
 }
 
 .logo-text {
     font-family: 'Orbitron', sans-serif;
-    font-size: 1.5rem;
+    font-size: 1.8rem;
     font-weight: 700;
-    background: var(--gradient-worm);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-    letter-spacing: 3px;
+    color: var(--text-white);
+    letter-spacing: 2px;
     line-height: 1;
-}
-
-.logo-subtext {
-    font-family: 'Space Mono', monospace;
-    font-size: 0.65rem;
-    color: var(--text-light-gray);
-    letter-spacing: 3px;
-    text-transform: uppercase;
-    font-weight: 400;
 }
 
 .nav-menu {
@@ -3625,20 +3564,36 @@ section {
 /* Mobile Menu Toggle */
 .menu-toggle {
     display: none;
+    flex-direction: column;
     background: transparent;
-    border: 2px solid var(--text-white);
-    color: var(--text-white);
-    font-size: 1.5rem;
-    padding: 8px 15px;
-    border-radius: 5px;
+    border: none;
     cursor: pointer;
-    transition: all 0.3s ease;
+    padding: 5px;
+    gap: 5px;
 }
 
-.menu-toggle:hover {
-    background: rgba(255, 255, 255, 0.1);
-    border-color: var(--nasa-red);
-    color: var(--nasa-red);
+.menu-toggle span {
+    width: 25px;
+    height: 3px;
+    background: var(--text-white);
+    transition: all 0.3s ease;
+    border-radius: 2px;
+}
+
+.menu-toggle:hover span {
+    background: var(--nasa-red);
+}
+
+.menu-toggle.active span:nth-child(1) {
+    transform: rotate(45deg) translate(8px, 8px);
+}
+
+.menu-toggle.active span:nth-child(2) {
+    opacity: 0;
+}
+
+.menu-toggle.active span:nth-child(3) {
+    transform: rotate(-45deg) translate(7px, -7px);
 }
 
 /* Responsive Design */
