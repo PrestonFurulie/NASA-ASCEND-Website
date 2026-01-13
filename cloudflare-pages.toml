@@ -1,7 +1,0 @@
-[build]
-command = ""
-publish = "."
-
-[env.production]
-BUILD_COMMAND = ""
-PUBLISH_DIR = "."
