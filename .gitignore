@@ -71,3 +71,23 @@ config/secrets.json
 # Presentation notes and internal docs
 Presentation notes
 DEPLOYMENT.md
+
+# Fall 2025 Mission Data and Sensitive Files - DO NOT COMMIT
+FallLaunch25 arduino data.xlsx
+NASA Annual Performance Data report for Phoenix College, Fall 2025 report.docx
+Phoenix College ASCEND Fall 2025 Presentation.pptx
+Phoenix College ASCEND Fall 2025 Presentation/
+HailMaryV1c_GPS.ino
+Gerber_2023-Atmospheric_PCB_2023-*.zip
+
+# Arduino source code and hardware designs
+*.ino
+*.zip
+*.xlsx
+*.docx
+*.pptx
+
+# Mission data files
+*arduino data*
+*Performance Data*
+*Presentation*
